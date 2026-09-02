@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frecuencia Migani - Emisora Escolar</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        miganiBeige: '#FDFBF7',
+                        miganiBeigeDark: '#F5F2EB',
+                        miganiGreen: '#2E7D32',
+                        miganiGreenDark: '#1B5E20',
+                        miganiGreenLight: '#4CAF50',
+                        miganiRed: '#D32F2F',
+                        miganiRedDark: '#B71C1C',
+                        miganiRedHover: '#9A0007'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FDFBF7;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            color: #2D3748;
+        }
+
+        /* Escudo de la Institución Educativa como Marca de Agua sutil centrada */
+        .watermark-shield {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75vw;
+            max-width: 550px;
+            height: 75vh;
+            max-height: 550px;
+            opacity: 0.045;
+            pointer-events: none;
+            z-index: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 340'%3E%3Cpath d='M150 15 L280 60 V180 C280 250 150 320 150 320 C150 320 20 250 20 180 V60 Z' fill='%232E7D32' stroke='%23D32F2F' stroke-width='10'/%3E%3Ccircle cx='150' cy='140' r='60' fill='%23FDFBF7' stroke='%232E7D32' stroke-width='8'/%3E%3Cpath d='M150 95 L162 130 L198 130 L168 152 L180 188 L150 165 L120 188 L132 152 L102 130 L138 130 Z' fill='%23D32F2F'/%3E%3Ctext x='150' y='250' font-family='Arial, sans-serif' font-size='20' font-weight='bold' fill='%232E7D32' text-anchor='middle'%3EI.E. MIGANI%3E%3C/text%3E%3Ctext x='150' y='275' font-family='Arial, sans-serif' font-size='16' font-weight='black' fill='%23D32F2F' text-anchor='middle'%3EFRECUENCIA ESCOLAR%3E%3C/text%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        /* Pulsación animada para directos */
+        .pulsing-live-dot {
+            animation: pulse-ring 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(1.15); }
+        }
+
+        /* Custom Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5F2EB;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2E7D32;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1B5E20;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen relative overflow-x-hidden">
+
+    <!-- Marca de agua de fondo (Escudo I.E. Migani) -->
+    <div class="watermark-shield" aria-hidden="true"></div>
+
+    <!-- RECTÁNGULO PRINCIPAL ROJO (PUNTO 2) -->
+    <header class="bg-miganiRed text-white shadow-xl sticky top-0 z-40 border-b-4 border-miganiRedDark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
+            
+            <!-- PUNTO 1: Branding "miganisate" esquina superior izquierda (Letras Verde y Rojo) -->
+            <div class="flex items-center gap-3 bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-2xl shadow-inner border border-red-200 cursor-pointer" onclick="switchTab('inicio')">
+                <i class="fas fa-radio text-miganiGreen text-2xl"></i>
+                <div class="flex flex-col">
+                    <span class="text-2xl sm:text-3xl font-black tracking-tight select-none leading-none">
+                        <span class="text-miganiGreen">migani</span><span class="text-miganiRed">sate</span>
+                    </span>
+                    <span class="text-[10px] font-bold text-gray-600 tracking-wider uppercase mt-0.5">
+                        Emisora Escolar Migani
+                    </span>
+                </div>
+            </div>
+
+            <!-- Navegación principal estilo Single Page Application -->
+            <nav class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                <button onclick="switchTab('inicio')" id="btn-inicio" class="nav-item px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 bg-white text-miganiRed shadow-md">
+                    <i class="fas fa-house mr-1"></i> Inicio
+                </button>
+                <button onclick="switchTab('envivo')" id="btn-envivo" class="nav-item px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 text-white hover:bg-white/20 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-300 pulsing-live-dot"></span>
+                    <i class="fas fa-satellite-dish"></i> En vivo
+                </button>
+                <button onclick="switchTab('podcast')" id="btn-podcast" class="nav-item px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 text-white hover:bg-white/20">
+                    <i class="fas fa-podcast mr-1"></i> Podcast
+                </button>
+                <button onclick="switchTab('noticias')" id="btn-noticias" class="nav-item px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 text-white hover:bg-white/20">
+                    <i class="fas fa-newspaper mr-1"></i> Noticias
+                </button>
+                <button onclick="switchTab('pontealdia')" id="btn-pontealdia" class="nav-item px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 bg-amber-400 hover:bg-amber-500 text-gray-900 shadow-md">
+                    <i class="fas fa-bolt mr-1"></i> ¡Ponte al día!
+                </button>
+                <button onclick="switchTab('informanos')" id="btn-informanos" class="nav-item px-3.5 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-200 bg-miganiGreen hover:bg-miganiGreenDark text-white shadow-lg border border-green-400">
+                    <i class="fas fa-bullhorn mr-1"></i> Infórmanos
+                </button>
+                <button onclick="switchTab('admin')" id="btn-admin" class="nav-item px-3 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 text-red-100 hover:bg-black/20 flex items-center gap-1 border border-red-300/40">
+                    <i class="fas fa-user-shield"></i> Modo Admin
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL DE LA APLICACIÓN -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow relative z-10 w-full">
+
+        <!-- ================= SECCIÓN: INICIO ================= -->
+        <section id="sec-inicio" class="tab-page space-y-8">
+            <!-- Banner Hero -->
+            <div class="bg-gradient-to-br from-miganiGreen via-emerald-800 to-miganiGreenDark rounded-3xl text-white p-6 sm:p-10 shadow-2xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 border-b-8 border-miganiRed">
+                <div class="space-y-4 max-w-2xl relative z-10">
+                    <span class="inline-block bg-white/20 text-white text-xs px-3.5 py-1.5 rounded-full font-extrabold uppercase tracking-widest backdrop-blur-md border border-white/30">
+                        <i class="fas fa-award mr-1 text-amber-300"></i> Proyecto Productivo Escolar
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight">
+                        Frecuencia Migani: La Voz Escolar en Vivo
+                    </h1>
+                    <p class="text-emerald-100 text-sm sm:text-base leading-relaxed">
+                        Bienvenidos a la plataforma comunicativa de nuestra Institución Educativa. Un espacio donde estudiantes y docentes difunden libremente cultura, eventos deportivos, la mejor música y periodismo juvenil verificado.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <button onclick="switchTab('envivo')" class="px-6 py-3.5 bg-miganiRed hover:bg-miganiRedDark text-white font-black rounded-2xl shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 flex items-center gap-2">
+                            <i class="fas fa-play-circle text-lg"></i> Escuchar Sintonía En Vivo
+                        </button>
+                        <button onclick="switchTab('pontealdia')" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl border border-white/30 backdrop-blur-md transition flex items-center gap-2">
+                            <i class="fas fa-fire text-amber-300"></i> Ver Novedades Recientes
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card de Reproductor Rápido -->
+                <div class="w-full lg:w-80 bg-white/10 backdrop-blur-xl rounded-3xl p-6 border border-white/20 flex flex-col items-center text-center shadow-2xl">
+                    <div class="relative w-28 h-28 rounded-full bg-gradient-to-tr from-miganiRed to-red-400 flex items-center justify-center mb-4 border-4 border-white/40 shadow-inner">
+                        <i class="fas fa-broadcast-tower text-5xl text-white"></i>
+                        <span class="absolute top-2 right-2 w-4 h-4 bg-red-400 rounded-full border-2 border-white pulsing-live-dot"></span>
+                    </div>
+                    <span class="text-[11px] font-black text-amber-300 tracking-widest uppercase mb-1">Transmitiendo en Directo</span>
+                    <h3 class="font-bold text-xl text-white mb-1" id="hero-program-title">El Recreo Miganista</h3>
+                    <p class="text-xs text-emerald-100 mb-5">Conduce: Colectivo de Radio Grado 11°</p>
+                    
+                    <button onclick="toggleQuickStream()" id="btn-quick-play" class="w-full py-3 bg-white text-miganiGreen hover:bg-emerald-50 rounded-xl font-black shadow-lg transition duration-200 flex items-center justify-center gap-2">
+                        <i class="fas fa-play" id="quick-play-icon"></i> <span id="quick-play-text">Sintonizar Ahora</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Accesos rápidos estilo Módulos -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 flex flex-col justify-between hover:shadow-xl transition">
+                    <div>
+                        <div class="w-12 h-12 bg-red-100 text-miganiRed rounded-2xl flex items-center justify-center text-xl font-black mb-4">
+                            <i class="fas fa-radio"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Transmisión En Vivo</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">Entérate al instante de los eventos institucionales, debates de aula y comunicados oficiales.</p>
+                    </div>
+                    <button onclick="switchTab('envivo')" class="text-miganiRed font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 hover:underline">
+                        Ir a En Vivo <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 flex flex-col justify-between hover:shadow-xl transition">
+                    <div>
+                        <div class="w-12 h-12 bg-green-100 text-miganiGreen rounded-2xl flex items-center justify-center text-xl font-black mb-4">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Podcasts Escolares</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">Programas grabados, entrevistas culturales y proyectos científicos producidos por los estudiantes.</p>
+                    </div>
+                    <button onclick="switchTab('podcast')" class="text-miganiGreen font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 hover:underline">
+                        Escuchar Podcasts <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 flex flex-col justify-between hover:shadow-xl transition">
+                    <div>
+                        <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-xl font-black mb-4">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Buzón "Infórmanos"</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">¿Conoces una noticia escolar? Envía tu reporte. El equipo verificará la veracidad antes de difundirla.</p>
+                    </div>
+                    <button onclick="switchTab('informanos')" class="text-amber-700 font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 hover:underline">
+                        Enviar Noticia <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Resumen Informativo Institucional -->
+            <div class="bg-miganiBeigeDark p-6 sm:p-8 rounded-3xl border border-amber-200/80 shadow-sm">
+                <div class="max-w-3xl space-y-3">
+                    <h2 class="text-2xl font-black text-miganiGreen flex items-center gap-2">
+                        <i class="fas fa-school"></i> Sobre Frecuencia Migani
+                    </h2>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        <strong>Frecuencia Migani</strong> nace como un proyecto productivo pedagogíco diseñado para integrar a la comunidad estudiantil. A través de la práctica radial, fomentamos valores de comunicación ética, trabajo colaborativo y libre pensamiento dentro de la Institución Educativa.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-2 text-xs font-bold text-gray-600">
+                        <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200"><i class="fas fa-check text-miganiGreen mr-1"></i> Periodismo Verificado</span>
+                        <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200"><i class="fas fa-users text-miganiGreen mr-1"></i> Producción Estudiantil</span>
+                        <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200"><i class="fas fa-signal text-miganiGreen mr-1"></i> Emisión 24/7 Digital</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN: EN VIVO ================= -->
+        <section id="sec-envivo" class="tab-page hidden space-y-8">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-200">
+                <div class="flex flex-col lg:flex-row gap-8 items-start">
+                    
+                    <!-- Reproductor Interactivo En Vivo -->
+                    <div class="w-full lg:w-2/3 space-y-6">
+                        <div class="flex items-center justify-between border-b pb-4">
+                            <div>
+                                <span class="bg-red-100 text-miganiRed text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 mb-2">
+                                    <span class="w-2 h-2 rounded-full bg-miganiRed pulsing-live-dot"></span> EN EMISIÓN DIRECTA
+                                </span>
+                                <h2 class="text-2xl sm:text-3xl font-black text-gray-800">Señal Frecuencia Migani</h2>
+                            </div>
+                            <div class="text-right hidden sm:block">
+                                <span class="text-xs text-gray-400 font-bold uppercase">Oyentes Conectados</span>
+                                <p class="text-2xl font-black text-miganiGreen"><i class="fas fa-headphones mr-1.5"></i> <span id="listener-count">128</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Consola del Reproductor -->
+                        <div class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-3xl p-6 text-white shadow-2xl relative border-2 border-gray-700">
+                            <div class="flex flex-col sm:flex-row items-center gap-6">
+                                <div class="w-28 h-28 rounded-2xl bg-miganiGreen/30 border-2 border-miganiGreen flex items-center justify-center flex-shrink-0 relative overflow-hidden group">
+                                    <i class="fas fa-compact-disc text-5xl text-emerald-400 animate-spin" style="animation-duration: 9s;"></i>
+                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                        <i class="fas fa-broadcast-tower text-2xl text-white"></i>
+                                    </div>
+                                </div>
+                                <div class="space-y-2 text-center sm:text-left flex-grow">
+                                    <span class="text-[10px] text-emerald-400 font-mono tracking-widest uppercase font-bold">PROGRAMA EN EMISIÓN</span>
+                                    <h3 class="text-2xl font-black">Informativo Miganista Matinal</h3>
+                                    <p class="text-xs text-gray-300">Resumen de boletines académicos, deportes interclases y noticias de la jornada.</p>
+                                    
+                                    <!-- Animación de Onda de Audio Simulado -->
+                                    <div class="flex items-end justify-center sm:justify-start gap-1 h-8 pt-2">
+                                        <span class="w-1.5 bg-emerald-500 rounded-t h-3 animate-pulse"></span>
+                                        <span class="w-1.5 bg-emerald-400 rounded-t h-7 animate-pulse" style="animation-delay: 0.2s"></span>
+                                        <span class="w-1.5 bg-emerald-500 rounded-t h-4 animate-pulse" style="animation-delay: 0.4s"></span>
+                                        <span class="w-1.5 bg-emerald-300 rounded-t h-8 animate-pulse" style="animation-delay: 0.1s"></span>
+                                        <span class="w-1.5 bg-emerald-500 rounded-t h-3 animate-pulse" style="animation-delay: 0.3s"></span>
+                                        <span class="w-1.5 bg-emerald-400 rounded-t h-6 animate-pulse" style="animation-delay: 0.5s"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Controles de Reproductor -->
+                            <div class="mt-6 pt-4 border-t border-gray-700/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <button onclick="toggleLiveStream()" id="btn-live-play" class="w-full sm:w-auto px-7 py-3.5 bg-miganiRed hover:bg-miganiRedDark text-white font-black rounded-2xl shadow-xl transition duration-200 flex items-center justify-center gap-2">
+                                    <i class="fas fa-play" id="live-play-icon"></i> <span id="live-play-text">Escuchar Directo</span>
+                                </button>
+
+                                <div class="flex items-center gap-3 w-full sm:w-auto justify-center bg-gray-800/80 px-4 py-2 rounded-xl">
+                                    <i class="fas fa-volume-down text-gray-400 text-xs"></i>
+                                    <input type="range" class="w-28 accent-miganiGreen cursor-pointer" min="0" max="100" value="80">
+                                    <i class="fas fa-volume-up text-gray-400 text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Titulares transmitidos en vivo -->
+                        <div>
+                            <h3 class="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
+                                <i class="fas fa-bullhorn text-miganiRed"></i> Noticias emitidas en esta transmisión
+                            </h3>
+                            <div class="space-y-2.5" id="live-feed-container">
+                                <!-- JS Inject -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat de Oyentes Escolars en Vivo -->
+                    <div class="w-full lg:w-1/3 bg-miganiBeigeDark rounded-3xl p-5 border border-amber-200/80 flex flex-col h-[520px] shadow-sm">
+                        <div class="border-b border-amber-200/80 pb-3 mb-3 flex justify-between items-center">
+                            <h3 class="font-black text-gray-800 text-sm flex items-center gap-2">
+                                <i class="fas fa-comments text-miganiGreen"></i> Chat de Oyentes
+                            </h3>
+                            <span class="text-[10px] bg-emerald-100 text-miganiGreen font-extrabold px-2.5 py-0.5 rounded-full uppercase">En Línea</span>
+                        </div>
+
+                        <!-- Historial del Chat -->
+                        <div class="flex-grow overflow-y-auto space-y-3 pr-1 text-xs" id="chat-messages">
+                            <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
+                                <span class="font-bold text-miganiGreen">Camila (Grado 10°A):</span>
+                                <p class="text-gray-700 mt-1">¡Un saludo a los locutores! Suena excelente el programa de hoy.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
+                                <span class="font-bold text-miganiRed">Profe Martínez:</span>
+                                <p class="text-gray-700 mt-1">Recuerden reportar los resultados del torneo de fútbol al finalizar el boletín.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
+                                <span class="font-bold text-amber-700">Santiago R.:</span>
+                                <p class="text-gray-700 mt-1">¿Cuándo sale el nuevo podcast de ciencia y tecnología?</p>
+                            </div>
+                        </div>
+
+                        <!-- Formulario para enviar mensaje -->
+                        <form onsubmit="sendChatMessage(event)" class="mt-3 pt-2 border-t border-amber-200/80 flex gap-2">
+                            <input type="text" id="chat-input" required placeholder="Escribe tu mensaje..." class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-miganiGreen bg-white">
+                            <button type="submit" class="bg-miganiGreen hover:bg-miganiGreenDark text-white px-4 py-3 rounded-xl text-xs font-bold transition">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN: PODCAST ================= -->
+        <section id="sec-podcast" class="tab-page hidden space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-gray-200 pb-4">
+                <div>
+                    <h2 class="text-3xl font-black text-gray-800">Podcasts de las Últimas Semanas</h2>
+                    <p class="text-xs sm:text-sm text-gray-600">Episodios grabados y producidos por los colectivos radiales estudiantiles.</p>
+                </div>
+                <span class="bg-white px-3.5 py-1.5 rounded-xl border border-gray-200 text-xs font-bold text-gray-600 shadow-sm flex items-center gap-1.5">
+                    <i class="fas fa-calendar-alt text-miganiGreen"></i> Actualizado Semanalmente
+                </span>
+            </div>
+
+            <!-- Grilla de Podcasts -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="podcast-list-container">
+                <!-- JS Inject -->
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN: NOTICIAS ================= -->
+        <section id="sec-noticias" class="tab-page hidden space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-gray-200 pb-4">
+                <div>
+                    <h2 class="text-3xl font-black text-gray-800">Noticias del Último Mes</h2>
+                    <p class="text-xs sm:text-sm text-gray-600">Información verificada del acontecer de nuestra comunidad educativa.</p>
+                </div>
+
+                <!-- Filtro de noticias -->
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-gray-500 uppercase">Categoría:</span>
+                    <select id="filter-news-cat" onchange="renderNewsFeed()" class="bg-white text-xs border border-gray-300 rounded-xl p-2.5 font-bold text-gray-700 focus:ring-2 focus:ring-miganiGreen">
+                        <option value="todas">Todas las categorías</option>
+                        <option value="Institucional">Institucional</option>
+                        <option value="Deportes">Deportes</option>
+                        <option value="Cultura">Cultura</option>
+                        <option value="Eventos">Eventos</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Grilla de Noticias -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="news-list-container">
+                <!-- JS Inject -->
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN: PONTE AL DÍA ================= -->
+        <section id="sec-pontealdia" class="tab-page hidden space-y-8">
+            <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl">
+                <div class="max-w-2xl space-y-2">
+                    <span class="bg-white/20 text-white text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest">Resumen de Alta Prioridad</span>
+                    <h2 class="text-3xl font-black"><i class="fas fa-bolt mr-2"></i> ¡Ponte al día en 3 minutos!</h2>
+                    <p class="text-amber-100 text-xs sm:text-sm">Consolidado rápido de lo más nuevo en transmisiones en vivo, episodios de podcasts recientes y la noticia estelar del mes.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Columna 1: Podcast Destacado -->
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-200 flex flex-col justify-between hover:shadow-xl transition">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-miganiGreen bg-green-100 px-3 py-1 rounded-full"><i class="fas fa-podcast mr-1"></i> Lo último en Podcast</span>
+                            <span class="text-xs text-gray-400 font-bold">Reciente</span>
+                        </div>
+                        <div id="pontealdia-podcast-box">
+                            <!-- JS Inject -->
+                        </div>
+                    </div>
+                    <button onclick="switchTab('podcast')" class="mt-6 w-full py-3 bg-gray-100 hover:bg-green-50 text-miganiGreen font-bold rounded-xl text-xs transition">
+                        Ver todos los podcasts
+                    </button>
+                </div>
+
+                <!-- Columna 2: Titular del Mes -->
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-200 flex flex-col justify-between hover:shadow-xl transition">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-miganiRed bg-red-100 px-3 py-1 rounded-full"><i class="fas fa-newspaper mr-1"></i> Noticia del Mes</span>
+                            <span class="text-xs text-gray-400 font-bold">Destacado</span>
+                        </div>
+                        <div id="pontealdia-news-box">
+                            <!-- JS Inject -->
+                        </div>
+                    </div>
+                    <button onclick="switchTab('noticias')" class="mt-6 w-full py-3 bg-gray-100 hover:bg-red-50 text-miganiRed font-bold rounded-xl text-xs transition">
+                        Ver archivo de noticias
+                    </button>
+                </div>
+
+                <!-- Columna 3: Estado de Emisión -->
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-200 flex flex-col justify-between hover:shadow-xl transition">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-700 bg-amber-100 px-3 py-1 rounded-full"><i class="fas fa-signal mr-1"></i> En Emisión</span>
+                            <span class="w-2.5 h-2.5 bg-red-500 rounded-full pulsing-live-dot"></span>
+                        </div>
+                        <h3 class="font-black text-gray-800 text-lg mb-2">Programación Actual</h3>
+                        <p class="text-xs text-gray-600 mb-4">Acompaña la jornada escolar con boletines informativos y selecciones musicales estudiantiles.</p>
+                        
+                        <div class="bg-miganiBeigeDark p-4 rounded-2xl border border-amber-200/80 text-center space-y-1">
+                            <span class="text-[10px] font-bold uppercase text-gray-400">En aire ahora</span>
+                            <p class="font-black text-miganiGreen text-sm">"Informativo Miganista Matinal"</p>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('envivo')" class="mt-6 w-full py-3 bg-miganiRed hover:bg-miganiRedDark text-white font-bold rounded-xl text-xs shadow transition">
+                        Ir al reproductor directo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN: INFÓRMANOS (BUZÓN) ================= -->
+        <section id="sec-informanos" class="tab-page hidden max-w-3xl mx-auto space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-gray-200">
+                <div class="text-center space-y-3 mb-8">
+                    <div class="w-16 h-16 bg-red-100 text-miganiRed rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2 shadow-inner">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h2 class="text-3xl font-black text-gray-800">Buzón Ciudadano "Infórmanos"</h2>
+                    <p class="text-xs sm:text-sm text-gray-600 max-w-xl mx-auto leading-relaxed">
+                        ¿Conoces un hecho acontecido en el colegio que deba hacerse público? Completa el formulario. El equipo directivo de <strong>Frecuencia Migani</strong> verificará su veracidad antes de difundirlo.
+                    </p>
+                </div>
+
+                <!-- Proceso de Verificación Explicado -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8 text-center">
+                    <div class="p-3.5 bg-gray-50 rounded-2xl border border-gray-200">
+                        <span class="w-7 h-7 bg-miganiGreen text-white text-xs font-black rounded-full inline-flex items-center justify-center mb-1">1</span>
+                        <h4 class="text-xs font-bold text-gray-800">Envío del Reporte</h4>
+                        <p class="text-[11px] text-gray-500 mt-0.5">Escribes tu noticia con detalles claros.</p>
+                    </div>
+                    <div class="p-3.5 bg-gray-50 rounded-2xl border border-gray-200">
+                        <span class="w-7 h-7 bg-amber-500 text-white text-xs font-black rounded-full inline-flex items-center justify-center mb-1">2</span>
+                        <h4 class="text-xs font-bold text-gray-800">Verificación Editorial</h4>
+                        <p class="text-[11px] text-gray-500 mt-0.5">Validamos fuentes y veracidad.</p>
+                    </div>
+                    <div class="p-3.5 bg-gray-50 rounded-2xl border border-gray-200">
+                        <span class="w-7 h-7 bg-miganiRed text-white text-xs font-black rounded-full inline-flex items-center justify-center mb-1">3</span>
+                        <h4 class="text-xs font-bold text-gray-800">Publicación o Descarte</h4>
+                        <p class="text-[11px] text-gray-500 mt-0.5">Si es cierta se publica; si es falsa se rechaza.</p>
+                    </div>
+                </div>
+
+                <!-- Formulario de envío -->
+                <form onsubmit="submitInformanosReport(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Tu Nombre o Seudónimo *</label>
+                            <input type="text" id="inf-author" required placeholder="Ej. Juan Pérez (Grado 10°B)" class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Categoría del Acontecimiento *</label>
+                            <select id="inf-category" class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none font-medium">
+                                <option value="Institucional">Institucional</option>
+                                <option value="Deportes">Deportes</option>
+                                <option value="Cultura">Cultura</option>
+                                <option value="Eventos">Eventos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Título de la Noticia *</label>
+                        <input type="text" id="inf-title" required placeholder="Resumen claro en pocas palabras..." class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Detalle de la Noticia o Reporte *</label>
+                        <textarea id="inf-content" rows="4" required placeholder="Describe qué ocurrió, cuándo, dónde y quiénes participaron..." class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Fuente o Testigo de Referencia</label>
+                        <input type="text" id="inf-source" placeholder="Ej. Docente encargada, vocero de grupo..." class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                    </div>
+
+                    <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
+                        <i class="fas fa-shield-halved text-amber-600 text-lg mt-0.5"></i>
+                        <span><strong>Garantía Periodística Escolar:</strong> Las noticias enviadas pasan primero al panel del Administrador para confirmar su veracidad. La información falsa será descartada inmediatamente.</span>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-miganiRed hover:bg-miganiRedDark text-white font-black rounded-xl shadow-xl transition duration-200 flex items-center justify-center gap-2">
+                        <i class="fas fa-paper-plane"></i> Enviar Noticia para Verificación
+                    </button>
+                </form>
+
+                <!-- Confirmación post-envío -->
+                <div id="informanos-success-box" class="hidden mt-6 p-4 bg-green-100 border border-green-300 text-green-800 rounded-2xl text-center space-y-2">
+                    <i class="fas fa-check-circle text-3xl text-miganiGreen"></i>
+                    <h4 class="font-black text-lg">¡Reporte Enviado con Éxito!</h4>
+                    <p class="text-xs">Tu noticia ha ingresado a la bandeja de verificación. Los administradores revisarán los datos. ¡Gracias por contribuir con la emisora!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECCIÓN: MODO ADMINISTRADOR ================= -->
+        <section id="sec-admin" class="tab-page hidden max-w-4xl mx-auto space-y-6">
+            
+            <!-- VISTA 1: Formulario de Autenticación Admin (PUNTO 10: miganista2026) -->
+            <div id="admin-login-card" class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-gray-200 text-center max-w-md mx-auto space-y-6">
+                <div class="w-20 h-20 bg-green-100 text-miganiGreen rounded-3xl flex items-center justify-center text-3xl mx-auto shadow-inner">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-black text-gray-800">Modo Administrador</h2>
+                    <p class="text-xs text-gray-500 mt-1">Acceso restringido para el equipo directivo de Frecuencia Migani.</p>
+                </div>
+
+                <form onsubmit="verifyAdminAccess(event)" class="space-y-4">
+                    <div class="text-left">
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Código de Seguridad</label>
+                        <input type="password" id="admin-pass-field" placeholder="Ingresa el código..." required class="w-full text-center text-xl font-mono tracking-widest p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                    </div>
+
+                    <div id="admin-error-alert" class="hidden text-xs text-miganiRed font-bold bg-red-50 p-3 rounded-xl border border-red-200 flex items-center gap-2 justify-center">
+                        <i class="fas fa-exclamation-triangle"></i> Código incorrecto. Intenta de nuevo.
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 bg-miganiGreen hover:bg-miganiGreenDark text-white font-black rounded-xl shadow-lg transition duration-200">
+                        Ingresar al Panel
+                    </button>
+                </form>
+            </div>
+
+            <!-- VISTA 2: Dashboard de Control de Administración (PUNTO 9) -->
+            <div id="admin-dashboard-panel" class="hidden space-y-8">
+                <!-- Header de Panel Admin -->
+                <div class="bg-white p-6 rounded-3xl shadow-md border border-gray-200 flex flex-wrap justify-between items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-miganiGreen text-white rounded-2xl flex items-center justify-center font-black text-xl">
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-black text-gray-800">Panel Editorial y Gestor de Contenidos</h2>
+                            <span class="text-xs text-emerald-700 font-bold"><i class="fas fa-shield-check"></i> Sesión activa en Modo Administrador</span>
+                        </div>
+                    </div>
+                    <button onclick="logoutAdminSession()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs font-bold rounded-xl transition">
+                        <i class="fas fa-sign-out-alt mr-1"></i> Salir del Panel
+                    </button>
+                </div>
+
+                <!-- Subpestañas del Administrador -->
+                <div class="bg-white rounded-3xl shadow-md border border-gray-200 overflow-hidden">
+                    <div class="flex border-b border-gray-200 bg-gray-50 text-xs font-bold">
+                        <button onclick="switchAdminSubtab('pending')" id="subbtn-pending" class="flex-1 py-4 px-4 text-miganiGreen border-b-2 border-miganiGreen bg-white transition flex items-center justify-center gap-2">
+                            <i class="fas fa-inbox"></i> Buzón "Infórmanos" (<span id="pending-counter">0</span>)
+                        </button>
+                        <button onclick="switchAdminSubtab('add')" id="subbtn-add" class="flex-1 py-4 px-4 text-gray-500 border-b-2 border-transparent transition flex items-center justify-center gap-2">
+                            <i class="fas fa-plus-circle"></i> Publicar Noticias / Podcasts
+                        </button>
+                        <button onclick="switchAdminSubtab('manage')" id="subbtn-manage" class="flex-1 py-4 px-4 text-gray-500 border-b-2 border-transparent transition flex items-center justify-center gap-2">
+                            <i class="fas fa-trash-alt"></i> Administrar Existentes
+                        </button>
+                    </div>
+
+                    <div class="p-6">
+                        <!-- SUBTAB 1: Buzón Infórmanos Pendientes -->
+                        <div id="subtab-pending" class="space-y-4">
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <h3 class="font-bold text-gray-800 text-sm">Revisiones de Noticias Enviadas por Oyentes</h3>
+                                <span class="text-xs text-gray-500">Verifica la veracidad antes de hacerlas públicas</span>
+                            </div>
+
+                            <div id="admin-pending-list" class="space-y-4">
+                                <!-- JS Inject -->
+                            </div>
+                        </div>
+
+                        <!-- SUBTAB 2: Agregar nueva noticia o podcast oficial -->
+                        <div id="subtab-add" class="hidden space-y-6">
+                            <h3 class="font-bold text-gray-800 text-sm border-b pb-3">Agregar Nueva Publicación Oficial</h3>
+                            <form onsubmit="createNewContentAdmin(event)" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-700 mb-1">Tipo de Contenido</label>
+                                        <select id="adm-type" onchange="togglePodcastFields()" class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen font-bold">
+                                            <option value="noticia">Noticia Escolar</option>
+                                            <option value="podcast">Episodio de Podcast</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-700 mb-1">Categoría</label>
+                                        <select id="adm-category" class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen font-bold">
+                                            <option value="Institucional">Institucional</option>
+                                            <option value="Deportes">Deportes</option>
+                                            <option value="Cultura">Cultura</option>
+                                            <option value="Eventos">Eventos</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1">Título de la Publicación *</label>
+                                    <input type="text" id="adm-title" required placeholder="Título descriptivo..." class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen">
+                                </div>
+
+                                <div id="podcast-extra-fields" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-700 mb-1">Duración del Episodio</label>
+                                        <input type="text" id="adm-duration" placeholder="Ej: 15 min" class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-700 mb-1">Colectivo o Autor</label>
+                                        <input type="text" id="adm-author" placeholder="Ej: Equipo Grado 11°" class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1">Contenido o Resumen *</label>
+                                    <textarea id="adm-content" rows="4" required placeholder="Redacta la información o resumen del podcast aquí..." class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full py-3.5 bg-miganiGreen hover:bg-miganiGreenDark text-white font-black rounded-xl shadow-lg transition duration-200">
+                                    Publicar Inmediatamente
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- SUBTAB 3: Administrar / Eliminar Noticias y Podcasts publicados -->
+                        <div id="subtab-manage" class="hidden space-y-4">
+                            <h3 class="font-bold text-gray-800 text-sm border-b pb-3">Eliminar Contenidos Existentes de la Página</h3>
+                            <div id="admin-published-list" class="space-y-3">
+                                <!-- JS Inject -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="bg-gray-900 text-white pt-10 pb-6 border-t-8 border-miganiGreen relative z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-gray-800">
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl font-black tracking-tight">
+                        <span class="text-emerald-400">migani</span><span class="text-red-500">sate</span>
+                    </span>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed">
+                    Proyecto Productivo de Emisora Escolar. Promoviendo la libre expresión, la integración comunitaria y el periodismo institucional verificado.
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="font-bold text-xs uppercase tracking-widest text-emerald-400">Secciones Rápidas</h4>
+                <ul class="text-xs text-gray-300 space-y-2 font-medium">
+                    <li><button onclick="switchTab('inicio')" class="hover:text-white transition">Inicio</button></li>
+                    <li><button onclick="switchTab('envivo')" class="hover:text-white transition">Transmisión En Vivo</button></li>
+                    <li><button onclick="switchTab('podcast')" class="hover:text-white transition">Archivo de Podcasts</button></li>
+                    <li><button onclick="switchTab('noticias')" class="hover:text-white transition">Noticias del Mes</button></li>
+                    <li><button onclick="switchTab('informanos')" class="hover:text-white transition">Buzón "Infórmanos"</button></li>
+                </ul>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="font-bold text-xs uppercase tracking-widest text-red-400">Panel de Control Escolar</h4>
+                <p class="text-xs text-gray-400">Acceso administrativo para moderación de boletines y gestión de publicaciones.</p>
+                <button onclick="switchTab('admin')" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-emerald-400 text-xs font-bold rounded-xl border border-gray-700 flex items-center gap-2 transition">
+                    <i class="fas fa-lock"></i> Entrar a Modo Administrador
+                </button>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-2">
+            <span>© 2026 Frecuencia Migani - Todos los derechos reservados.</span>
+            <span>Institución Educativa Migani</span>
+        </div>
+    </footer>
+
+    <!-- MODAL CUSTOM PARA ALERTAS Y MENSADES (Sin alert/confirm) -->
+    <div id="app-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-gray-100 transform transition-all">
+            <div id="app-modal-icon" class="w-14 h-14 rounded-full flex items-center justify-center mx-auto text-2xl"></div>
+            <h3 id="app-modal-title" class="font-black text-xl text-gray-800"></h3>
+            <p id="app-modal-message" class="text-xs text-gray-600 leading-relaxed"></p>
+            <button onclick="closeAppModal()" class="w-full py-3 bg-miganiGreen text-white font-bold rounded-xl text-xs shadow hover:bg-miganiGreenDark transition">Aceptar</button>
+        </div>
+    </div>
+
+    <script>
+        // ================= CONFIGURACIÓN Y ESTADO PERSISTENTE =================
+        const CODE_ADMIN_REQUIRED = "miganista2026"; // Clave exigida en el punto 10
+        let isAdminAuthenticated = false;
+        let isLiveAudioPlaying = false;
+
+        // Datos Iniciales por defecto
+        const initialNewsData = [
+            { id: 1, title: "Gran Inauguración del Torneo Interclases 2026", category: "Deportes", date: "Hace 2 días", content: "Con desfiles de todos los grados y comparsas culturales dio inicio el esperado campeonato deportivo institucional.", status: "published" },
+            { id: 2, title: "Frecuencia Migani renueva sus micrófonos de emisión", category: "Institucional", date: "Hace 1 semana", content: "Gracias al apoyo del proyecto productivo se adquirieron nuevos equipos para mejorar la calidad de audio radial.", status: "published" },
+            { id: 3, title: "Exposición en la Feria de Ciencias y Tecnología", category: "Eventos", date: "Hace 2 semanas", content: "Estudiantes expusieron prototipos ecológicos, robótica aplicada y experimentos químicos en el patio central.", status: "published" }
+        ];
+
+        const initialPodcastData = [
+            { id: 101, title: "Episodio 12: Músicas y Tradiciones de la Región", author: "Grado 11° Colectivo Radio", duration: "18 min", date: "Hace 3 días", summary: "Un recorrido sonoro por los ritmos tradicionales del departamento con entrevistas a cultores locales." },
+            { id: 102, title: "Episodio 11: Estrategias para el Rendimiento Académico", author: "Comité Estudiantil", duration: "22 min", date: "Hace 2 semanas", summary: "Recomendaciones de docentes y psicorientadores sobre técnicas de estudio y manejo del tiempo en época de exámenes." }
+        ];
+
+        const initialPendingData = [
+            { id: 201, author: "Mariana G. (9-B)", title: "Campaña de Reciclaje de Tapas Plásticas", category: "Institucional", content: "Los estudiantes de noveno grado iniciarán un punto de acopio para apoyar fundaciones locales.", source: "Vocera de Grupo" }
+        ];
+
+        // Carga y guardado con localStorage
+        let newsItems = JSON.parse(localStorage.getItem('fm_news')) || initialNewsData;
+        let podcastItems = JSON.parse(localStorage.getItem('fm_podcasts')) || initialPodcastData;
+        let pendingReports = JSON.parse(localStorage.getItem('fm_pending')) || initialPendingData;
+
+        function syncLocalStorage() {
+            localStorage.setItem('fm_news', JSON.stringify(newsItems));
+            localStorage.setItem('fm_podcasts', JSON.stringify(podcastItems));
+            localStorage.setItem('fm_pending', JSON.stringify(pendingReports));
+        }
+
+        // ================= NAVEGACIÓN SINGLE PAGE APPLICATION =================
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-page').forEach(page => page.classList.add('hidden'));
+
+            const targetPage = document.getElementById('sec-' + tabId);
+            if (targetPage) targetPage.classList.remove('hidden');
+
+            // Resetear estilos botones
+            document.querySelectorAll('.nav-item').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-miganiRed', 'shadow-md');
+                btn.classList.add('text-white');
+            });
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (activeBtn && tabId !== 'informanos' && tabId !== 'pontealdia') {
+                activeBtn.classList.add('bg-white', 'text-miganiRed', 'shadow-md');
+                activeBtn.classList.remove('text-white');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Cargar datos según sección activa
+            if (tabId === 'noticias') renderNewsFeed();
+            if (tabId === 'podcast') renderPodcastFeed();
+            if (tabId === 'pontealdia') renderPonteAlDiaDashboard();
+            if (tabId === 'envivo') renderLiveFeed();
+            if (tabId === 'admin') updateAdminPanel();
+        }
+
+        // ================= STREAMING SIMULADO & CHAT =================
+        function toggleQuickStream() {
+            toggleLiveStream();
+        }
+
+        function toggleLiveStream() {
+            isLiveAudioPlaying = !isLiveAudioPlaying;
+
+            const quickText = document.getElementById('quick-play-text');
+            const quickIcon = document.getElementById('quick-play-icon');
+            const liveText = document.getElementById('live-play-text');
+            const liveIcon = document.getElementById('live-play-icon');
+
+            if (isLiveAudioPlaying) {
+                if (quickText) quickText.innerText = "Pausar Sintonía";
+                if (quickIcon) quickIcon.className = "fas fa-pause";
+                if (liveText) liveText.innerText = "Pausar Señal";
+                if (liveIcon) liveIcon.className = "fas fa-pause";
+
+                showAppModal('Señal Conectada', 'Estás escuchando la señal directa simulada de Frecuencia Migani.', 'success');
+            } else {
+                if (quickText) quickText.innerText = "Sintonizar Ahora";
+                if (quickIcon) quickIcon.className = "fas fa-play";
+                if (liveText) liveText.innerText = "Escuchar Directo";
+                if (liveIcon) liveIcon.className = "fas fa-play";
+            }
+        }
+
+        function sendChatMessage(event) {
+            event.preventDefault();
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            const chatBox = document.getElementById('chat-messages');
+            const msgEl = document.createElement('div');
+            msgEl.className = "bg-white p-3 rounded-2xl shadow-sm border border-gray-100";
+            msgEl.innerHTML = `
+                <span class="font-bold text-miganiGreen">Tú (Oyente):</span>
+                <p class="text-gray-700 mt-0.5">${msg}</p>
+            `;
+            chatBox.appendChild(msgEl);
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // ================= RENDERING DE NOTICIAS, PODCASTS Y PONTE AL DÍA =================
+        function renderNewsFeed() {
+            const container = document.getElementById('news-list-container');
+            const cat = document.getElementById('filter-news-cat')?.value || 'todas';
+            container.innerHTML = '';
+
+            const filtered = newsItems.filter(item => cat === 'todas' || item.category === cat);
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-3 text-center py-10 text-gray-400 font-bold text-xs">No hay noticias disponibles para esta categoría.</div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-3xl shadow-md border border-gray-100 flex flex-col justify-between hover:shadow-xl transition";
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-black text-miganiGreen bg-green-100 px-3 py-1 rounded-full uppercase tracking-wider">${item.category}</span>
+                            <span class="text-xs text-gray-400 font-medium">${item.date}</span>
+                        </div>
+                        <h3 class="font-black text-gray-800 text-lg leading-snug">${item.title}</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">${item.content}</p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 mt-4 flex justify-between items-center text-xs">
+                        <span class="text-miganiGreen font-bold flex items-center gap-1"><i class="fas fa-check-circle"></i> Verificado</span>
+                        <span class="text-gray-400">Frecuencia Migani</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderPodcastFeed() {
+            const container = document.getElementById('podcast-list-container');
+            container.innerHTML = '';
+
+            if (podcastItems.length === 0) {
+                container.innerHTML = `<div class="col-span-2 text-center py-10 text-gray-400 font-bold text-xs">No hay podcasts registrados en el sistema.</div>`;
+                return;
+            }
+
+            podcastItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-3xl shadow-md border border-gray-200 flex flex-col justify-between space-y-4 hover:shadow-xl transition";
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-black text-miganiRed bg-red-100 px-3 py-1 rounded-full uppercase tracking-wider"><i class="fas fa-podcast mr-1"></i> Episodio Podcast</span>
+                            <span class="text-xs text-gray-400 font-medium">${item.date}</span>
+                        </div>
+                        <h3 class="font-black text-gray-800 text-xl">${item.title}</h3>
+                        <p class="text-xs text-gray-500 font-bold"><i class="fas fa-user-circle mr-1"></i> ${item.author} • <i class="fas fa-clock mr-1"></i> ${item.duration}</p>
+                        <p class="text-xs text-gray-600 leading-relaxed">${item.summary}</p>
+                    </div>
+                    <div class="pt-2">
+                        <button onclick="showAppModal('Reproduciendo Podcast', 'Sintonizando el podcast: ${item.title}. Audio simulado.', 'success')" class="w-full py-3 bg-miganiGreen text-white font-black rounded-xl text-xs hover:bg-miganiGreenDark transition flex items-center justify-center gap-2">
+                            <i class="fas fa-play"></i> Escuchar Episodio
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderPonteAlDiaDashboard() {
+            const pBox = document.getElementById('pontealdia-podcast-box');
+            const nBox = document.getElementById('pontealdia-news-box');
+
+            const latestPodcast = podcastItems[0] || { title: "Sin podcasts", summary: "Aún no hay audios publicados.", author: "-" };
+            const latestNews = newsItems[0] || { title: "Sin noticias", content: "No hay titulares disponibles." };
+
+            pBox.innerHTML = `
+                <h3 class="font-black text-gray-800 text-base mb-1">${latestPodcast.title}</h3>
+                <p class="text-xs text-gray-500 font-bold mb-2">${latestPodcast.author}</p>
+                <p class="text-xs text-gray-600 line-clamp-3">${latestPodcast.summary}</p>
+            `;
+
+            nBox.innerHTML = `
+                <h3 class="font-black text-gray-800 text-base mb-1">${latestNews.title}</h3>
+                <p class="text-xs text-gray-600 line-clamp-3">${latestNews.content}</p>
+            `;
+        }
+
+        function renderLiveFeed() {
+            const feed = document.getElementById('live-feed-container');
+            feed.innerHTML = '';
+
+            newsItems.slice(0, 3).forEach(item => {
+                const el = document.createElement('div');
+                el.className = "bg-gray-50 p-3.5 rounded-2xl border border-gray-200 text-xs flex items-start gap-3";
+                el.innerHTML = `
+                    <span class="w-2.5 h-2.5 rounded-full bg-miganiRed mt-1 flex-shrink-0"></span>
+                    <div>
+                        <h4 class="font-bold text-gray-800">${item.title}</h4>
+                        <p class="text-gray-600 text-[11px] mt-0.5">${item.content}</p>
+                    </div>
+                `;
+                feed.appendChild(el);
+            });
+        }
+
+        // ================= BUZÓN INFÓRMANOS (PUNTO 5) =================
+        function submitInformanosReport(event) {
+            event.preventDefault();
+            const author = document.getElementById('inf-author').value;
+            const category = document.getElementById('inf-category').value;
+            const title = document.getElementById('inf-title').value;
+            const content = document.getElementById('inf-content').value;
+            const source = document.getElementById('inf-source').value || "No especificada";
+
+            const newReport = {
+                id: Date.now(),
+                author,
+                category,
+                title,
+                content,
+                source
+            };
+
+            pendingReports.push(newReport);
+            syncLocalStorage();
+
+            event.target.reset();
+            const box = document.getElementById('informanos-success-box');
+            box.classList.remove('hidden');
+
+            setTimeout(() => box.classList.add('hidden'), 6000);
+        }
+
+        // ================= MODO ADMINISTRADOR (PUNTOS 9 Y 10: miganista2026) =================
+        function verifyAdminAccess(event) {
+            event.preventDefault();
+            const pass = document.getElementById('admin-pass-field').value;
+            const alertBox = document.getElementById('admin-error-alert');
+
+            if (pass === CODE_ADMIN_REQUIRED) {
+                isAdminAuthenticated = true;
+                alertBox.classList.add('hidden');
+                document.getElementById('admin-login-card').classList.add('hidden');
+                document.getElementById('admin-dashboard-panel').classList.remove('hidden');
+                document.getElementById('admin-pass-field').value = '';
+                updateAdminPanel();
+            } else {
+                alertBox.classList.remove('hidden');
+            }
+        }
+
+        function logoutAdminSession() {
+            isAdminAuthenticated = false;
+            document.getElementById('admin-login-card').classList.remove('hidden');
+            document.getElementById('admin-dashboard-panel').classList.add('hidden');
+        }
+
+        function switchAdminSubtab(subId) {
+            document.getElementById('subtab-pending').classList.add('hidden');
+            document.getElementById('subtab-add').classList.add('hidden');
+            document.getElementById('subtab-manage').classList.add('hidden');
+
+            document.getElementById('subbtn-pending').classList.remove('text-miganiGreen', 'border-miganiGreen', 'bg-white');
+            document.getElementById('subbtn-add').classList.remove('text-miganiGreen', 'border-miganiGreen', 'bg-white');
+            document.getElementById('subbtn-manage').classList.remove('text-miganiGreen', 'border-miganiGreen', 'bg-white');
+
+            document.getElementById('subtab-' + subId).classList.remove('hidden');
+            const btn = document.getElementById('subbtn-' + subId);
+            btn.classList.add('text-miganiGreen', 'border-miganiGreen', 'bg-white');
+        }
+
+        function updateAdminPanel() {
+            if (!isAdminAuthenticated) return;
+
+            document.getElementById('pending-counter').innerText = pendingReports.length;
+
+            // Render lista de reportes recibidos en buzón "Infórmanos"
+            const pendingList = document.getElementById('admin-pending-list');
+            pendingList.innerHTML = '';
+
+            if (pendingReports.length === 0) {
+                pendingList.innerHTML = `<div class="text-center text-xs text-gray-400 py-8">No hay noticias pendientes en el buzón.</div>`;
+            } else {
+                pendingReports.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = "bg-gray-50 p-4 rounded-2xl border border-gray-200 space-y-2";
+                    card.innerHTML = `
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-miganiGreen">${item.category} • Enviado por: ${item.author}</span>
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-black px-2.5 py-0.5 rounded-full">Por Verificar</span>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm">${item.title}</h4>
+                        <p class="text-xs text-gray-600">${item.content}</p>
+                        <p class="text-[11px] text-gray-400">Fuente citada: ${item.source}</p>
+                        <div class="pt-2 flex gap-2">
+                            <button onclick="approveReport(${item.id})" class="px-3.5 py-2 bg-miganiGreen text-white rounded-xl text-xs font-bold hover:bg-miganiGreenDark transition">
+                                <i class="fas fa-check mr-1"></i> Aprobar y Publicar
+                            </button>
+                            <button onclick="rejectReport(${item.id})" class="px-3.5 py-2 bg-miganiRed text-white rounded-xl text-xs font-bold hover:bg-miganiRedDark transition">
+                                <i class="fas fa-times mr-1"></i> Descartar (Noticia Falsa)
+                            </button>
+                        </div>
+                    `;
+                    pendingList.appendChild(card);
+                });
+            }
+
+            // Render lista de publicados para eliminación
+            const publishedList = document.getElementById('admin-published-list');
+            publishedList.innerHTML = '';
+
+            newsItems.forEach(item => {
+                const row = document.createElement('div');
+                row.className = "flex justify-between items-center bg-white p-3.5 rounded-2xl border border-gray-200 text-xs";
+                row.innerHTML = `
+                    <div>
+                        <span class="font-bold text-gray-800">[Noticia] ${item.title}</span>
+                        <p class="text-gray-400 text-[11px]">${item.category} • ${item.date}</p>
+                    </div>
+                    <button onclick="deletePublishedItem('news', ${item.id})" class="text-miganiRed hover:text-red-800 font-bold p-1">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                `;
+                publishedList.appendChild(row);
+            });
+
+            podcastItems.forEach(item => {
+                const row = document.createElement('div');
+                row.className = "flex justify-between items-center bg-white p-3.5 rounded-2xl border border-gray-200 text-xs";
+                row.innerHTML = `
+                    <div>
+                        <span class="font-bold text-gray-800">[Podcast] ${item.title}</span>
+                        <p class="text-gray-400 text-[11px]">${item.author} • ${item.duration}</p>
+                    </div>
+                    <button onclick="deletePublishedItem('podcast', ${item.id})" class="text-miganiRed hover:text-red-800 font-bold p-1">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                `;
+                publishedList.appendChild(row);
+            });
+        }
+
+        function approveReport(id) {
+            const report = pendingReports.find(r => r.id === id);
+            if (!report) return;
+
+            newsItems.unshift({
+                id: Date.now(),
+                title: report.title,
+                category: report.category,
+                date: "Reciente (Aprobado)",
+                content: report.content,
+                status: "published"
+            });
+
+            pendingReports = pendingReports.filter(r => r.id !== id);
+            syncLocalStorage();
+            updateAdminPanel();
+            showAppModal('Noticia Publicada', 'El reporte ha sido verificado y publicado con éxito.', 'success');
+        }
+
+        function rejectReport(id) {
+            pendingReports = pendingReports.filter(r => r.id !== id);
+            syncLocalStorage();
+            updateAdminPanel();
+            showAppModal('Reporte Descartado', 'La noticia fue marcada como no confiable o falsa y fue eliminada.', 'error');
+        }
+
+        function createNewContentAdmin(event) {
+            event.preventDefault();
+            const type = document.getElementById('adm-type').value;
+            const category = document.getElementById('adm-category').value;
+            const title = document.getElementById('adm-title').value;
+            const content = document.getElementById('adm-content').value;
+
+            if (type === 'noticia') {
+                newsItems.unshift({
+                    id: Date.now(),
+                    title,
+                    category,
+                    date: "Publicado Recientemente",
+                    content,
+                    status: "published"
+                });
+            } else {
+                const duration = document.getElementById('adm-duration').value || "15 min";
+                const author = document.getElementById('adm-author').value || "Emisora Escolar";
+                podcastItems.unshift({
+                    id: Date.now(),
+                    title,
+                    author,
+                    duration,
+                    date: "Publicado Recientemente",
+                    summary: content
+                });
+            }
+
+            syncLocalStorage();
+            event.target.reset();
+            updateAdminPanel();
+            showAppModal('Contenido Creado', 'La publicación ha sido agregada a la página web.', 'success');
+        }
+
+        function togglePodcastFields() {
+            const type = document.getElementById('adm-type').value;
+            const fields = document.getElementById('podcast-extra-fields');
+            if (type === 'podcast') {
+                fields.classList.remove('hidden');
+            } else {
+                fields.classList.add('hidden');
+            }
+        }
+
+        function deletePublishedItem(type, id) {
+            if (type === 'news') {
+                newsItems = newsItems.filter(i => i.id !== id);
+            } else {
+                podcastItems = podcastItems.filter(i => i.id !== id);
+            }
+            syncLocalStorage();
+            updateAdminPanel();
+            showAppModal('Contenido Eliminado', 'La entrada fue retirado de la plataforma.', 'error');
+        }
+
+        // ================= DIÁLOGO MODAL PERSONALIZADO =================
+        function showAppModal(title, message, type = 'success') {
+            const modal = document.getElementById('app-modal');
+            const modalTitle = document.getElementById('app-modal-title');
+            const modalMsg = document.getElementById('app-modal-message');
+            const icon = document.getElementById('app-modal-icon');
+
+            modalTitle.innerText = title;
+            modalMsg.innerText = message;
+
+            if (type === 'success') {
+                icon.className = "w-14 h-14 rounded-full flex items-center justify-center mx-auto text-2xl bg-green-100 text-miganiGreen";
+                icon.innerHTML = `<i class="fas fa-check"></i>`;
+            } else {
+                icon.className = "w-14 h-14 rounded-full flex items-center justify-center mx-auto text-2xl bg-red-100 text-miganiRed";
+                icon.innerHTML = `<i class="fas fa-exclamation-triangle"></i>`;
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeAppModal() {
+            document.getElementById('app-modal').classList.add('hidden');
+        }
+
+        window.onload = function() {
+            renderLiveFeed();
+            renderNewsFeed();
+            renderPodcastFeed();
+            renderPonteAlDiaDashboard();
+        };
+    </script>
+</body>
+</html>
