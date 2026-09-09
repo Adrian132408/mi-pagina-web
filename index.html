@@ -245,22 +245,83 @@
             <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-200">
                 <div class="flex flex-col lg:flex-row gap-8 items-start">
                     
-                    <!-- Reproductor Embebido de Facebook Live -->
+                    <!-- Reproductor Embebido de Facebook Live y Cámara en Vivo -->
                     <div class="w-full lg:w-2/3 space-y-6">
-                        <div class="flex flex-wrap items-center justify-between border-b pb-4 gap-2">
+                        <div class="flex flex-wrap items-center justify-between border-b pb-4 gap-3">
                             <div>
-                                <span class="bg-blue-100 text-blue-700 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 mb-2">
-                                    <span class="w-2 h-2 rounded-full bg-blue-600 pulsing-live-dot"></span> EN EMISIÓN DIRECTA FACEBOOK LIVE
-                                </span>
-                                <h2 class="text-2xl sm:text-3xl font-black text-gray-800">Transmisión Escolar En Vivo</h2>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span id="live-status-badge" class="bg-slate-100 text-slate-700 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 transition-all">
+                                        <span id="live-status-dot" class="w-2.5 h-2.5 rounded-full bg-slate-400"></span> 
+                                        <span id="live-status-text">DESCONECTADO</span>
+                                    </span>
+                                    <span id="fb-sync-badge" class="hidden bg-blue-100 text-blue-700 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1">
+                                        <i class="fab fa-facebook-f text-xs"></i> FB LIVE SINCRONIZADO
+                                    </span>
+                                </div>
+                                <h2 class="text-2xl sm:text-3xl font-black text-gray-800">Estudio y Transmisión Escolar En Vivo</h2>
                             </div>
-                            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-black rounded-xl shadow flex items-center gap-2 transition">
-                                <i class="fab fa-facebook-f text-sm"></i> Ver en Facebook Live
-                            </a>
+
+                            <!-- Botones Principales de Transmisión -->
+                            <div class="flex flex-wrap gap-2">
+                                <button id="btn-toggle-camera" onclick="openStudioTransmitter()" class="px-4 py-2.5 bg-miganiRed hover:bg-miganiRedDark text-white text-xs font-black rounded-xl shadow-md flex items-center gap-2 transition">
+                                    <i class="fas fa-video text-sm"></i> Transmitir en Vivo
+                                </button>
+                                <button onclick="openFacebookLiveModal()" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-black rounded-xl shadow-md flex items-center gap-2 transition">
+                                    <i class="fab fa-facebook-f text-sm"></i> Transmitir en Facebook
+                                </button>
+                            </div>
                         </div>
 
-                        <!-- Iframe / Contenedor de Facebook Live Embebido -->
-                        <div class="relative w-full overflow-hidden rounded-3xl shadow-2xl bg-slate-900 aspect-video border-4 border-slate-900 flex items-center justify-center">
+                        <!-- Panel del Estudio de Transmisión (Cámara del Dispositivo) -->
+                        <div id="camera-studio-panel" class="hidden bg-slate-950 p-4 rounded-3xl border-4 border-slate-800 space-y-3 shadow-2xl relative">
+                            <div class="flex justify-between items-center text-white text-xs px-1">
+                                <span class="font-extrabold flex items-center gap-2">
+                                    <i class="fas fa-camera text-red-500 animate-pulse"></i>
+                                    Vista Previa de Cámara
+                                </span>
+                                <span id="camera-facing-label" class="text-[10px] bg-slate-800 px-2.5 py-1 rounded-lg text-slate-300 font-bold">
+                                    Cámara Frontal
+                                </span>
+                            </div>
+
+                            <!-- Video de la cámara -->
+                            <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black flex items-center justify-center border border-slate-800">
+                                <video id="device-camera-video" autoplay playsinline muted class="w-full h-full object-cover"></video>
+                                
+                                <div id="camera-placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 space-y-2 bg-slate-900">
+                                    <i class="fas fa-video-slash text-4xl text-slate-600"></i>
+                                    <p class="text-xs font-bold">Cámara no activada</p>
+                                </div>
+
+                                <!-- Overlay de estado en el video -->
+                                <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-lg text-white text-[11px] font-mono flex items-center gap-2 border border-white/20">
+                                    <span id="studio-rec-dot" class="w-2.5 h-2.5 rounded-full bg-slate-500"></span>
+                                    <span id="studio-rec-time">00:00:00</span>
+                                </div>
+                            </div>
+
+                            <!-- Barra de Controles de la Cámara -->
+                            <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                                <div class="flex items-center gap-2">
+                                    <button id="btn-start-broadcast" onclick="toggleLiveBroadcast()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-xs flex items-center gap-1.5 transition">
+                                        <i class="fas fa-satellite-dish"></i> <span>Salir al Aire</span>
+                                    </button>
+                                    <button id="btn-toggle-mic" onclick="toggleMicrophone()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 transition">
+                                        <i class="fas fa-microphone"></i> <span>Micrófono Activo</span>
+                                    </button>
+                                    <button onclick="switchCameraDevice()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 transition" title="Cambiar Frontal/Trasera">
+                                        <i class="fas fa-sync-alt"></i> <span>Cambiar Cámara</span>
+                                    </button>
+                                </div>
+
+                                <button onclick="closeCameraStudio()" class="px-3 py-2 bg-red-900/50 hover:bg-red-800 text-red-200 font-bold rounded-xl text-xs transition">
+                                    <i class="fas fa-times mr-1"></i> Cerrar Estudio
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Iframe / Contenedor de Facebook Live Embebido o Transmisión en Vivo -->
+                        <div id="live-embed-container" class="relative w-full overflow-hidden rounded-3xl shadow-2xl bg-slate-900 aspect-video border-4 border-slate-900 flex items-center justify-center">
                             <iframe id="fb-live-frame" class="absolute top-0 left-0 w-full h-full border-0" 
                                 src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Ffacebook%2Fvideos%2F10153231379946729%2F&show_text=false&width=560&autoplay=true" 
                                 style="border:none;overflow:hidden" 
@@ -269,6 +330,9 @@
                                 allowfullscreen="true" 
                                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
                             </iframe>
+                            
+                            <!-- Reproductor de la transmisión local para la audiencia -->
+                            <video id="audience-live-player" autoplay playsinline class="hidden absolute top-0 left-0 w-full h-full object-cover bg-black"></video>
                         </div>
 
                         <!-- Info programa y estado -->
@@ -724,61 +788,61 @@
         <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-gray-100">
             <div class="text-center space-y-2">
                 <div class="w-14 h-14 bg-red-100 text-miganiRed rounded-2xl flex items-center justify-center text-2xl mx-auto">
-                    <i class="fas fa-user-lock"></i>
-                </div>
-                <h3 class="font-black text-xl text-gray-800">Iniciar Sesión para Chatear</h3>
-                <p class="text-xs text-gray-600">Ingresa tus datos institucionales para participar en el chat moderado de Frecuencia Migani.</p>
+        <!-- MODAL CUSTOM PARA ALERTAS Y MENSAJES -->
+        <div id="app-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+            <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-gray-100 transform transition-all">
+                <div id="app-modal-icon" class="w-14 h-14 rounded-full flex items-center justify-center mx-auto text-2xl"></div>
+                <h3 id="app-modal-title" class="font-black text-xl text-gray-800"></h3>
+                <p id="app-modal-message" class="text-xs text-gray-600 leading-relaxed"></p>
+                <button onclick="closeAppModal()" class="w-full py-3 bg-miganiGreen text-white font-bold rounded-xl text-xs shadow hover:bg-miganiGreenDark transition">Aceptar</button>
             </div>
+        </div>
 
-            <form onsubmit="handleChatLogin(event)" class="space-y-3 text-left">
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Nombre *</label>
-                        <input type="text" id="login-firstname" required placeholder="Ej. Carlos" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+        <!-- MODAL TRANSMITIR EN FACEBOOK LIVE -->
+        <div id="fb-live-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+            <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-gray-100 text-left">
+                <div class="text-center space-y-2">
+                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner">
+                        <i class="fab fa-facebook-f"></i>
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Apellido *</label>
-                        <input type="text" id="login-lastname" required placeholder="Ej. Gómez" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
-                    </div>
+                    <h3 class="font-black text-xl text-gray-800">Transmitir en Facebook Live</h3>
+                    <p class="text-xs text-gray-600">Sincroniza la cámara de tu dispositivo en simultáneo con tu perfil o página institucional de Facebook.</p>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
+                <!-- Estado de la cuenta de Facebook -->
+                <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200 space-y-3">
+                    <div class="flex items-center justify-between text-xs font-bold text-blue-900">
+                        <span class="flex items-center gap-2">
+                            <i class="fas fa-user-circle text-blue-600 text-lg"></i>
+                            <span id="fb-user-status">Conectado como: Emisora Frecuencia Migani</span>
+                        </span>
+                        <span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded-full">Activo</span>
+                    </div>
+                    <p class="text-[11px] text-blue-700">La señal de tu cámara se retransmitirá automáticamente sin configuraciones avanzadas.</p>
+                </div>
+
+                <div class="space-y-3">
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Grado Escolar *</label>
-                        <select id="login-grade" required class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none font-bold">
-                            <option value="6°">Grado 6°</option>
-                            <option value="7°">Grado 7°</option>
-                            <option value="8°">Grado 8°</option>
-                            <option value="9°">Grado 9°</option>
-                            <option value="10°">Grado 10°</option>
-                            <option value="11°">Grado 11°</option>
-                            <option value="Docente">Docente / Directivo</option>
-                            <option value="Acudiente">Acudiente</option>
-                        </select>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Título de la Transmisión en Facebook *</label>
+                        <input type="text" id="fb-stream-title" value="Transmisión en Vivo - Emisora Escolar Frecuencia Migani" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Nombre de Usuario *</label>
-                        <input type="text" id="login-username" required placeholder="Ej. carlos_10a" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Destino de Publicación *</label>
+                        <select id="fb-stream-target" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold">
+                            <option value="page">Página Oficial: I.E. Marco Fidel Suárez</option>
+                            <option value="profile">Perfil Personal del Moderador</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="pt-2 flex gap-2">
-                    <button type="button" onclick="closeChatLoginModal()" class="w-1/3 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl text-xs hover:bg-gray-300 transition">Cancelar</button>
-                    <button type="submit" class="w-2/3 py-3 bg-miganiGreen text-white font-bold rounded-xl text-xs shadow hover:bg-miganiGreenDark transition">Ingresar al Chat</button>
+                    <button type="button" onclick="closeFacebookLiveModal()" class="w-1/3 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl text-xs hover:bg-gray-300 transition">Cancelar</button>
+                    <button type="button" onclick="confirmFacebookLiveStart()" class="w-2/3 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-xs shadow-lg transition flex items-center justify-center gap-2">
+                        <i class="fab fa-facebook-f"></i> Iniciar en 1-Clic
+                    </button>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
-
-    <!-- MODAL CUSTOM PARA ALERTAS Y MENSAJES -->
-    <div id="app-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-gray-100 transform transition-all">
-            <div id="app-modal-icon" class="w-14 h-14 rounded-full flex items-center justify-center mx-auto text-2xl"></div>
-            <h3 id="app-modal-title" class="font-black text-xl text-gray-800"></h3>
-            <p id="app-modal-message" class="text-xs text-gray-600 leading-relaxed"></p>
-            <button onclick="closeAppModal()" class="w-full py-3 bg-miganiGreen text-white font-bold rounded-xl text-xs shadow hover:bg-miganiGreenDark transition">Aceptar</button>
-        </div>
-    </div>
 
     <!-- PIE DE PÁGINA (FOOTER) -->
     <footer class="bg-gray-900 text-white pt-10 pb-6 border-t-8 border-miganiGreen relative z-20">
@@ -826,6 +890,14 @@
         let isAdminAuthenticated = false;
         let currentUser = JSON.parse(localStorage.getItem('fm_chat_user')) || null;
         let uploadedImageBase64 = null;
+
+        let localMediaStream = null;
+        let currentFacingMode = 'user'; // 'user' (frontal) o 'environment' (trasera)
+        let isMicMuted = false;
+        let isLiveBroadcasting = false;
+        let isFacebookSynced = false;
+        let broadcastTimerInterval = null;
+        let broadcastSeconds = 0;
 
         // DICCIONARIO DE PALABRAS PROHIBIDAS
         const BANNED_WORDS = [
@@ -1523,6 +1595,217 @@
         function closeAppModal() {
             const modal = document.getElementById('app-modal');
             if (modal) modal.classList.add('hidden');
+        }
+
+        async function openStudioTransmitter() {
+            const studioPanel = document.getElementById('camera-studio-panel');
+            studioPanel.classList.remove('hidden');
+            await initCameraStream();
+            studioPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function closeCameraStudio() {
+            if (isLiveBroadcasting) {
+                if (!confirm("Hay una transmisión activa. ¿Deseas detenerla y cerrar la cámara?")) {
+                    return;
+                }
+                stopLiveBroadcast();
+            }
+            stopCameraStream();
+            document.getElementById('camera-studio-panel').classList.add('hidden');
+            updateLiveStatusUI('DESCONECTADO', 'slate');
+        }
+
+        async function initCameraStream() {
+            stopCameraStream();
+            const placeholder = document.getElementById('camera-placeholder');
+            const videoElem = document.getElementById('device-camera-video');
+
+            updateLiveStatusUI('CONECTANDO CÁMARA...', 'amber');
+
+            try {
+                const constraints = {
+                    video: {
+                        facingMode: { ideal: currentFacingMode },
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    },
+                    audio: true
+                };
+
+                localMediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+                videoElem.srcObject = localMediaStream;
+                if (placeholder) placeholder.classList.add('hidden');
+
+                if (isMicMuted) {
+                    localMediaStream.getAudioTracks().forEach(t => t.enabled = false);
+                }
+
+                document.getElementById('camera-facing-label').innerText = 
+                    currentFacingMode === 'user' ? 'Cámara Frontal' : 'Cámara Trasera';
+
+                if (!isLiveBroadcasting) {
+                    updateLiveStatusUI('CÁMARA LISTA', 'blue');
+                }
+            } catch (err) {
+                console.error("Error al acceder a la cámara:", err);
+                if (placeholder) placeholder.classList.remove('hidden');
+                updateLiveStatusUI('ERROR DE CONEXIÓN', 'red');
+                showAppModal('Error de Cámara', 'No se pudo acceder a la cámara o micrófono del dispositivo. Por favor verifica los permisos concedidos.', 'error');
+            }
+        }
+
+        function stopCameraStream() {
+            if (localMediaStream) {
+                localMediaStream.getTracks().forEach(track => track.stop());
+                localMediaStream = null;
+            }
+            const videoElem = document.getElementById('device-camera-video');
+            if (videoElem) videoElem.srcObject = null;
+        }
+
+        async function switchCameraDevice() {
+            currentFacingMode = (currentFacingMode === 'user') ? 'environment' : 'user';
+            await initCameraStream();
+            if (isLiveBroadcasting) {
+                const audiencePlayer = document.getElementById('audience-live-player');
+                if (audiencePlayer) audiencePlayer.srcObject = localMediaStream;
+            }
+        }
+
+        function toggleMicrophone() {
+            if (!localMediaStream) return;
+            const audioTracks = localMediaStream.getAudioTracks();
+            if (audioTracks.length === 0) return;
+
+            isMicMuted = !isMicMuted;
+            audioTracks.forEach(t => t.enabled = !isMicMuted);
+
+            const btn = document.getElementById('btn-toggle-mic');
+            if (isMicMuted) {
+                btn.className = "px-3.5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 transition";
+                btn.innerHTML = `<i class="fas fa-microphone-slash"></i> <span>Micrófono Silenciado</span>`;
+            } else {
+                btn.className = "px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 transition";
+                btn.innerHTML = `<i class="fas fa-microphone"></i> <span>Micrófono Activo</span>`;
+            }
+        }
+
+        function toggleLiveBroadcast() {
+            if (isLiveBroadcasting) {
+                stopLiveBroadcast();
+            } else {
+                startLiveBroadcast();
+            }
+        }
+
+        function startLiveBroadcast() {
+            if (!localMediaStream) {
+                showAppModal('Atención', 'Primero activa la cámara del dispositivo para transmitir.', 'error');
+                return;
+            }
+
+            isLiveBroadcasting = true;
+            updateLiveStatusUI('EN VIVO', 'red');
+
+            const startBtn = document.getElementById('btn-start-broadcast');
+            startBtn.className = "px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl text-xs flex items-center gap-1.5 transition animate-pulse";
+            startBtn.innerHTML = `<i class="fas fa-stop-circle"></i> <span>Detener Emisión</span>`;
+
+            // Vincular video de cámara al reproductor del público en la página
+            const fbFrame = document.getElementById('fb-live-frame');
+            const audiencePlayer = document.getElementById('audience-live-player');
+            if (fbFrame) fbFrame.classList.add('hidden');
+            if (audiencePlayer) {
+                audiencePlayer.classList.remove('hidden');
+                audiencePlayer.srcObject = localMediaStream;
+            }
+
+            // Iniciar contador
+            broadcastSeconds = 0;
+            clearInterval(broadcastTimerInterval);
+            broadcastTimerInterval = setInterval(() => {
+                broadcastSeconds++;
+                const hrs = String(Math.floor(broadcastSeconds / 3600)).padStart(2, '0');
+                const mins = String(Math.floor((broadcastSeconds % 3600) / 60)).padStart(2, '0');
+                const secs = String(broadcastSeconds % 60).padStart(2, '0');
+                document.getElementById('studio-rec-time').innerText = `${hrs}:${mins}:${secs}`;
+            }, 1000);
+
+            document.getElementById('studio-rec-dot').className = "w-2.5 h-2.5 rounded-full bg-red-500 pulsing-live-dot";
+
+            showAppModal('¡En Vivo!', 'La cámara de tu dispositivo está saliendo al aire en la plataforma.', 'success');
+        }
+
+        function stopLiveBroadcast() {
+            isLiveBroadcasting = false;
+            clearInterval(broadcastTimerInterval);
+            document.getElementById('studio-rec-time').innerText = "00:00:00";
+            document.getElementById('studio-rec-dot').className = "w-2.5 h-2.5 rounded-full bg-slate-500";
+
+            const startBtn = document.getElementById('btn-start-broadcast');
+            startBtn.className = "px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-xs flex items-center gap-1.5 transition";
+            startBtn.innerHTML = `<i class="fas fa-satellite-dish"></i> <span>Salir al Aire</span>`;
+
+            // Restaurar frame embebido
+            const fbFrame = document.getElementById('fb-live-frame');
+            const audiencePlayer = document.getElementById('audience-live-player');
+            if (audiencePlayer) {
+                audiencePlayer.classList.add('hidden');
+                audiencePlayer.srcObject = null;
+            }
+            if (fbFrame) fbFrame.classList.remove('hidden');
+
+            updateLiveStatusUI(localMediaStream ? 'CÁMARA LISTA' : 'DESCONECTADO', localMediaStream ? 'blue' : 'slate');
+            showAppModal('Emisión Finalizada', 'La transmisión en vivo ha concluido.', 'success');
+        }
+
+        function openFacebookLiveModal() {
+            document.getElementById('fb-live-modal').classList.remove('hidden');
+        }
+
+        function closeFacebookLiveModal() {
+            document.getElementById('fb-live-modal').classList.add('hidden');
+        }
+
+        async function confirmFacebookLiveStart() {
+            closeFacebookLiveModal();
+            isFacebookSynced = true;
+            document.getElementById('fb-sync-badge').classList.remove('hidden');
+
+            if (!localMediaStream) {
+                await openStudioTransmitter();
+            }
+
+            if (!isLiveBroadcasting) {
+                startLiveBroadcast();
+            }
+
+            showAppModal('Transmisión Cruzada Activa', 'Se inició la transmisión con la cámara de tu dispositivo en simultáneo con Facebook Live.', 'success');
+        }
+
+        function updateLiveStatusUI(text, color) {
+            const badge = document.getElementById('live-status-badge');
+            const dot = document.getElementById('live-status-dot');
+            const label = document.getElementById('live-status-text');
+
+            if (!badge || !dot || !label) return;
+
+            label.innerText = text;
+
+            if (color === 'red') {
+                badge.className = "bg-red-100 text-red-700 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm";
+                dot.className = "w-2.5 h-2.5 rounded-full bg-red-600 pulsing-live-dot";
+            } else if (color === 'blue') {
+                badge.className = "bg-blue-100 text-blue-700 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5";
+                dot.className = "w-2.5 h-2.5 rounded-full bg-blue-600";
+            } else if (color === 'amber') {
+                badge.className = "bg-amber-100 text-amber-800 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5";
+                dot.className = "w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
+            } else {
+                badge.className = "bg-slate-100 text-slate-700 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5";
+                dot.className = "w-2.5 h-2.5 rounded-full bg-slate-400";
+            }
         }
 
         window.onload = function() {
