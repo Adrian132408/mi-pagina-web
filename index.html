@@ -92,11 +92,11 @@
     <!-- Marca de agua de fondo (Escudo I.E. Migani) -->
     <div class="watermark-shield" aria-hidden="true"></div>
 
-    <!-- RECTÁNGULO PRINCIPAL ROJO (PUNTO 2) -->
+    <!-- HEADER / NAVEGACIÓN PRINCIPAL -->
     <header class="bg-miganiRed text-white shadow-xl sticky top-0 z-40 border-b-4 border-miganiRedDark">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
             
-            <!-- PUNTO 1: Branding "miganisate" esquina superior izquierda (Letras Verde y Rojo) -->
+            <!-- Branding "miganisate" esquina superior izquierda -->
             <div class="flex items-center gap-3 bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-2xl shadow-inner border border-red-200 cursor-pointer" onclick="switchTab('inicio')">
                 <i class="fas fa-radio text-miganiGreen text-2xl"></i>
                 <div class="flex flex-col">
@@ -109,7 +109,7 @@
                 </div>
             </div>
 
-            <!-- Navegación principal estilo Single Page Application -->
+            <!-- Navegación principal -->
             <nav class="flex flex-wrap items-center gap-1.5 sm:gap-2">
                 <button onclick="switchTab('inicio')" id="btn-inicio" class="nav-item px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 bg-white text-miganiRed shadow-md">
                     <i class="fas fa-house mr-1"></i> Inicio
@@ -152,11 +152,11 @@
                         Frecuencia Migani: La Voz Escolar en Vivo
                     </h1>
                     <p class="text-emerald-100 text-sm sm:text-base leading-relaxed">
-                        Bienvenidos a la plataforma comunicativa de nuestra Institución Educativa. Un espacio donde estudiantes y docentes difunden libremente cultura, eventos deportivos, la mejor música y periodismo juvenil verificado.
+                        Bienvenidos a la plataforma comunicativa de la Institución Educativa Marco Fidel Suárez. Un espacio donde estudiantes y docentes difunden libremente cultura, eventos deportivos, la mejor música y periodismo juvenil verificado.
                     </p>
                     <div class="pt-2 flex flex-wrap gap-3">
                         <button onclick="switchTab('envivo')" class="px-6 py-3.5 bg-miganiRed hover:bg-miganiRedDark text-white font-black rounded-2xl shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 flex items-center gap-2">
-                            <i class="fas fa-play-circle text-lg"></i> Escuchar Sintonía En Vivo
+                            <i class="fas fa-play-circle text-lg"></i> Escuchar / Ver Transmisión En Vivo
                         </button>
                         <button onclick="switchTab('pontealdia')" class="px-6 py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl border border-white/30 backdrop-blur-md transition flex items-center gap-2">
                             <i class="fas fa-fire text-amber-300"></i> Ver Novedades Recientes
@@ -167,15 +167,15 @@
                 <!-- Card de Reproductor Rápido -->
                 <div class="w-full lg:w-80 bg-white/10 backdrop-blur-xl rounded-3xl p-6 border border-white/20 flex flex-col items-center text-center shadow-2xl">
                     <div class="relative w-28 h-28 rounded-full bg-gradient-to-tr from-miganiRed to-red-400 flex items-center justify-center mb-4 border-4 border-white/40 shadow-inner">
-                        <i class="fas fa-broadcast-tower text-5xl text-white"></i>
+                        <i class="fab fa-facebook-f text-5xl text-white"></i>
                         <span class="absolute top-2 right-2 w-4 h-4 bg-red-400 rounded-full border-2 border-white pulsing-live-dot"></span>
                     </div>
-                    <span class="text-[11px] font-black text-amber-300 tracking-widest uppercase mb-1">Transmitiendo en Directo</span>
-                    <h3 class="font-bold text-xl text-white mb-1" id="hero-program-title">El Recreo Miganista</h3>
+                    <span class="text-[11px] font-black text-amber-300 tracking-widest uppercase mb-1">Señal de Streaming en Directo</span>
+                    <h3 class="font-bold text-xl text-white mb-1">Informativo Miganista</h3>
                     <p class="text-xs text-emerald-100 mb-5">Conduce: Colectivo de Radio Grado 11°</p>
                     
-                    <button onclick="toggleQuickStream()" id="btn-quick-play" class="w-full py-3 bg-white text-miganiGreen hover:bg-emerald-50 rounded-xl font-black shadow-lg transition duration-200 flex items-center justify-center gap-2">
-                        <i class="fas fa-play" id="quick-play-icon"></i> <span id="quick-play-text">Sintonizar Ahora</span>
+                    <button onclick="switchTab('envivo')" class="w-full py-3 bg-white text-miganiGreen hover:bg-emerald-50 rounded-xl font-black shadow-lg transition duration-200 flex items-center justify-center gap-2">
+                        <i class="fas fa-satellite-dish"></i> Ir a Transmisión
                     </button>
                 </div>
             </div>
@@ -185,13 +185,13 @@
                 <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 flex flex-col justify-between hover:shadow-xl transition">
                     <div>
                         <div class="w-12 h-12 bg-red-100 text-miganiRed rounded-2xl flex items-center justify-center text-xl font-black mb-4">
-                            <i class="fas fa-radio"></i>
+                            <i class="fas fa-tv"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">Transmisión En Vivo</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed mb-4">Entérate al instante de los eventos institucionales, debates de aula y comunicados oficiales.</p>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Streaming en Directo</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">Emisión audiovisual interactiva en vivo con chat de participación moderado para la comunidad.</p>
                     </div>
                     <button onclick="switchTab('envivo')" class="text-miganiRed font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 hover:underline">
-                        Ir a En Vivo <i class="fas fa-arrow-right"></i>
+                        Ver Transmisión <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
 
@@ -213,8 +213,8 @@
                         <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-xl font-black mb-4">
                             <i class="fas fa-paper-plane"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">Buzón "Infórmanos"</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed mb-4">¿Conoces una noticia escolar? Envía tu reporte. El equipo verificará la veracidad antes de difundirla.</p>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">Buzón Ciudadano</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed mb-4">¿Conoces una noticia o reporte escolar? Envía tu informe con foto. Verificamos fuentes antes de publicar.</p>
                     </div>
                     <button onclick="switchTab('informanos')" class="text-amber-700 font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 hover:underline">
                         Enviar Noticia <i class="fas fa-arrow-right"></i>
@@ -229,81 +229,64 @@
                         <i class="fas fa-school"></i> Sobre Frecuencia Migani
                     </h2>
                     <p class="text-sm text-gray-700 leading-relaxed">
-                        <strong>Frecuencia Migani</strong> nace como un proyecto productivo pedagogíco diseñado para integrar a la comunidad estudiantil. A través de la práctica radial, fomentamos valores de comunicación ética, trabajo colaborativo y libre pensamiento dentro de la Institución Educativa.
+                        <strong>Frecuencia Migani</strong> nace como un proyecto productivo pedagógico diseñado para integrar a la comunidad estudiantil de la I.E. Marco Fidel Suárez. A través de la práctica radial y televisiva digital, fomentamos valores de comunicación ética, trabajo colaborativo y libre pensamiento.
                     </p>
                     <div class="pt-2 flex flex-wrap gap-2 text-xs font-bold text-gray-600">
-                        <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200"><i class="fas fa-check text-miganiGreen mr-1"></i> Periodismo Verificado</span>
-                        <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200"><i class="fas fa-users text-miganiGreen mr-1"></i> Producción Estudiantil</span>
-                        <span class="bg-white px-3 py-1.5 rounded-lg border border-gray-200"><i class="fas fa-signal text-miganiGreen mr-1"></i> Emisión 24/7 Digital</span>
+                        <span class="bg-white px-3 py-1 rounded-lg border border-amber-200"><i class="fas fa-check text-miganiGreen mr-1"></i> Periodismo Escolar</span>
+                        <span class="bg-white px-3 py-1 rounded-lg border border-amber-200"><i class="fas fa-check text-miganiGreen mr-1"></i> Libre Expresión</span>
+                        <span class="bg-white px-3 py-1 rounded-lg border border-amber-200"><i class="fas fa-check text-miganiGreen mr-1"></i> Participación Ciudadana</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ================= SECCIÓN: EN VIVO ================= -->
+        <!-- ================= SECCIÓN: EN VIVO CON FACEBOOK LIVE ================= -->
         <section id="sec-envivo" class="tab-page hidden space-y-8">
             <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-200">
                 <div class="flex flex-col lg:flex-row gap-8 items-start">
                     
-                    <!-- Reproductor Interactivo En Vivo -->
+                    <!-- Reproductor Embebido de Facebook Live -->
                     <div class="w-full lg:w-2/3 space-y-6">
-                        <div class="flex items-center justify-between border-b pb-4">
+                        <div class="flex flex-wrap items-center justify-between border-b pb-4 gap-2">
                             <div>
-                                <span class="bg-red-100 text-miganiRed text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 mb-2">
-                                    <span class="w-2 h-2 rounded-full bg-miganiRed pulsing-live-dot"></span> EN EMISIÓN DIRECTA
+                                <span class="bg-blue-100 text-blue-700 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 mb-2">
+                                    <span class="w-2 h-2 rounded-full bg-blue-600 pulsing-live-dot"></span> EN EMISIÓN DIRECTA FACEBOOK LIVE
                                 </span>
-                                <h2 class="text-2xl sm:text-3xl font-black text-gray-800">Señal Frecuencia Migani</h2>
+                                <h2 class="text-2xl sm:text-3xl font-black text-gray-800">Transmisión Escolar En Vivo</h2>
                             </div>
-                            <div class="text-right hidden sm:block">
-                                <span class="text-xs text-gray-400 font-bold uppercase">Oyentes Conectados</span>
-                                <p class="text-2xl font-black text-miganiGreen"><i class="fas fa-headphones mr-1.5"></i> <span id="listener-count">128</span></p>
-                            </div>
+                            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-black rounded-xl shadow flex items-center gap-2 transition">
+                                <i class="fab fa-facebook-f text-sm"></i> Ver en Facebook Live
+                            </a>
                         </div>
 
-                        <!-- Consola del Reproductor -->
-                        <div class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-3xl p-6 text-white shadow-2xl relative border-2 border-gray-700">
-                            <div class="flex flex-col sm:flex-row items-center gap-6">
-                                <div class="w-28 h-28 rounded-2xl bg-miganiGreen/30 border-2 border-miganiGreen flex items-center justify-center flex-shrink-0 relative overflow-hidden group">
-                                    <i class="fas fa-compact-disc text-5xl text-emerald-400 animate-spin" style="animation-duration: 9s;"></i>
-                                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                                        <i class="fas fa-broadcast-tower text-2xl text-white"></i>
-                                    </div>
-                                </div>
-                                <div class="space-y-2 text-center sm:text-left flex-grow">
-                                    <span class="text-[10px] text-emerald-400 font-mono tracking-widest uppercase font-bold">PROGRAMA EN EMISIÓN</span>
-                                    <h3 class="text-2xl font-black">Informativo Miganista Matinal</h3>
-                                    <p class="text-xs text-gray-300">Resumen de boletines académicos, deportes interclases y noticias de la jornada.</p>
-                                    
-                                    <!-- Animación de Onda de Audio Simulado -->
-                                    <div class="flex items-end justify-center sm:justify-start gap-1 h-8 pt-2">
-                                        <span class="w-1.5 bg-emerald-500 rounded-t h-3 animate-pulse"></span>
-                                        <span class="w-1.5 bg-emerald-400 rounded-t h-7 animate-pulse" style="animation-delay: 0.2s"></span>
-                                        <span class="w-1.5 bg-emerald-500 rounded-t h-4 animate-pulse" style="animation-delay: 0.4s"></span>
-                                        <span class="w-1.5 bg-emerald-300 rounded-t h-8 animate-pulse" style="animation-delay: 0.1s"></span>
-                                        <span class="w-1.5 bg-emerald-500 rounded-t h-3 animate-pulse" style="animation-delay: 0.3s"></span>
-                                        <span class="w-1.5 bg-emerald-400 rounded-t h-6 animate-pulse" style="animation-delay: 0.5s"></span>
-                                    </div>
-                                </div>
+                        <!-- Iframe / Contenedor de Facebook Live Embebido -->
+                        <div class="relative w-full overflow-hidden rounded-3xl shadow-2xl bg-slate-900 aspect-video border-4 border-slate-900 flex items-center justify-center">
+                            <iframe id="fb-live-frame" class="absolute top-0 left-0 w-full h-full border-0" 
+                                src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Ffacebook%2Fvideos%2F10153231379946729%2F&show_text=false&width=560&autoplay=true" 
+                                style="border:none;overflow:hidden" 
+                                scrolling="no" 
+                                frameborder="0" 
+                                allowfullscreen="true" 
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                            </iframe>
+                        </div>
+
+                        <!-- Info programa y estado -->
+                        <div class="bg-miganiBeigeDark p-5 rounded-2xl border border-amber-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div class="space-y-1 text-center sm:text-left">
+                                <span class="text-[10px] font-extrabold text-miganiGreen uppercase tracking-widest"><i class="fas fa-broadcast-tower mr-1"></i> Programa Actual</span>
+                                <h3 class="text-lg font-black text-gray-800">Informativo Miganista & Debate Juvenil</h3>
+                                <p class="text-xs text-gray-600">Acompaña la emisión en vivo por Facebook del colectivo de prensa de la I.E. Marco Fidel Suárez.</p>
                             </div>
-
-                            <!-- Controles de Reproductor -->
-                            <div class="mt-6 pt-4 border-t border-gray-700/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-                                <button onclick="toggleLiveStream()" id="btn-live-play" class="w-full sm:w-auto px-7 py-3.5 bg-miganiRed hover:bg-miganiRedDark text-white font-black rounded-2xl shadow-xl transition duration-200 flex items-center justify-center gap-2">
-                                    <i class="fas fa-play" id="live-play-icon"></i> <span id="live-play-text">Escuchar Directo</span>
-                                </button>
-
-                                <div class="flex items-center gap-3 w-full sm:w-auto justify-center bg-gray-800/80 px-4 py-2 rounded-xl">
-                                    <i class="fas fa-volume-down text-gray-400 text-xs"></i>
-                                    <input type="range" class="w-28 accent-miganiGreen cursor-pointer" min="0" max="100" value="80">
-                                    <i class="fas fa-volume-up text-gray-400 text-xs"></i>
-                                </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs text-gray-600 font-bold bg-white px-3 py-1.5 rounded-xl border border-amber-200"><i class="fas fa-users text-miganiGreen mr-1"></i> Audiencia: <span id="listener-count">168</span></span>
                             </div>
                         </div>
 
                         <!-- Titulares transmitidos en vivo -->
                         <div>
                             <h3 class="text-base font-bold text-gray-800 mb-3 flex items-center gap-2">
-                                <i class="fas fa-bullhorn text-miganiRed"></i> Noticias emitidas en esta transmisión
+                                <i class="fas fa-bullhorn text-miganiRed"></i> Titulares de la Emisión
                             </h3>
                             <div class="space-y-2.5" id="live-feed-container">
                                 <!-- JS Inject -->
@@ -311,38 +294,26 @@
                         </div>
                     </div>
 
-                    <!-- Chat de Oyentes Escolars en Vivo -->
-                    <div class="w-full lg:w-1/3 bg-miganiBeigeDark rounded-3xl p-5 border border-amber-200/80 flex flex-col h-[520px] shadow-sm">
+                    <!-- Chat de Oyentes con Inicio de Sesión Obligatorio y Moderación -->
+                    <div class="w-full lg:w-1/3 bg-miganiBeigeDark rounded-3xl p-5 border border-amber-200/80 flex flex-col h-[640px] shadow-sm relative">
                         <div class="border-b border-amber-200/80 pb-3 mb-3 flex justify-between items-center">
                             <h3 class="font-black text-gray-800 text-sm flex items-center gap-2">
-                                <i class="fas fa-comments text-miganiGreen"></i> Chat de Oyentes
+                                <i class="fas fa-comments text-miganiGreen"></i> Chat en Vivo
                             </h3>
-                            <span class="text-[10px] bg-emerald-100 text-miganiGreen font-extrabold px-2.5 py-0.5 rounded-full uppercase">En Línea</span>
+                            <div id="user-status-badge" class="text-xs font-bold text-gray-500">
+                                <!-- JS Inject -->
+                            </div>
                         </div>
 
                         <!-- Historial del Chat -->
                         <div class="flex-grow overflow-y-auto space-y-3 pr-1 text-xs" id="chat-messages">
-                            <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
-                                <span class="font-bold text-miganiGreen">Camila (Grado 10°A):</span>
-                                <p class="text-gray-700 mt-1">¡Un saludo a los locutores! Suena excelente el programa de hoy.</p>
-                            </div>
-                            <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
-                                <span class="font-bold text-miganiRed">Profe Martínez:</span>
-                                <p class="text-gray-700 mt-1">Recuerden reportar los resultados del torneo de fútbol al finalizar el boletín.</p>
-                            </div>
-                            <div class="bg-white p-3 rounded-2xl shadow-sm border border-gray-100">
-                                <span class="font-bold text-amber-700">Santiago R.:</span>
-                                <p class="text-gray-700 mt-1">¿Cuándo sale el nuevo podcast de ciencia y tecnología?</p>
-                            </div>
+                            <!-- JS Inject -->
                         </div>
 
-                        <!-- Formulario para enviar mensaje -->
-                        <form onsubmit="sendChatMessage(event)" class="mt-3 pt-2 border-t border-amber-200/80 flex gap-2">
-                            <input type="text" id="chat-input" required placeholder="Escribe tu mensaje..." class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-miganiGreen bg-white">
-                            <button type="submit" class="bg-miganiGreen hover:bg-miganiGreenDark text-white px-4 py-3 rounded-xl text-xs font-bold transition">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </form>
+                        <!-- Área de envío de mensaje -->
+                        <div class="mt-3 pt-3 border-t border-amber-200/80" id="chat-input-area">
+                            <!-- JS Inject -->
+                        </div>
                     </div>
 
                 </div>
@@ -357,7 +328,7 @@
                     <p class="text-xs sm:text-sm text-gray-600">Episodios grabados y producidos por los colectivos radiales estudiantiles.</p>
                 </div>
                 <span class="bg-white px-3.5 py-1.5 rounded-xl border border-gray-200 text-xs font-bold text-gray-600 shadow-sm flex items-center gap-1.5">
-                    <i class="fas fa-calendar-alt text-miganiGreen"></i> Actualizado Semanalmente
+                    <i class="fas fa-calendar-alt text-miganiGreen"></i> Actualización Semanal
                 </span>
             </div>
 
@@ -384,6 +355,8 @@
                         <option value="Deportes">Deportes</option>
                         <option value="Cultura">Cultura</option>
                         <option value="Eventos">Eventos</option>
+                        <option value="Convivencia">Convivencia</option>
+                        <option value="Denuncia">Denuncia</option>
                     </select>
                 </div>
             </div>
@@ -441,25 +414,25 @@
                 <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-200 flex flex-col justify-between hover:shadow-xl transition">
                     <div>
                         <div class="flex justify-between items-center mb-4">
-                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-700 bg-amber-100 px-3 py-1 rounded-full"><i class="fas fa-signal mr-1"></i> En Emisión</span>
-                            <span class="w-2.5 h-2.5 bg-red-500 rounded-full pulsing-live-dot"></span>
+                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-blue-700 bg-blue-100 px-3 py-1 rounded-full"><i class="fab fa-facebook-f mr-1"></i> Facebook Live</span>
+                            <span class="w-2.5 h-2.5 bg-blue-600 rounded-full pulsing-live-dot"></span>
                         </div>
-                        <h3 class="font-black text-gray-800 text-lg mb-2">Programación Actual</h3>
-                        <p class="text-xs text-gray-600 mb-4">Acompaña la jornada escolar con boletines informativos y selecciones musicales estudiantiles.</p>
+                        <h3 class="font-black text-gray-800 text-lg mb-2">Streaming en Directo</h3>
+                        <p class="text-xs text-gray-600 mb-4">Sintoniza nuestra transmisión oficial en Facebook y participa con tu usuario institucional.</p>
                         
                         <div class="bg-miganiBeigeDark p-4 rounded-2xl border border-amber-200/80 text-center space-y-1">
-                            <span class="text-[10px] font-bold uppercase text-gray-400">En aire ahora</span>
-                            <p class="font-black text-miganiGreen text-sm">"Informativo Miganista Matinal"</p>
+                            <span class="text-[10px] font-bold uppercase text-gray-400">Programa al aire</span>
+                            <p class="font-black text-miganiGreen text-sm">"Informativo Miganista & Debate"</p>
                         </div>
                     </div>
-                    <button onclick="switchTab('envivo')" class="mt-6 w-full py-3 bg-miganiRed hover:bg-miganiRedDark text-white font-bold rounded-xl text-xs shadow transition">
-                        Ir al reproductor directo
+                    <button onclick="switchTab('envivo')" class="mt-6 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs shadow transition">
+                        Ir al reproductor Facebook Live
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- ================= SECCIÓN: INFÓRMANOS (BUZÓN) ================= -->
+        <!-- ================= SECCIÓN: BUZÓN CIUDADANO (INFÓRMANOS) ================= -->
         <section id="sec-informanos" class="tab-page hidden max-w-3xl mx-auto space-y-6">
             <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-gray-200">
                 <div class="text-center space-y-3 mb-8">
@@ -468,69 +441,104 @@
                     </div>
                     <h2 class="text-3xl font-black text-gray-800">Buzón Ciudadano "Infórmanos"</h2>
                     <p class="text-xs sm:text-sm text-gray-600 max-w-xl mx-auto leading-relaxed">
-                        ¿Conoces un hecho acontecido en el colegio que deba hacerse público? Completa el formulario. El equipo directivo de <strong>Frecuencia Migani</strong> verificará su veracidad antes de difundirlo.
+                        ¿Tienes una noticia, evento o denuncia escolar? Completa tus datos y adjunta evidencia fotográfica. El equipo periodístico verificará los datos antes de hacerla pública.
                     </p>
                 </div>
 
-                <!-- Proceso de Verificación Explicado -->
+                <!-- Proceso de Verificación -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8 text-center">
                     <div class="p-3.5 bg-gray-50 rounded-2xl border border-gray-200">
                         <span class="w-7 h-7 bg-miganiGreen text-white text-xs font-black rounded-full inline-flex items-center justify-center mb-1">1</span>
-                        <h4 class="text-xs font-bold text-gray-800">Envío del Reporte</h4>
-                        <p class="text-[11px] text-gray-500 mt-0.5">Escribes tu noticia con detalles claros.</p>
+                        <h4 class="text-xs font-bold text-gray-800">Datos y Foto</h4>
+                        <p class="text-[11px] text-gray-500 mt-0.5">Ingresas tus datos de contacto y adjuntas tu evidencia.</p>
                     </div>
                     <div class="p-3.5 bg-gray-50 rounded-2xl border border-gray-200">
                         <span class="w-7 h-7 bg-amber-500 text-white text-xs font-black rounded-full inline-flex items-center justify-center mb-1">2</span>
                         <h4 class="text-xs font-bold text-gray-800">Verificación Editorial</h4>
-                        <p class="text-[11px] text-gray-500 mt-0.5">Validamos fuentes y veracidad.</p>
+                        <p class="text-[11px] text-gray-500 mt-0.5">Revisamos veracidad del hecho e imagen enviada.</p>
                     </div>
                     <div class="p-3.5 bg-gray-50 rounded-2xl border border-gray-200">
                         <span class="w-7 h-7 bg-miganiRed text-white text-xs font-black rounded-full inline-flex items-center justify-center mb-1">3</span>
-                        <h4 class="text-xs font-bold text-gray-800">Publicación o Descarte</h4>
-                        <p class="text-[11px] text-gray-500 mt-0.5">Si es cierta se publica; si es falsa se rechaza.</p>
+                        <h4 class="text-xs font-bold text-gray-800">Publicación Oficial</h4>
+                        <p class="text-[11px] text-gray-500 mt-0.5">Si es aprobada, aparece en la sección Noticias del Mes.</p>
                     </div>
                 </div>
 
                 <!-- Formulario de envío -->
                 <form onsubmit="submitInformanosReport(event)" class="space-y-4">
+                    <!-- DATOS DEL REMITENTE -->
+                    <div class="bg-gray-50 p-4.5 rounded-2xl border border-gray-200 space-y-3">
+                        <h3 class="text-xs font-extrabold text-miganiGreen uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-address-card"></i> Datos del Remitente / Informante</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">Nombre Completo *</label>
+                                <input type="text" id="inf-author-name" required placeholder="Ej: Juan Camilo Pérez" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">Grado / Rol *</label>
+                                <input type="text" id="inf-author-grade" required placeholder="Ej: Estudiante 11°B / Docente / Acudiente" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">Teléfono / WhatsApp *</label>
+                                <input type="tel" id="inf-author-phone" required placeholder="Ej: 3101234567" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none bg-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 mb-1">Correo Institucional / Contacto *</label>
+                                <input type="email" id="inf-author-email" required placeholder="Ej: usuario@migani.edu.co" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none bg-white">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DETALLES DE LA NOTICIA -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Tu Nombre o Seudónimo *</label>
-                            <input type="text" id="inf-author" required placeholder="Ej. Juan Pérez (Grado 10°B)" class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Título del Reporte *</label>
+                            <input type="text" id="inf-title" required placeholder="Resumen claro del acontecimiento..." class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">Categoría del Acontecimiento *</label>
+                            <label class="block text-xs font-bold text-gray-700 mb-1">Categoría *</label>
                             <select id="inf-category" class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none font-medium">
                                 <option value="Institucional">Institucional</option>
+                                <option value="Convivencia">Convivencia</option>
                                 <option value="Deportes">Deportes</option>
                                 <option value="Cultura">Cultura</option>
                                 <option value="Eventos">Eventos</option>
+                                <option value="Denuncia">Denuncia Ciudadana</option>
                             </select>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Título de la Noticia *</label>
-                        <input type="text" id="inf-title" required placeholder="Resumen claro en pocas palabras..." class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Descripción Detallada del Hecho *</label>
+                        <textarea id="inf-content" rows="4" required placeholder="Detalla qué sucedió, cuándo, lugar y participantes..." class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none"></textarea>
                     </div>
 
+                    <!-- CARGA DE EVIDENCIA -->
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Detalle de la Noticia o Reporte *</label>
-                        <textarea id="inf-content" rows="4" required placeholder="Describe qué ocurrió, cuándo, dónde y quiénes participaron..." class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none"></textarea>
-                    </div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Evidencia Fotográfica (JPG o PNG, máx. 5MB) *</label>
+                        <div class="border-2 border-dashed border-gray-300 hover:border-miganiGreen rounded-2xl p-5 text-center cursor-pointer transition relative bg-gray-50" onclick="document.getElementById('inf-image-file').click()">
+                            <input type="file" id="inf-image-file" accept="image/jpeg, image/png" onchange="handleImageEvidenceUpload(event)" class="hidden">
+                            <i class="fas fa-camera text-3xl text-miganiGreen mb-2"></i>
+                            <p class="text-xs text-gray-700 font-bold">Haz clic para seleccionar o tomar foto de evidencia</p>
+                            <p class="text-[10px] text-gray-400 mt-0.5">Soporta imágenes JPG, PNG (Máximo 5MB)</p>
+                        </div>
 
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Fuente o Testigo de Referencia</label>
-                        <input type="text" id="inf-source" placeholder="Ej. Docente encargada, vocero de grupo..." class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                        <!-- Previsualización de la imagen adjunta -->
+                        <div id="image-preview-container" class="hidden mt-3 relative inline-block border-2 border-miganiGreen rounded-2xl overflow-hidden shadow-md max-w-xs">
+                            <img id="image-preview" src="" alt="Previsualización de foto" class="w-full h-44 object-cover">
+                            <button type="button" onclick="removeUploadedImage()" class="absolute top-2 right-2 bg-miganiRed text-white w-7 h-7 rounded-full text-xs font-bold shadow hover:bg-miganiRedDark flex items-center justify-center">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
                         <i class="fas fa-shield-halved text-amber-600 text-lg mt-0.5"></i>
-                        <span><strong>Garantía Periodística Escolar:</strong> Las noticias enviadas pasan primero al panel del Administrador para confirmar su veracidad. La información falsa será descartada inmediatamente.</span>
+                        <span><strong>Garantía Editorial:</strong> Los reportes ingresan al Panel de Administración para revisión. La información falsa será descartada.</span>
                     </div>
 
                     <button type="submit" class="w-full py-4 bg-miganiRed hover:bg-miganiRedDark text-white font-black rounded-xl shadow-xl transition duration-200 flex items-center justify-center gap-2">
-                        <i class="fas fa-paper-plane"></i> Enviar Noticia para Verificación
+                        <i class="fas fa-paper-plane"></i> Enviar Reporte y Evidencia
                     </button>
                 </form>
 
@@ -538,7 +546,7 @@
                 <div id="informanos-success-box" class="hidden mt-6 p-4 bg-green-100 border border-green-300 text-green-800 rounded-2xl text-center space-y-2">
                     <i class="fas fa-check-circle text-3xl text-miganiGreen"></i>
                     <h4 class="font-black text-lg">¡Reporte Enviado con Éxito!</h4>
-                    <p class="text-xs">Tu noticia ha ingresado a la bandeja de verificación. Los administradores revisarán los datos. ¡Gracias por contribuir con la emisora!</p>
+                    <p class="text-xs">Tu informe e imagen han ingresado al panel de administración. El equipo editorial lo revisará pronto. ¡Gracias por participar!</p>
                 </div>
             </div>
         </section>
@@ -546,14 +554,14 @@
         <!-- ================= SECCIÓN: MODO ADMINISTRADOR ================= -->
         <section id="sec-admin" class="tab-page hidden max-w-4xl mx-auto space-y-6">
             
-            <!-- VISTA 1: Formulario de Autenticación Admin (PUNTO 10: miganista2026) -->
+            <!-- VISTA 1: Formulario de Autenticación Admin -->
             <div id="admin-login-card" class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-gray-200 text-center max-w-md mx-auto space-y-6">
                 <div class="w-20 h-20 bg-green-100 text-miganiGreen rounded-3xl flex items-center justify-center text-3xl mx-auto shadow-inner">
                     <i class="fas fa-lock"></i>
                 </div>
                 <div>
                     <h2 class="text-2xl font-black text-gray-800">Modo Administrador</h2>
-                    <p class="text-xs text-gray-500 mt-1">Acceso restringido para el equipo directivo de Frecuencia Migani.</p>
+                    <p class="text-xs text-gray-500 mt-1">Acceso restringido para el equipo directivo y moderadores de Frecuencia Migani.</p>
                 </div>
 
                 <form onsubmit="verifyAdminAccess(event)" class="space-y-4">
@@ -572,16 +580,15 @@
                 </form>
             </div>
 
-            <!-- VISTA 2: Dashboard de Control de Administración (PUNTO 9) -->
+            <!-- VISTA 2: Dashboard de Control de Administración -->
             <div id="admin-dashboard-panel" class="hidden space-y-8">
-                <!-- Header de Panel Admin -->
                 <div class="bg-white p-6 rounded-3xl shadow-md border border-gray-200 flex flex-wrap justify-between items-center gap-4">
                     <div class="flex items-center gap-3">
                         <div class="w-12 h-12 bg-miganiGreen text-white rounded-2xl flex items-center justify-center font-black text-xl">
                             <i class="fas fa-sliders-h"></i>
                         </div>
                         <div>
-                            <h2 class="text-xl font-black text-gray-800">Panel Editorial y Gestor de Contenidos</h2>
+                            <h2 class="text-xl font-black text-gray-800">Panel Editorial y Moderador de Chat</h2>
                             <span class="text-xs text-emerald-700 font-bold"><i class="fas fa-shield-check"></i> Sesión activa en Modo Administrador</span>
                         </div>
                     </div>
@@ -592,15 +599,18 @@
 
                 <!-- Subpestañas del Administrador -->
                 <div class="bg-white rounded-3xl shadow-md border border-gray-200 overflow-hidden">
-                    <div class="flex border-b border-gray-200 bg-gray-50 text-xs font-bold">
-                        <button onclick="switchAdminSubtab('pending')" id="subbtn-pending" class="flex-1 py-4 px-4 text-miganiGreen border-b-2 border-miganiGreen bg-white transition flex items-center justify-center gap-2">
-                            <i class="fas fa-inbox"></i> Buzón "Infórmanos" (<span id="pending-counter">0</span>)
+                    <div class="flex border-b border-gray-200 bg-gray-50 text-xs font-bold overflow-x-auto">
+                        <button onclick="switchAdminSubtab('pending')" id="subbtn-pending" class="flex-1 py-4 px-4 text-miganiGreen border-b-2 border-miganiGreen bg-white transition flex items-center justify-center gap-2 min-w-[140px]">
+                            <i class="fas fa-inbox"></i> Buzón Infórmanos (<span id="pending-counter">0</span>)
                         </button>
-                        <button onclick="switchAdminSubtab('add')" id="subbtn-add" class="flex-1 py-4 px-4 text-gray-500 border-b-2 border-transparent transition flex items-center justify-center gap-2">
+                        <button onclick="switchAdminSubtab('moderation')" id="subbtn-moderation" class="flex-1 py-4 px-4 text-gray-500 border-b-2 border-transparent transition flex items-center justify-center gap-2 min-w-[140px]">
+                            <i class="fas fa-comments"></i> Moderador de Chat
+                        </button>
+                        <button onclick="switchAdminSubtab('add')" id="subbtn-add" class="flex-1 py-4 px-4 text-gray-500 border-b-2 border-transparent transition flex items-center justify-center gap-2 min-w-[140px]">
                             <i class="fas fa-plus-circle"></i> Publicar Noticias / Podcasts
                         </button>
-                        <button onclick="switchAdminSubtab('manage')" id="subbtn-manage" class="flex-1 py-4 px-4 text-gray-500 border-b-2 border-transparent transition flex items-center justify-center gap-2">
-                            <i class="fas fa-trash-alt"></i> Administrar Existentes
+                        <button onclick="switchAdminSubtab('manage')" id="subbtn-manage" class="flex-1 py-4 px-4 text-gray-500 border-b-2 border-transparent transition flex items-center justify-center gap-2 min-w-[140px]">
+                            <i class="fas fa-trash-alt"></i> Administrar Contenidos
                         </button>
                     </div>
 
@@ -608,8 +618,8 @@
                         <!-- SUBTAB 1: Buzón Infórmanos Pendientes -->
                         <div id="subtab-pending" class="space-y-4">
                             <div class="flex justify-between items-center border-b pb-3">
-                                <h3 class="font-bold text-gray-800 text-sm">Revisiones de Noticias Enviadas por Oyentes</h3>
-                                <span class="text-xs text-gray-500">Verifica la veracidad antes de hacerlas públicas</span>
+                                <h3 class="font-bold text-gray-800 text-sm">Revisiones de Noticias e Imágenes del Buzón</h3>
+                                <span class="text-xs text-gray-500">Verifica remitente y evidencia foto antes de aprobar</span>
                             </div>
 
                             <div id="admin-pending-list" class="space-y-4">
@@ -617,7 +627,34 @@
                             </div>
                         </div>
 
-                        <!-- SUBTAB 2: Agregar nueva noticia o podcast oficial -->
+                        <!-- SUBTAB 2: Moderador de Chat en Vivo -->
+                        <div id="subtab-moderation" class="hidden space-y-6">
+                            <div class="flex justify-between items-center border-b pb-3">
+                                <div>
+                                    <h3 class="font-bold text-gray-800 text-sm">Panel Moderador de Chat en Tiempo Real</h3>
+                                    <p class="text-xs text-gray-500">Supervisa comentarios, elimina mensajes ofensivos o silencia/banea usuarios.</p>
+                                </div>
+                                <span class="bg-red-100 text-miganiRed text-[10px] font-black px-3 py-1 rounded-full"><i class="fas fa-shield-alt"></i> Moderación Activa</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-3">
+                                    <h4 class="text-xs font-bold text-gray-700 uppercase">Comentarios Recientes en el Chat</h4>
+                                    <div id="admin-chat-moderation-list" class="space-y-2 max-h-80 overflow-y-auto pr-1">
+                                        <!-- JS Inject -->
+                                    </div>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <h4 class="text-xs font-bold text-gray-700 uppercase">Usuarios Silenciados / Baneados</h4>
+                                    <div id="admin-banned-users-list" class="space-y-2 max-h-80 overflow-y-auto pr-1">
+                                        <!-- JS Inject -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SUBTAB 3: Agregar nueva noticia o podcast oficial -->
                         <div id="subtab-add" class="hidden space-y-6">
                             <h3 class="font-bold text-gray-800 text-sm border-b pb-3">Agregar Nueva Publicación Oficial</h3>
                             <form onsubmit="createNewContentAdmin(event)" class="space-y-4">
@@ -633,6 +670,7 @@
                                         <label class="block text-xs font-bold text-gray-700 mb-1">Categoría</label>
                                         <select id="adm-category" class="w-full text-xs p-3.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen font-bold">
                                             <option value="Institucional">Institucional</option>
+                                            <option value="Convivencia">Convivencia</option>
                                             <option value="Deportes">Deportes</option>
                                             <option value="Cultura">Cultura</option>
                                             <option value="Eventos">Eventos</option>
@@ -667,7 +705,7 @@
                             </form>
                         </div>
 
-                        <!-- SUBTAB 3: Administrar / Eliminar Noticias y Podcasts publicados -->
+                        <!-- SUBTAB 4: Administrar / Eliminar Noticias y Podcasts publicados -->
                         <div id="subtab-manage" class="hidden space-y-4">
                             <h3 class="font-bold text-gray-800 text-sm border-b pb-3">Eliminar Contenidos Existentes de la Página</h3>
                             <div id="admin-published-list" class="space-y-3">
@@ -681,6 +719,67 @@
 
     </main>
 
+    <!-- MODAL DE LOGIN OBLIGATORIO PARA EL CHAT EN VIVO -->
+    <div id="chat-login-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-gray-100">
+            <div class="text-center space-y-2">
+                <div class="w-14 h-14 bg-red-100 text-miganiRed rounded-2xl flex items-center justify-center text-2xl mx-auto">
+                    <i class="fas fa-user-lock"></i>
+                </div>
+                <h3 class="font-black text-xl text-gray-800">Iniciar Sesión para Chatear</h3>
+                <p class="text-xs text-gray-600">Ingresa tus datos institucionales para participar en el chat moderado de Frecuencia Migani.</p>
+            </div>
+
+            <form onsubmit="handleChatLogin(event)" class="space-y-3 text-left">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Nombre *</label>
+                        <input type="text" id="login-firstname" required placeholder="Ej. Carlos" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Apellido *</label>
+                        <input type="text" id="login-lastname" required placeholder="Ej. Gómez" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Grado Escolar *</label>
+                        <select id="login-grade" required class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none font-bold">
+                            <option value="6°">Grado 6°</option>
+                            <option value="7°">Grado 7°</option>
+                            <option value="8°">Grado 8°</option>
+                            <option value="9°">Grado 9°</option>
+                            <option value="10°">Grado 10°</option>
+                            <option value="11°">Grado 11°</option>
+                            <option value="Docente">Docente / Directivo</option>
+                            <option value="Acudiente">Acudiente</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Nombre de Usuario *</label>
+                        <input type="text" id="login-username" required placeholder="Ej. carlos_10a" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="pt-2 flex gap-2">
+                    <button type="button" onclick="closeChatLoginModal()" class="w-1/3 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl text-xs hover:bg-gray-300 transition">Cancelar</button>
+                    <button type="submit" class="w-2/3 py-3 bg-miganiGreen text-white font-bold rounded-xl text-xs shadow hover:bg-miganiGreenDark transition">Ingresar al Chat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CUSTOM PARA ALERTAS Y MENSAJES -->
+    <div id="app-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-gray-100 transform transition-all">
+            <div id="app-modal-icon" class="w-14 h-14 rounded-full flex items-center justify-center mx-auto text-2xl"></div>
+            <h3 id="app-modal-title" class="font-black text-xl text-gray-800"></h3>
+            <p id="app-modal-message" class="text-xs text-gray-600 leading-relaxed"></p>
+            <button onclick="closeAppModal()" class="w-full py-3 bg-miganiGreen text-white font-bold rounded-xl text-xs shadow hover:bg-miganiGreenDark transition">Aceptar</button>
+        </div>
+    </div>
+
     <!-- PIE DE PÁGINA (FOOTER) -->
     <footer class="bg-gray-900 text-white pt-10 pb-6 border-t-8 border-miganiGreen relative z-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-gray-800">
@@ -691,7 +790,7 @@
                     </span>
                 </div>
                 <p class="text-xs text-gray-400 leading-relaxed">
-                    Proyecto Productivo de Emisora Escolar. Promoviendo la libre expresión, la integración comunitaria y el periodismo institucional verificado.
+                    Proyecto Productivo de Emisora Escolar de la Institución Educativa Marco Fidel Suárez. Promoviendo la libre expresión, periodismo verificado y participación comunitaria.
                 </p>
             </div>
 
@@ -708,7 +807,7 @@
 
             <div class="space-y-3">
                 <h4 class="font-bold text-xs uppercase tracking-widest text-red-400">Panel de Control Escolar</h4>
-                <p class="text-xs text-gray-400">Acceso administrativo para moderación de boletines y gestión de publicaciones.</p>
+                <p class="text-xs text-gray-400">Acceso administrativo para verificación de notas y moderación de chat.</p>
                 <button onclick="switchTab('admin')" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-emerald-400 text-xs font-bold rounded-xl border border-gray-700 flex items-center gap-2 transition">
                     <i class="fas fa-lock"></i> Entrar a Modo Administrador
                 </button>
@@ -717,366 +816,581 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-2">
             <span>© 2026 Frecuencia Migani - Todos los derechos reservados.</span>
-            <span>Institución Educativa Migani</span>
+            <span>Institución Educativa Marco Fidel Suárez</span>
         </div>
     </footer>
 
-    <!-- MODAL CUSTOM PARA ALERTAS Y MENSADES (Sin alert/confirm) -->
-    <div id="app-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-gray-100 transform transition-all">
-            <div id="app-modal-icon" class="w-14 h-14 rounded-full flex items-center justify-center mx-auto text-2xl"></div>
-            <h3 id="app-modal-title" class="font-black text-xl text-gray-800"></h3>
-            <p id="app-modal-message" class="text-xs text-gray-600 leading-relaxed"></p>
-            <button onclick="closeAppModal()" class="w-full py-3 bg-miganiGreen text-white font-bold rounded-xl text-xs shadow hover:bg-miganiGreenDark transition">Aceptar</button>
-        </div>
-    </div>
-
+    <!-- SCRIPT DE CONTROL Y LÓGICA COMPLETA DE LA APLICACIÓN -->
     <script>
-        // ================= CONFIGURACIÓN Y ESTADO PERSISTENTE =================
-        const CODE_ADMIN_REQUIRED = "miganista2026"; // Clave exigida en el punto 10
+        const CODE_ADMIN_REQUIRED = "miganista2026";
         let isAdminAuthenticated = false;
-        let isLiveAudioPlaying = false;
+        let currentUser = JSON.parse(localStorage.getItem('fm_chat_user')) || null;
+        let uploadedImageBase64 = null;
 
-        // Datos Iniciales por defecto
+        // DICCIONARIO DE PALABRAS PROHIBIDAS
+        const BANNED_WORDS = [
+            "groseria", "insulto", "idiota", "estupido", "estúpida", "mierda", "puta", "puto", 
+            "perra", "basura", "maldito", "pendejo", "pendeja", "gonorrea", "malparido", "hijueputa",
+            "hp", "marica", "imbecil", "imbécil", "guevon", "huevon", "violencia", "matar", "golpear",
+            "asesinar", "amenaza", "boicot", "pelea", "armas", "droga", "cuchillo", "atacar", "muerte",
+            "spam", "http", "https", "www.", ".com", "freebitcoins", "casino"
+        ];
+
+        // DATOS INICIALES DE DEMOSTRACIÓN
         const initialNewsData = [
             { id: 1, title: "Gran Inauguración del Torneo Interclases 2026", category: "Deportes", date: "Hace 2 días", content: "Con desfiles de todos los grados y comparsas culturales dio inicio el esperado campeonato deportivo institucional.", status: "published" },
-            { id: 2, title: "Frecuencia Migani renueva sus micrófonos de emisión", category: "Institucional", date: "Hace 1 semana", content: "Gracias al apoyo del proyecto productivo se adquirieron nuevos equipos para mejorar la calidad de audio radial.", status: "published" },
+            { id: 2, title: "Frecuencia Migani estrena transmisión por Facebook Live", category: "Institucional", date: "Hace 1 semana", content: "Gracias al proyecto productivo, la emisora cuenta con señal audiovisual en directo y chat participativo con moderación activa.", status: "published" },
             { id: 3, title: "Exposición en la Feria de Ciencias y Tecnología", category: "Eventos", date: "Hace 2 semanas", content: "Estudiantes expusieron prototipos ecológicos, robótica aplicada y experimentos químicos en el patio central.", status: "published" }
         ];
 
         const initialPodcastData = [
-            { id: 101, title: "Episodio 12: Músicas y Tradiciones de la Región", author: "Grado 11° Colectivo Radio", duration: "18 min", date: "Hace 3 días", summary: "Un recorrido sonoro por los ritmos tradicionales del departamento con entrevistas a cultores locales." },
-            { id: 102, title: "Episodio 11: Estrategias para el Rendimiento Académico", author: "Comité Estudiantil", duration: "22 min", date: "Hace 2 semanas", summary: "Recomendaciones de docentes y psicorientadores sobre técnicas de estudio y manejo del tiempo en época de exámenes." }
+            { id: 101, title: "Episodio 12: Músicas y Tradiciones de la Región", author: "Grado 11° Colectivo Radio", duration: "18 min", date: "Hace 3 días", summary: "Un recorrido sonoro por los ritmos tradicionales con entrevistas a cultores locales." },
+            { id: 102, title: "Episodio 11: Estrategias para el Rendimiento Académico", author: "Comité Estudiantil", duration: "22 min", date: "Hace 2 semanas", summary: "Recomendaciones de docentes sobre técnicas de estudio y manejo del tiempo en época de exámenes." }
         ];
 
         const initialPendingData = [
-            { id: 201, author: "Mariana G. (9-B)", title: "Campaña de Reciclaje de Tapas Plásticas", category: "Institucional", content: "Los estudiantes de noveno grado iniciarán un punto de acopio para apoyar fundaciones locales.", source: "Vocera de Grupo" }
+            { 
+                id: 201, 
+                authorName: "Mariana Gómez", 
+                authorGrade: "Grado 9°B", 
+                authorPhone: "3128900011",
+                authorEmail: "mariana.gomez@migani.edu.co",
+                category: "Institucional", 
+                title: "Campaña de Reciclaje de Tapas Plásticas", 
+                content: "Los estudiantes de noveno grado iniciarán un punto de acopio para apoyar fundaciones locales.",
+                imageUrl: null 
+            }
         ];
 
-        // Carga y guardado con localStorage
+        const initialChatMessages = [
+            { id: 301, username: "camila_10a", firstname: "Camila", lastname: "Torres", grade: "10°", text: "¡Un saludo a la emisora! Suena genial la transmisión por Facebook Live.", timestamp: "10:15 AM" },
+            { id: 302, username: "profemartinez", firstname: "Profe", lastname: "Martínez", grade: "Docente", text: "Recuerden reportar los resultados del torneo de fútbol al finalizar el boletín.", timestamp: "10:18 AM" }
+        ];
+
         let newsItems = JSON.parse(localStorage.getItem('fm_news')) || initialNewsData;
         let podcastItems = JSON.parse(localStorage.getItem('fm_podcasts')) || initialPodcastData;
         let pendingReports = JSON.parse(localStorage.getItem('fm_pending')) || initialPendingData;
+        let chatMessages = JSON.parse(localStorage.getItem('fm_chat_msg')) || initialChatMessages;
+        let bannedUsernames = JSON.parse(localStorage.getItem('fm_banned_users')) || [];
 
         function syncLocalStorage() {
             localStorage.setItem('fm_news', JSON.stringify(newsItems));
             localStorage.setItem('fm_podcasts', JSON.stringify(podcastItems));
             localStorage.setItem('fm_pending', JSON.stringify(pendingReports));
+            localStorage.setItem('fm_chat_msg', JSON.stringify(chatMessages));
+            localStorage.setItem('fm_banned_users', JSON.stringify(bannedUsernames));
         }
 
-        // ================= NAVEGACIÓN SINGLE PAGE APPLICATION =================
         function switchTab(tabId) {
             document.querySelectorAll('.tab-page').forEach(page => page.classList.add('hidden'));
 
-            const targetPage = document.getElementById('sec-' + tabId);
-            if (targetPage) targetPage.classList.remove('hidden');
+            const selectedPage = document.getElementById(`sec-${tabId}`);
+            if (selectedPage) {
+                selectedPage.classList.remove('hidden');
+            }
 
-            // Resetear estilos botones
             document.querySelectorAll('.nav-item').forEach(btn => {
                 btn.classList.remove('bg-white', 'text-miganiRed', 'shadow-md');
-                btn.classList.add('text-white');
+                if (!btn.classList.contains('bg-amber-400') && !btn.classList.contains('bg-miganiGreen')) {
+                    btn.classList.add('text-white');
+                }
             });
 
-            const activeBtn = document.getElementById('btn-' + tabId);
-            if (activeBtn && tabId !== 'informanos' && tabId !== 'pontealdia') {
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn && tabId !== 'pontealdia' && tabId !== 'informanos') {
                 activeBtn.classList.add('bg-white', 'text-miganiRed', 'shadow-md');
                 activeBtn.classList.remove('text-white');
             }
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // Cargar datos según sección activa
             if (tabId === 'noticias') renderNewsFeed();
             if (tabId === 'podcast') renderPodcastFeed();
-            if (tabId === 'pontealdia') renderPonteAlDiaDashboard();
             if (tabId === 'envivo') renderLiveFeed();
+            if (tabId === 'pontealdia') renderPonteAlDiaDashboard();
             if (tabId === 'admin') updateAdminPanel();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ================= STREAMING SIMULADO & CHAT =================
-        function toggleQuickStream() {
-            toggleLiveStream();
+        function renderLiveFeed() {
+            const container = document.getElementById('live-feed-container');
+            if (!container) return;
+
+            const headlines = [
+                { title: "Inicio de inscripciones para los proyectos de ciencia", time: "10:00 AM" },
+                { title: "Resultados de la jornada cultural del viernes pasado", time: "10:20 AM" },
+                { title: "Entrevista exclusiva con la personera estudiantil", time: "10:45 AM" }
+            ];
+
+            container.innerHTML = headlines.map(item => `
+                <div class="p-3 bg-amber-50 rounded-xl border border-amber-200/80 flex justify-between items-center text-xs">
+                    <span class="font-bold text-gray-800"><i class="fas fa-play text-miganiGreen text-[10px] mr-2"></i>${item.title}</span>
+                    <span class="text-[10px] text-gray-500 font-mono">${item.time}</span>
+                </div>
+            `).join('');
         }
 
-        function toggleLiveStream() {
-            isLiveAudioPlaying = !isLiveAudioPlaying;
+        function renderNewsFeed() {
+            const container = document.getElementById('news-list-container');
+            const filter = document.getElementById('filter-news-cat')?.value || 'todas';
+            if (!container) return;
 
-            const quickText = document.getElementById('quick-play-text');
-            const quickIcon = document.getElementById('quick-play-icon');
-            const liveText = document.getElementById('live-play-text');
-            const liveIcon = document.getElementById('live-play-icon');
+            let filtered = newsItems;
+            if (filter !== 'todas') {
+                filtered = newsItems.filter(item => item.category.toLowerCase() === filter.toLowerCase());
+            }
 
-            if (isLiveAudioPlaying) {
-                if (quickText) quickText.innerText = "Pausar Sintonía";
-                if (quickIcon) quickIcon.className = "fas fa-pause";
-                if (liveText) liveText.innerText = "Pausar Señal";
-                if (liveIcon) liveIcon.className = "fas fa-pause";
+            if (filtered.length === 0) {
+                container.innerHTML = `<p class="col-span-3 text-center text-gray-400 py-10">No hay noticias registradas en esta categoría.</p>`;
+                return;
+            }
 
-                showAppModal('Señal Conectada', 'Estás escuchando la señal directa simulada de Frecuencia Migani.', 'success');
+            container.innerHTML = filtered.map(item => `
+                <div class="bg-white rounded-3xl p-6 shadow-md border border-gray-200 flex flex-col justify-between hover:shadow-xl transition">
+                    <div class="space-y-3">
+                        ${item.imageUrl ? `<img src="${item.imageUrl}" class="w-full h-40 object-cover rounded-2xl mb-3 border border-gray-200">` : ''}
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="bg-red-100 text-miganiRed font-black px-2.5 py-1 rounded-full uppercase text-[10px]">${item.category}</span>
+                            <span class="text-gray-400 font-bold text-[11px]">${item.date}</span>
+                        </div>
+                        <h3 class="font-black text-lg text-gray-800 leading-snug">${item.title}</h3>
+                        <p class="text-xs text-gray-600 leading-relaxed">${item.content}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPodcastFeed() {
+            const container = document.getElementById('podcast-list-container');
+            if (!container) return;
+
+            if (podcastItems.length === 0) {
+                container.innerHTML = `<p class="col-span-2 text-center text-gray-400 py-10">No hay episodios de podcast publicados.</p>`;
+                return;
+            }
+
+            container.innerHTML = podcastItems.map(item => `
+                <div class="bg-white p-6 rounded-3xl shadow-md border border-gray-200 flex flex-col justify-between hover:shadow-xl transition">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="bg-green-100 text-miganiGreen font-black px-2.5 py-1 rounded-full uppercase text-[10px]"><i class="fas fa-podcast mr-1"></i> Podcast</span>
+                            <span class="text-gray-400 font-bold text-[11px]"><i class="far fa-clock mr-1"></i>${item.duration}</span>
+                        </div>
+                        <h3 class="font-black text-xl text-gray-800 leading-snug">${item.title}</h3>
+                        <p class="text-xs text-gray-500 font-bold">Por: ${item.author} • ${item.date}</p>
+                        <p class="text-xs text-gray-600 leading-relaxed">${item.summary}</p>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-gray-100 flex items-center justify-between">
+                        <span class="text-xs text-miganiGreen font-extrabold"><i class="fas fa-play-circle text-lg align-middle mr-1"></i> Listo para escuchar</span>
+                        <button onclick="showAppModal('Reproductor de Audio', 'Reproduciendo episodio: ${item.title}', 'success')" class="px-4 py-2 bg-miganiGreen text-white text-xs font-bold rounded-xl shadow hover:bg-miganiGreenDark transition">
+                            Escuchar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPonteAlDiaDashboard() {
+            const podcastBox = document.getElementById('pontealdia-podcast-box');
+            const newsBox = document.getElementById('pontealdia-news-box');
+
+            if (podcastBox) {
+                const latestPodcast = podcastItems[0];
+                podcastBox.innerHTML = latestPodcast ? `
+                    <h3 class="font-black text-gray-800 text-lg mb-1">${latestPodcast.title}</h3>
+                    <p class="text-xs text-gray-500 mb-2">Producido por: ${latestPodcast.author}</p>
+                    <p class="text-xs text-gray-600 line-clamp-3">${latestPodcast.summary}</p>
+                ` : `<p class="text-xs text-gray-400">Sin podcast reciente.</p>`;
+            }
+
+            if (newsBox) {
+                const latestNews = newsItems[0];
+                newsBox.innerHTML = latestNews ? `
+                    <h3 class="font-black text-gray-800 text-lg mb-1">${latestNews.title}</h3>
+                    <p class="text-xs text-gray-500 mb-2">${latestNews.category} • ${latestNews.date}</p>
+                    <p class="text-xs text-gray-600 line-clamp-3">${latestNews.content}</p>
+                ` : `<p class="text-xs text-gray-400">Sin noticia reciente.</p>`;
+            }
+        }
+
+        function verifyAdminAccess(event) {
+            event.preventDefault();
+            const pass = document.getElementById('admin-pass-field').value.trim();
+            const errorAlert = document.getElementById('admin-error-alert');
+
+            if (pass === CODE_ADMIN_REQUIRED) {
+                isAdminAuthenticated = true;
+                errorAlert.classList.add('hidden');
+                document.getElementById('admin-login-card').classList.add('hidden');
+                document.getElementById('admin-dashboard-panel').classList.remove('hidden');
+                updateAdminPanel();
             } else {
-                if (quickText) quickText.innerText = "Sintonizar Ahora";
-                if (quickIcon) quickIcon.className = "fas fa-play";
-                if (liveText) liveText.innerText = "Escuchar Directo";
-                if (liveIcon) liveIcon.className = "fas fa-play";
+                errorAlert.classList.remove('hidden');
+            }
+        }
+
+        function logoutAdminSession() {
+            isAdminAuthenticated = false;
+            document.getElementById('admin-pass-field').value = '';
+            document.getElementById('admin-login-card').classList.remove('hidden');
+            document.getElementById('admin-dashboard-panel').classList.add('hidden');
+        }
+
+        function switchAdminSubtab(subtabId) {
+            ['pending', 'moderation', 'add', 'manage'].forEach(id => {
+                const tabEl = document.getElementById(`subtab-${id}`);
+                const btnEl = document.getElementById(`subbtn-${id}`);
+                if (tabEl) tabEl.classList.add('hidden');
+                if (btnEl) {
+                    btnEl.classList.remove('text-miganiGreen', 'border-miganiGreen', 'bg-white');
+                    btnEl.classList.add('text-gray-500', 'border-transparent');
+                }
+            });
+
+            const activeTab = document.getElementById(`subtab-${subtabId}`);
+            const activeBtn = document.getElementById(`subbtn-${subtabId}`);
+            if (activeTab) activeTab.classList.remove('hidden');
+            if (activeBtn) {
+                activeBtn.classList.add('text-miganiGreen', 'border-miganiGreen', 'bg-white');
+                activeBtn.classList.remove('text-gray-500', 'border-transparent');
+            }
+        }
+
+        function openChatLoginModal() {
+            document.getElementById('chat-login-modal').classList.remove('hidden');
+        }
+
+        function closeChatLoginModal() {
+            document.getElementById('chat-login-modal').classList.add('hidden');
+        }
+
+        function handleChatLogin(event) {
+            event.preventDefault();
+            const firstname = document.getElementById('login-firstname').value.trim();
+            const lastname = document.getElementById('login-lastname').value.trim();
+            const grade = document.getElementById('login-grade').value;
+            const username = document.getElementById('login-username').value.trim().toLowerCase();
+
+            if (!firstname || !lastname || !username) return;
+
+            currentUser = { firstname, lastname, grade, username };
+            localStorage.setItem('fm_chat_user', JSON.stringify(currentUser));
+            closeChatLoginModal();
+            renderChatSection();
+            showAppModal('Bienvenido al Chat', `Sesión iniciada como ${firstname} ${lastname} (${grade}).`, 'success');
+        }
+
+        function logoutChatUser() {
+            currentUser = null;
+            localStorage.removeItem('fm_chat_user');
+            renderChatSection();
+        }
+
+        function renderChatSection() {
+            const badgeContainer = document.getElementById('user-status-badge');
+            const inputArea = document.getElementById('chat-input-area');
+            const chatBox = document.getElementById('chat-messages');
+
+            if (!badgeContainer || !inputArea || !chatBox) return;
+
+            if (currentUser) {
+                badgeContainer.innerHTML = `
+                    <span class="inline-flex items-center gap-1.5 bg-green-100 text-miganiGreen px-2.5 py-1 rounded-full text-[10px] font-black">
+                        <i class="fas fa-user-check"></i> ${currentUser.firstname} ${currentUser.lastname} (${currentUser.grade})
+                        <button onclick="logoutChatUser()" class="text-miganiRed ml-1 hover:underline text-[9px]">(Salir)</button>
+                    </span>
+                `;
+            } else {
+                badgeContainer.innerHTML = `
+                    <button onclick="openChatLoginModal()" class="bg-miganiGreen hover:bg-miganiGreenDark text-white px-3 py-1 rounded-full text-[10px] font-bold transition shadow">
+                        <i class="fas fa-sign-in-alt mr-1"></i> Iniciar Sesión
+                    </button>
+                `;
+            }
+
+            chatBox.innerHTML = '';
+            if (chatMessages.length === 0) {
+                chatBox.innerHTML = `<p class="text-center text-gray-400 py-8">Aún no hay comentarios en la transmisión.</p>`;
+            } else {
+                chatMessages.forEach(msg => {
+                    const isSelf = currentUser && currentUser.username === msg.username;
+                    const msgEl = document.createElement('div');
+                    msgEl.className = `p-3 rounded-2xl shadow-sm border text-xs ${isSelf ? 'bg-emerald-50 border-emerald-200' : 'bg-white border-gray-100'}`;
+                    msgEl.innerHTML = `
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-bold ${isSelf ? 'text-miganiGreen' : 'text-gray-800'}">
+                                ${msg.firstname} ${msg.lastname} <span class="text-[10px] font-normal text-gray-500">(@${msg.username} - ${msg.grade})</span>
+                            </span>
+                            <span class="text-[9px] text-gray-400 font-mono">${msg.timestamp || ''}</span>
+                        </div>
+                        <p class="text-gray-700 leading-normal">${msg.text}</p>
+                    `;
+                    chatBox.appendChild(msgEl);
+                });
+            }
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            if (!currentUser) {
+                inputArea.innerHTML = `
+                    <div class="bg-amber-100/70 p-3 rounded-2xl border border-amber-300 text-center space-y-2">
+                        <p class="text-xs text-amber-900 font-bold"><i class="fas fa-lock mr-1"></i> Debes iniciar sesión con tus datos institucionales para comentar.</p>
+                        <button onclick="openChatLoginModal()" class="w-full py-2 bg-miganiGreen hover:bg-miganiGreenDark text-white rounded-xl text-xs font-black transition shadow">
+                            Iniciar Sesión para Chatear
+                        </button>
+                    </div>
+                `;
+            } else if (bannedUsernames.includes(currentUser.username)) {
+                inputArea.innerHTML = `
+                    <div class="bg-red-100 p-3 rounded-2xl border border-red-300 text-center">
+                        <p class="text-xs text-miganiRed font-black"><i class="fas fa-ban mr-1"></i> Tu usuario (@${currentUser.username}) ha sido silenciado por moderación.</p>
+                    </div>
+                `;
+            } else {
+                inputArea.innerHTML = `
+                    <form onsubmit="sendChatMessage(event)" class="flex gap-2">
+                        <input type="text" id="chat-input" required placeholder="Escribe un comentario respetuoso..." class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-miganiGreen bg-white">
+                        <button type="submit" class="bg-miganiGreen hover:bg-miganiGreenDark text-white px-4 py-3 rounded-xl text-xs font-bold transition shadow">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                `;
             }
         }
 
         function sendChatMessage(event) {
             event.preventDefault();
+            if (!currentUser) return openChatLoginModal();
+            if (bannedUsernames.includes(currentUser.username)) return;
+
             const input = document.getElementById('chat-input');
-            const msg = input.value.trim();
-            if (!msg) return;
+            const text = input.value.trim();
+            if (!text) return;
 
-            const chatBox = document.getElementById('chat-messages');
-            const msgEl = document.createElement('div');
-            msgEl.className = "bg-white p-3 rounded-2xl shadow-sm border border-gray-100";
-            msgEl.innerHTML = `
-                <span class="font-bold text-miganiGreen">Tú (Oyente):</span>
-                <p class="text-gray-700 mt-0.5">${msg}</p>
-            `;
-            chatBox.appendChild(msgEl);
-            input.value = '';
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
+            const lowerText = text.toLowerCase();
+            const containsOffensive = BANNED_WORDS.some(word => lowerText.includes(word));
 
-        // ================= RENDERING DE NOTICIAS, PODCASTS Y PONTE AL DÍA =================
-        function renderNewsFeed() {
-            const container = document.getElementById('news-list-container');
-            const cat = document.getElementById('filter-news-cat')?.value || 'todas';
-            container.innerHTML = '';
-
-            const filtered = newsItems.filter(item => cat === 'todas' || item.category === cat);
-
-            if (filtered.length === 0) {
-                container.innerHTML = `<div class="col-span-3 text-center py-10 text-gray-400 font-bold text-xs">No hay noticias disponibles para esta categoría.</div>`;
+            if (containsOffensive) {
+                showAppModal('Comentario Bloqueado', 'Tu mensaje no fue publicado porque infringe las normas de convivencia escolar.', 'error');
+                input.value = '';
                 return;
             }
 
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = "bg-white p-6 rounded-3xl shadow-md border border-gray-100 flex flex-col justify-between hover:shadow-xl transition";
-                card.innerHTML = `
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-black text-miganiGreen bg-green-100 px-3 py-1 rounded-full uppercase tracking-wider">${item.category}</span>
-                            <span class="text-xs text-gray-400 font-medium">${item.date}</span>
-                        </div>
-                        <h3 class="font-black text-gray-800 text-lg leading-snug">${item.title}</h3>
-                        <p class="text-xs text-gray-600 leading-relaxed">${item.content}</p>
-                    </div>
-                    <div class="pt-4 border-t border-gray-100 mt-4 flex justify-between items-center text-xs">
-                        <span class="text-miganiGreen font-bold flex items-center gap-1"><i class="fas fa-check-circle"></i> Verificado</span>
-                        <span class="text-gray-400">Frecuencia Migani</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const newMsg = {
+                id: Date.now(),
+                username: currentUser.username,
+                firstname: currentUser.firstname,
+                lastname: currentUser.lastname,
+                grade: currentUser.grade,
+                text,
+                timestamp: timeStr
+            };
+
+            chatMessages.push(newMsg);
+            syncLocalStorage();
+            renderChatSection();
         }
 
-        function renderPodcastFeed() {
-            const container = document.getElementById('podcast-list-container');
-            container.innerHTML = '';
+        function handleImageEvidenceUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
 
-            if (podcastItems.length === 0) {
-                container.innerHTML = `<div class="col-span-2 text-center py-10 text-gray-400 font-bold text-xs">No hay podcasts registrados en el sistema.</div>`;
+            const validTypes = ['image/jpeg', 'image/png'];
+            if (!validTypes.includes(file.type)) {
+                showAppModal('Formato Inválido', 'Solo se permiten imágenes en formato JPG o PNG.', 'error');
+                event.target.value = '';
                 return;
             }
 
-            podcastItems.forEach(item => {
-                const card = document.createElement('div');
-                card.className = "bg-white p-6 rounded-3xl shadow-md border border-gray-200 flex flex-col justify-between space-y-4 hover:shadow-xl transition";
-                card.innerHTML = `
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-black text-miganiRed bg-red-100 px-3 py-1 rounded-full uppercase tracking-wider"><i class="fas fa-podcast mr-1"></i> Episodio Podcast</span>
-                            <span class="text-xs text-gray-400 font-medium">${item.date}</span>
-                        </div>
-                        <h3 class="font-black text-gray-800 text-xl">${item.title}</h3>
-                        <p class="text-xs text-gray-500 font-bold"><i class="fas fa-user-circle mr-1"></i> ${item.author} • <i class="fas fa-clock mr-1"></i> ${item.duration}</p>
-                        <p class="text-xs text-gray-600 leading-relaxed">${item.summary}</p>
-                    </div>
-                    <div class="pt-2">
-                        <button onclick="showAppModal('Reproduciendo Podcast', 'Sintonizando el podcast: ${item.title}. Audio simulado.', 'success')" class="w-full py-3 bg-miganiGreen text-white font-black rounded-xl text-xs hover:bg-miganiGreenDark transition flex items-center justify-center gap-2">
-                            <i class="fas fa-play"></i> Escuchar Episodio
-                        </button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
+            if (file.size > 5 * 1024 * 1024) {
+                showAppModal('Archivo Excede Límite', 'La imagen seleccionada supera el peso máximo de 5MB.', 'error');
+                event.target.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedImageBase64 = e.target.result;
+                const previewImg = document.getElementById('image-preview');
+                const container = document.getElementById('image-preview-container');
+                previewImg.src = uploadedImageBase64;
+                container.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
         }
 
-        function renderPonteAlDiaDashboard() {
-            const pBox = document.getElementById('pontealdia-podcast-box');
-            const nBox = document.getElementById('pontealdia-news-box');
-
-            const latestPodcast = podcastItems[0] || { title: "Sin podcasts", summary: "Aún no hay audios publicados.", author: "-" };
-            const latestNews = newsItems[0] || { title: "Sin noticias", content: "No hay titulares disponibles." };
-
-            pBox.innerHTML = `
-                <h3 class="font-black text-gray-800 text-base mb-1">${latestPodcast.title}</h3>
-                <p class="text-xs text-gray-500 font-bold mb-2">${latestPodcast.author}</p>
-                <p class="text-xs text-gray-600 line-clamp-3">${latestPodcast.summary}</p>
-            `;
-
-            nBox.innerHTML = `
-                <h3 class="font-black text-gray-800 text-base mb-1">${latestNews.title}</h3>
-                <p class="text-xs text-gray-600 line-clamp-3">${latestNews.content}</p>
-            `;
+        function removeUploadedImage() {
+            uploadedImageBase64 = null;
+            const fileInput = document.getElementById('inf-image-file');
+            if (fileInput) fileInput.value = '';
+            document.getElementById('image-preview-container').classList.add('hidden');
         }
 
-        function renderLiveFeed() {
-            const feed = document.getElementById('live-feed-container');
-            feed.innerHTML = '';
-
-            newsItems.slice(0, 3).forEach(item => {
-                const el = document.createElement('div');
-                el.className = "bg-gray-50 p-3.5 rounded-2xl border border-gray-200 text-xs flex items-start gap-3";
-                el.innerHTML = `
-                    <span class="w-2.5 h-2.5 rounded-full bg-miganiRed mt-1 flex-shrink-0"></span>
-                    <div>
-                        <h4 class="font-bold text-gray-800">${item.title}</h4>
-                        <p class="text-gray-600 text-[11px] mt-0.5">${item.content}</p>
-                    </div>
-                `;
-                feed.appendChild(el);
-            });
-        }
-
-        // ================= BUZÓN INFÓRMANOS (PUNTO 5) =================
         function submitInformanosReport(event) {
             event.preventDefault();
-            const author = document.getElementById('inf-author').value;
+            const authorName = document.getElementById('inf-author-name').value.trim();
+            const authorGrade = document.getElementById('inf-author-grade').value.trim();
+            const authorPhone = document.getElementById('inf-author-phone').value.trim();
+            const authorEmail = document.getElementById('inf-author-email').value.trim();
             const category = document.getElementById('inf-category').value;
-            const title = document.getElementById('inf-title').value;
-            const content = document.getElementById('inf-content').value;
-            const source = document.getElementById('inf-source').value || "No especificada";
+            const title = document.getElementById('inf-title').value.trim();
+            const content = document.getElementById('inf-content').value.trim();
+
+            if (!uploadedImageBase64) {
+                showAppModal('Foto Requerida', 'Por favor adjunta una foto o evidencia fotográfica (JPG o PNG).', 'error');
+                return;
+            }
 
             const newReport = {
                 id: Date.now(),
-                author,
+                authorName,
+                authorGrade,
+                authorPhone,
+                authorEmail,
                 category,
                 title,
                 content,
-                source
+                imageUrl: uploadedImageBase64
             };
 
             pendingReports.push(newReport);
             syncLocalStorage();
 
             event.target.reset();
+            removeUploadedImage();
+
             const box = document.getElementById('informanos-success-box');
             box.classList.remove('hidden');
-
-            setTimeout(() => box.classList.add('hidden'), 6000);
-        }
-
-        // ================= MODO ADMINISTRADOR (PUNTOS 9 Y 10: miganista2026) =================
-        function verifyAdminAccess(event) {
-            event.preventDefault();
-            const pass = document.getElementById('admin-pass-field').value;
-            const alertBox = document.getElementById('admin-error-alert');
-
-            if (pass === CODE_ADMIN_REQUIRED) {
-                isAdminAuthenticated = true;
-                alertBox.classList.add('hidden');
-                document.getElementById('admin-login-card').classList.add('hidden');
-                document.getElementById('admin-dashboard-panel').classList.remove('hidden');
-                document.getElementById('admin-pass-field').value = '';
-                updateAdminPanel();
-            } else {
-                alertBox.classList.remove('hidden');
-            }
-        }
-
-        function logoutAdminSession() {
-            isAdminAuthenticated = false;
-            document.getElementById('admin-login-card').classList.remove('hidden');
-            document.getElementById('admin-dashboard-panel').classList.add('hidden');
-        }
-
-        function switchAdminSubtab(subId) {
-            document.getElementById('subtab-pending').classList.add('hidden');
-            document.getElementById('subtab-add').classList.add('hidden');
-            document.getElementById('subtab-manage').classList.add('hidden');
-
-            document.getElementById('subbtn-pending').classList.remove('text-miganiGreen', 'border-miganiGreen', 'bg-white');
-            document.getElementById('subbtn-add').classList.remove('text-miganiGreen', 'border-miganiGreen', 'bg-white');
-            document.getElementById('subbtn-manage').classList.remove('text-miganiGreen', 'border-miganiGreen', 'bg-white');
-
-            document.getElementById('subtab-' + subId).classList.remove('hidden');
-            const btn = document.getElementById('subbtn-' + subId);
-            btn.classList.add('text-miganiGreen', 'border-miganiGreen', 'bg-white');
+            setTimeout(() => box.classList.add('hidden'), 7000);
         }
 
         function updateAdminPanel() {
             if (!isAdminAuthenticated) return;
 
-            document.getElementById('pending-counter').innerText = pendingReports.length;
+            const counterEl = document.getElementById('pending-counter');
+            if (counterEl) counterEl.innerText = pendingReports.length;
 
-            // Render lista de reportes recibidos en buzón "Infórmanos"
             const pendingList = document.getElementById('admin-pending-list');
-            pendingList.innerHTML = '';
-
-            if (pendingReports.length === 0) {
-                pendingList.innerHTML = `<div class="text-center text-xs text-gray-400 py-8">No hay noticias pendientes en el buzón.</div>`;
-            } else {
-                pendingReports.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "bg-gray-50 p-4 rounded-2xl border border-gray-200 space-y-2";
-                    card.innerHTML = `
-                        <div class="flex justify-between items-center text-xs">
-                            <span class="font-bold text-miganiGreen">${item.category} • Enviado por: ${item.author}</span>
-                            <span class="bg-amber-100 text-amber-800 text-[10px] font-black px-2.5 py-0.5 rounded-full">Por Verificar</span>
-                        </div>
-                        <h4 class="font-bold text-gray-800 text-sm">${item.title}</h4>
-                        <p class="text-xs text-gray-600">${item.content}</p>
-                        <p class="text-[11px] text-gray-400">Fuente citada: ${item.source}</p>
-                        <div class="pt-2 flex gap-2">
-                            <button onclick="approveReport(${item.id})" class="px-3.5 py-2 bg-miganiGreen text-white rounded-xl text-xs font-bold hover:bg-miganiGreenDark transition">
-                                <i class="fas fa-check mr-1"></i> Aprobar y Publicar
-                            </button>
-                            <button onclick="rejectReport(${item.id})" class="px-3.5 py-2 bg-miganiRed text-white rounded-xl text-xs font-bold hover:bg-miganiRedDark transition">
-                                <i class="fas fa-times mr-1"></i> Descartar (Noticia Falsa)
-                            </button>
-                        </div>
-                    `;
-                    pendingList.appendChild(card);
-                });
+            if (pendingList) {
+                pendingList.innerHTML = '';
+                if (pendingReports.length === 0) {
+                    pendingList.innerHTML = `<div class="text-center text-xs text-gray-400 py-8">No hay noticias ni imágenes pendientes en el buzón.</div>`;
+                } else {
+                    pendingReports.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = "bg-gray-50 p-4.5 rounded-2xl border border-gray-200 space-y-3";
+                        card.innerHTML = `
+                            <div class="flex flex-wrap justify-between items-center text-xs gap-2">
+                                <span class="font-bold text-miganiGreen">${item.category} • Remitente: ${item.authorName} (${item.authorGrade})</span>
+                                <span class="bg-amber-100 text-amber-800 text-[10px] font-black px-2.5 py-0.5 rounded-full">Pendiente de Revisión</span>
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm">${item.title}</h4>
+                            <p class="text-xs text-gray-600">${item.content}</p>
+                            ${item.imageUrl ? `
+                                <div class="mt-2 bg-white p-2 rounded-xl border border-gray-200 inline-block">
+                                    <span class="text-[10px] font-bold text-gray-500 block mb-1">Evidencia Adjunta:</span>
+                                    <img src="${item.imageUrl}" class="w-56 h-36 object-cover rounded-lg border border-gray-300">
+                                </div>` : ''
+                            }
+                            <div class="text-[11px] text-gray-500 font-mono bg-white p-2 rounded-lg border border-gray-200">
+                                <strong>Contacto:</strong> Tel/WhatsApp: ${item.authorPhone || '-'} | Correo: ${item.authorEmail || '-'}
+                            </div>
+                            <div class="pt-2 flex gap-2">
+                                <button onclick="approveReport(${item.id})" class="px-3.5 py-2 bg-miganiGreen text-white rounded-xl text-xs font-bold hover:bg-miganiGreenDark transition flex items-center gap-1">
+                                    <i class="fas fa-check"></i> Aprobar y Publicar
+                                </button>
+                                <button onclick="rejectReport(${item.id})" class="px-3.5 py-2 bg-miganiRed text-white rounded-xl text-xs font-bold hover:bg-miganiRedDark transition flex items-center gap-1">
+                                    <i class="fas fa-times"></i> Descartar
+                                </button>
+                            </div>
+                        `;
+                        pendingList.appendChild(card);
+                    });
+                }
             }
 
-            // Render lista de publicados para eliminación
+            const chatModList = document.getElementById('admin-chat-moderation-list');
+            if (chatModList) {
+                chatModList.innerHTML = '';
+                if (chatMessages.length === 0) {
+                    chatModList.innerHTML = `<p class="text-xs text-gray-400 py-4 text-center">No hay comentarios en el chat.</p>`;
+                } else {
+                    chatMessages.forEach(msg => {
+                        const el = document.createElement('div');
+                        el.className = "p-3 bg-gray-50 rounded-xl border border-gray-200 flex justify-between items-center text-xs";
+                        el.innerHTML = `
+                            <div>
+                                <span class="font-bold text-gray-800">${msg.firstname} ${msg.lastname} (@${msg.username} - ${msg.grade}):</span>
+                                <p class="text-gray-600 text-[11px] mt-0.5">${msg.text}</p>
+                            </div>
+                            <div class="flex gap-1.5 ml-2">
+                                <button onclick="deleteChatMessageAdmin(${msg.id})" class="bg-red-100 text-miganiRed p-2 rounded-lg hover:bg-red-200 font-bold" title="Borrar Comentario">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button onclick="banUserAdmin('${msg.username}')" class="bg-gray-800 text-white p-2 rounded-lg hover:bg-black font-bold" title="Silenciar / Banear Usuario">
+                                    <i class="fas fa-ban"></i>
+                                </button>
+                            </div>
+                        `;
+                        chatModList.appendChild(el);
+                    });
+                }
+            }
+
+            const bannedList = document.getElementById('admin-banned-users-list');
+            if (bannedList) {
+                bannedList.innerHTML = '';
+                if (bannedUsernames.length === 0) {
+                    bannedList.innerHTML = `<p class="text-xs text-gray-400 py-4 text-center">No hay usuarios silenciados.</p>`;
+                } else {
+                    bannedUsernames.forEach(u => {
+                        const el = document.createElement('div');
+                        el.className = "p-2.5 bg-red-50 rounded-xl border border-red-200 flex justify-between items-center text-xs";
+                        el.innerHTML = `
+                            <span class="font-bold text-miganiRed"><i class="fas fa-user-slash mr-1"></i> @${u}</span>
+                            <button onclick="unbanUserAdmin('${u}')" class="bg-miganiGreen text-white text-[10px] px-2.5 py-1 rounded-lg font-bold hover:bg-miganiGreenDark">
+                                Restablecer
+                            </button>
+                        `;
+                        bannedList.appendChild(el);
+                    });
+                }
+            }
+
             const publishedList = document.getElementById('admin-published-list');
-            publishedList.innerHTML = '';
+            if (publishedList) {
+                publishedList.innerHTML = '';
+                newsItems.forEach(item => {
+                    const row = document.createElement('div');
+                    row.className = "flex justify-between items-center bg-white p-3.5 rounded-2xl border border-gray-200 text-xs";
+                    row.innerHTML = `
+                        <div>
+                            <span class="font-bold text-gray-800">[Noticia] ${item.title}</span>
+                            <p class="text-gray-400 text-[11px]">${item.category} • ${item.date}</p>
+                        </div>
+                        <button onclick="deletePublishedItem('news', ${item.id})" class="text-miganiRed hover:text-red-800 font-bold p-1">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
+                    `;
+                    publishedList.appendChild(row);
+                });
 
-            newsItems.forEach(item => {
-                const row = document.createElement('div');
-                row.className = "flex justify-between items-center bg-white p-3.5 rounded-2xl border border-gray-200 text-xs";
-                row.innerHTML = `
-                    <div>
-                        <span class="font-bold text-gray-800">[Noticia] ${item.title}</span>
-                        <p class="text-gray-400 text-[11px]">${item.category} • ${item.date}</p>
-                    </div>
-                    <button onclick="deletePublishedItem('news', ${item.id})" class="text-miganiRed hover:text-red-800 font-bold p-1">
-                        <i class="fas fa-trash"></i> Eliminar
-                    </button>
-                `;
-                publishedList.appendChild(row);
-            });
-
-            podcastItems.forEach(item => {
-                const row = document.createElement('div');
-                row.className = "flex justify-between items-center bg-white p-3.5 rounded-2xl border border-gray-200 text-xs";
-                row.innerHTML = `
-                    <div>
-                        <span class="font-bold text-gray-800">[Podcast] ${item.title}</span>
-                        <p class="text-gray-400 text-[11px]">${item.author} • ${item.duration}</p>
-                    </div>
-                    <button onclick="deletePublishedItem('podcast', ${item.id})" class="text-miganiRed hover:text-red-800 font-bold p-1">
-                        <i class="fas fa-trash"></i> Eliminar
-                    </button>
-                `;
-                publishedList.appendChild(row);
-            });
+                podcastItems.forEach(item => {
+                    const row = document.createElement('div');
+                    row.className = "flex justify-between items-center bg-white p-3.5 rounded-2xl border border-gray-200 text-xs";
+                    row.innerHTML = `
+                        <div>
+                            <span class="font-bold text-gray-800">[Podcast] ${item.title}</span>
+                            <p class="text-gray-400 text-[11px]">${item.author} • ${item.duration}</p>
+                        </div>
+                        <button onclick="deletePublishedItem('podcast', ${item.id})" class="text-miganiRed hover:text-red-800 font-bold p-1">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
+                    `;
+                    publishedList.appendChild(row);
+                });
+            }
         }
 
         function approveReport(id) {
@@ -1087,22 +1401,48 @@
                 id: Date.now(),
                 title: report.title,
                 category: report.category,
-                date: "Reciente (Aprobado)",
-                content: report.content,
+                date: "Reciente (Verificado)",
+                content: `${report.content} — (Reportado por ${report.authorName}, ${report.authorGrade})`,
+                imageUrl: report.imageUrl,
                 status: "published"
             });
 
             pendingReports = pendingReports.filter(r => r.id !== id);
             syncLocalStorage();
             updateAdminPanel();
-            showAppModal('Noticia Publicada', 'El reporte ha sido verificado y publicado con éxito.', 'success');
+            showAppModal('Noticia Publicada', 'El reporte ha sido verificado y publicado con éxito en Noticias.', 'success');
         }
 
         function rejectReport(id) {
             pendingReports = pendingReports.filter(r => r.id !== id);
             syncLocalStorage();
             updateAdminPanel();
-            showAppModal('Reporte Descartado', 'La noticia fue marcada como no confiable o falsa y fue eliminada.', 'error');
+            showAppModal('Reporte Descartado', 'La noticia fue marcada como no confiable o falsa.', 'error');
+        }
+
+        function deleteChatMessageAdmin(id) {
+            chatMessages = chatMessages.filter(m => m.id !== id);
+            syncLocalStorage();
+            updateAdminPanel();
+            renderChatSection();
+        }
+
+        function banUserAdmin(username) {
+            if (!bannedUsernames.includes(username)) {
+                bannedUsernames.push(username);
+                syncLocalStorage();
+                updateAdminPanel();
+                renderChatSection();
+                showAppModal('Usuario Baneado', `El usuario @${username} fue silenciado del chat.`, 'error');
+            }
+        }
+
+        function unbanUserAdmin(username) {
+            bannedUsernames = bannedUsernames.filter(u => u !== username);
+            syncLocalStorage();
+            updateAdminPanel();
+            renderChatSection();
+            showAppModal('Usuario Restablecido', `El usuario @${username} puede chatear de nuevo.`, 'success');
         }
 
         function createNewContentAdmin(event) {
@@ -1137,36 +1477,34 @@
             syncLocalStorage();
             event.target.reset();
             updateAdminPanel();
-            showAppModal('Contenido Creado', 'La publicación ha sido agregada a la página web.', 'success');
+            showAppModal('Contenido Creado', 'La publicación ha sido agregada a la plataforma.', 'success');
         }
 
         function togglePodcastFields() {
             const type = document.getElementById('adm-type').value;
             const fields = document.getElementById('podcast-extra-fields');
-            if (type === 'podcast') {
-                fields.classList.remove('hidden');
-            } else {
-                fields.classList.add('hidden');
+            if (fields) {
+                if (type === 'podcast') fields.classList.remove('hidden');
+                else fields.classList.add('hidden');
             }
         }
 
         function deletePublishedItem(type, id) {
-            if (type === 'news') {
-                newsItems = newsItems.filter(i => i.id !== id);
-            } else {
-                podcastItems = podcastItems.filter(i => i.id !== id);
-            }
+            if (type === 'news') newsItems = newsItems.filter(i => i.id !== id);
+            else podcastItems = podcastItems.filter(i => i.id !== id);
+            
             syncLocalStorage();
             updateAdminPanel();
-            showAppModal('Contenido Eliminado', 'La entrada fue retirado de la plataforma.', 'error');
+            showAppModal('Contenido Eliminado', 'La entrada fue retirada de la plataforma.', 'error');
         }
 
-        // ================= DIÁLOGO MODAL PERSONALIZADO =================
         function showAppModal(title, message, type = 'success') {
             const modal = document.getElementById('app-modal');
             const modalTitle = document.getElementById('app-modal-title');
             const modalMsg = document.getElementById('app-modal-message');
             const icon = document.getElementById('app-modal-icon');
+
+            if (!modal) return;
 
             modalTitle.innerText = title;
             modalMsg.innerText = message;
@@ -1183,7 +1521,8 @@
         }
 
         function closeAppModal() {
-            document.getElementById('app-modal').classList.add('hidden');
+            const modal = document.getElementById('app-modal');
+            if (modal) modal.classList.add('hidden');
         }
 
         window.onload = function() {
@@ -1191,6 +1530,7 @@
             renderNewsFeed();
             renderPodcastFeed();
             renderPonteAlDiaDashboard();
+            renderChatSection();
         };
     </script>
 </body>
