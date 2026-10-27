@@ -96,12 +96,12 @@
     <header class="bg-miganiRed text-white shadow-xl sticky top-0 z-40 border-b-4 border-miganiRedDark">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
             
-            <!-- Branding "miganisate" esquina superior izquierda -->
+            <!-- Branding "FRECUENCIA MIGANI" esquina superior izquierda -->
             <div class="flex items-center gap-3 bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-2xl shadow-inner border border-red-200 cursor-pointer" onclick="switchTab('inicio')">
                 <i class="fas fa-radio text-miganiGreen text-2xl"></i>
                 <div class="flex flex-col">
-                    <span class="text-2xl sm:text-3xl font-black tracking-tight select-none leading-none">
-                        <span class="text-miganiGreen">migani</span><span class="text-miganiRed">sate</span>
+                    <span class="text-xl sm:text-2xl font-black tracking-tight select-none leading-none">
+                        <span class="text-miganiGreen">FRECUENCIA</span> <span class="text-miganiRed">MIGANI</span>
                     </span>
                     <span class="text-[10px] font-bold text-gray-600 tracking-wider uppercase mt-0.5">
                         Emisora Escolar Migani
@@ -788,61 +788,106 @@
         <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-gray-100">
             <div class="text-center space-y-2">
                 <div class="w-14 h-14 bg-red-100 text-miganiRed rounded-2xl flex items-center justify-center text-2xl mx-auto">
-        <!-- MODAL CUSTOM PARA ALERTAS Y MENSAJES -->
-        <div id="app-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-            <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-gray-100 transform transition-all">
-                <div id="app-modal-icon" class="w-14 h-14 rounded-full flex items-center justify-center mx-auto text-2xl"></div>
-                <h3 id="app-modal-title" class="font-black text-xl text-gray-800"></h3>
-                <p id="app-modal-message" class="text-xs text-gray-600 leading-relaxed"></p>
-                <button onclick="closeAppModal()" class="w-full py-3 bg-miganiGreen text-white font-bold rounded-xl text-xs shadow hover:bg-miganiGreenDark transition">Aceptar</button>
+                    <i class="fas fa-user-lock"></i>
+                </div>
+                <h3 class="font-black text-xl text-gray-800">Iniciar Sesión en el Chat</h3>
+                <p class="text-xs text-gray-600">Ingresa tus datos institucionales para participar en la transmisión en vivo.</p>
             </div>
-        </div>
 
-        <!-- MODAL TRANSMITIR EN FACEBOOK LIVE -->
-        <div id="fb-live-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-            <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-gray-100 text-left">
-                <div class="text-center space-y-2">
-                    <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner">
-                        <i class="fab fa-facebook-f"></i>
-                    </div>
-                    <h3 class="font-black text-xl text-gray-800">Transmitir en Facebook Live</h3>
-                    <p class="text-xs text-gray-600">Sincroniza la cámara de tu dispositivo en simultáneo con tu perfil o página institucional de Facebook.</p>
-                </div>
-
-                <!-- Estado de la cuenta de Facebook -->
-                <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200 space-y-3">
-                    <div class="flex items-center justify-between text-xs font-bold text-blue-900">
-                        <span class="flex items-center gap-2">
-                            <i class="fas fa-user-circle text-blue-600 text-lg"></i>
-                            <span id="fb-user-status">Conectado como: Emisora Frecuencia Migani</span>
-                        </span>
-                        <span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded-full">Activo</span>
-                    </div>
-                    <p class="text-[11px] text-blue-700">La señal de tu cámara se retransmitirá automáticamente sin configuraciones avanzadas.</p>
-                </div>
-
-                <div class="space-y-3">
+            <form onsubmit="handleChatLogin(event)" class="space-y-3">
+                <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Título de la Transmisión en Facebook *</label>
-                        <input type="text" id="fb-stream-title" value="Transmisión en Vivo - Emisora Escolar Frecuencia Migani" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                        <label class="block text-[11px] font-bold text-gray-700 mb-1">Nombres *</label>
+                        <input type="text" id="login-firstname" required placeholder="Ej: María" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none bg-white">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Destino de Publicación *</label>
-                        <select id="fb-stream-target" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold">
-                            <option value="page">Página Oficial: I.E. Marco Fidel Suárez</option>
-                            <option value="profile">Perfil Personal del Moderador</option>
-                        </select>
+                        <label class="block text-[11px] font-bold text-gray-700 mb-1">Apellidos *</label>
+                        <input type="text" id="login-lastname" required placeholder="Ej: Pérez" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none bg-white">
                     </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-700 mb-1">Grado o Rol Institucional *</label>
+                    <select id="login-grade" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none font-bold bg-white">
+                        <option value="6°">Grado 6°</option>
+                        <option value="7°">Grado 7°</option>
+                        <option value="8°">Grado 8°</option>
+                        <option value="9°">Grado 9°</option>
+                        <option value="10°">Grado 10°</option>
+                        <option value="11°">Grado 11°</option>
+                        <option value="Docente">Docente / Directivo</option>
+                        <option value="Acudiente">Acudiente / Comunidad</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-700 mb-1">Usuario de Chat *</label>
+                    <input type="text" id="login-username" required placeholder="Ej: maria_perez11" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-miganiGreen focus:outline-none bg-white">
                 </div>
 
                 <div class="pt-2 flex gap-2">
-                    <button type="button" onclick="closeFacebookLiveModal()" class="w-1/3 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl text-xs hover:bg-gray-300 transition">Cancelar</button>
-                    <button type="button" onclick="confirmFacebookLiveStart()" class="w-2/3 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-xs shadow-lg transition flex items-center justify-center gap-2">
-                        <i class="fab fa-facebook-f"></i> Iniciar en 1-Clic
-                    </button>
+                    <button type="button" onclick="closeChatLoginModal()" class="w-1/3 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl text-xs hover:bg-gray-300 transition">Cancelar</button>
+                    <button type="submit" class="w-2/3 py-3 bg-miganiGreen hover:bg-miganiGreenDark text-white font-black rounded-xl text-xs shadow-lg transition">Ingresar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CUSTOM PARA ALERTAS Y MENSAJES -->
+    <div id="app-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-gray-100 transform transition-all">
+            <div id="app-modal-icon" class="w-14 h-14 rounded-full flex items-center justify-center mx-auto text-2xl"></div>
+            <h3 id="app-modal-title" class="font-black text-xl text-gray-800"></h3>
+            <p id="app-modal-message" class="text-xs text-gray-600 leading-relaxed"></p>
+            <button onclick="closeAppModal()" class="w-full py-3 bg-miganiGreen text-white font-bold rounded-xl text-xs shadow hover:bg-miganiGreenDark transition">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- MODAL TRANSMITIR EN FACEBOOK LIVE -->
+    <div id="fb-live-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-gray-100 text-left">
+            <div class="text-center space-y-2">
+                <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-inner">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <h3 class="font-black text-xl text-gray-800">Transmitir en Facebook Live</h3>
+                <p class="text-xs text-gray-600">Sincroniza la cámara de tu dispositivo en simultáneo con tu perfil o página institucional de Facebook.</p>
+            </div>
+
+            <!-- Estado de la cuenta de Facebook -->
+            <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200 space-y-3">
+                <div class="flex items-center justify-between text-xs font-bold text-blue-900">
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-user-circle text-blue-600 text-lg"></i>
+                        <span id="fb-user-status">Conectado como: Emisora Frecuencia Migani</span>
+                    </span>
+                    <span class="bg-emerald-100 text-emerald-800 text-[10px] px-2 py-0.5 rounded-full">Activo</span>
+                </div>
+                <p class="text-[11px] text-blue-700">La señal de tu cámara se retransmitirá automáticamente sin configuraciones avanzadas.</p>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Título de la Transmisión en Facebook *</label>
+                    <input type="text" id="fb-stream-title" value="Transmisión en Vivo - Emisora Escolar Frecuencia Migani" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Destino de Publicación *</label>
+                    <select id="fb-stream-target" class="w-full text-xs p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none font-bold">
+                        <option value="page">Página Oficial: I.E. Marco Fidel Suárez</option>
+                        <option value="profile">Perfil Personal del Moderador</option>
+                    </select>
                 </div>
             </div>
+
+            <div class="pt-2 flex gap-2">
+                <button type="button" onclick="closeFacebookLiveModal()" class="w-1/3 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl text-xs hover:bg-gray-300 transition">Cancelar</button>
+                <button type="button" onclick="confirmFacebookLiveStart()" class="w-2/3 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-xl text-xs shadow-lg transition flex items-center justify-center gap-2">
+                    <i class="fab fa-facebook-f"></i> Iniciar en 1-Clic
+                </button>
+            </div>
         </div>
+    </div>
 
     <!-- PIE DE PÁGINA (FOOTER) -->
     <footer class="bg-gray-900 text-white pt-10 pb-6 border-t-8 border-miganiGreen relative z-20">
@@ -850,7 +895,7 @@
             <div class="space-y-3">
                 <div class="flex items-center gap-2">
                     <span class="text-2xl font-black tracking-tight">
-                        <span class="text-emerald-400">migani</span><span class="text-red-500">sate</span>
+                        <span class="text-emerald-400">FRECUENCIA</span> <span class="text-red-500">MIGANI</span>
                     </span>
                 </div>
                 <p class="text-xs text-gray-400 leading-relaxed">
