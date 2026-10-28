@@ -407,3 +407,474 @@
             <p>Bienvenidos a la plataforma comunicativa de la Institución Educativa Marco Fidel Suárez. Un espacio donde estudiantes y docentes difunden libremente cultura, eventos deportivos, la mejor música y periodismo juvenil verificado.</p>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <a href="#en-vivo" class="btn btn-primary">▶ Escuchar / Ver Transmisión En Vivo</a>
+                <a href="#noticias" class="btn btn-secondary">📻 Ver Novedades Recientes</a>
+            </div>
+        </div>
+
+        <div style="background: rgba(0, 0, 0, 0.25); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <div style="width: 70px; height: 70px; background-color: #ff5252; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white;">📡</div>
+            <p style="font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 5px;">SEÑAL DE STREAMING EN DIRECTO</p>
+            <h3 style="margin: 0 0 5px 0;">Informativo Miganista</h3>
+            <p style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 15px;">Conduce: Colectivo de Radio Grado 11°</p>
+            <a href="#en-vivo" class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 15px;">📡 Ir a Transmisión</a>
+        </div>
+    </section>
+
+    <!-- CONTENIDO GENERAL -->
+    <div class="container">
+
+        <!-- TRANSMISIÓN EN VIVO (CON YOUTUBE LIVE) -->
+        <section id="en-vivo" class="live-section">
+            <h2 style="color: #111; margin-bottom: 5px; font-size: 1.8rem;">📡 Transmisión En Vivo</h2>
+            <p style="color: #666; font-size: 0.95rem;">Sigue nuestra señal audiovisual en directo y participa con tu opinión.</p>
+            
+            <div class="live-layout">
+                <div>
+                    <div class="live-container">
+                        <iframe id="streamFrame" src="https://www.youtube.com/embed/hiw6-ZaxSmU?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="chat-box">
+                    <div class="chat-header">💬 Chat de la Comunidad (En Tiempo Real)</div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-msg">
+                            <div class="user">Sistema</div>
+                            <div>Conectando con Firestore...</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput" placeholder="Escribe tu opinión..." onkeypress="handleKeyPress(event)">
+                        <button onclick="sendMessage()">Enviar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PANEL ADMINISTRADOR -->
+            <div id="adminPanel" class="admin-panel">
+                <h3 style="margin-top: 0; color: #ffc107;">🔒 Panel de Control del Administrador</h3>
+                <h3 style="color: #ffc107; border-top: 1px solid #444; padding-top: 15px;">📥 Buzón de Reportes Recibidos (Pendientes de Aprobación)</h3>
+                <div id="adminPendingList">
+                    <p style="color: #aaa; font-style: italic;">Cargando reportes pendientes...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PODCASTS -->
+        <div id="podcast" style="margin-bottom: 50px;">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Podcasts de las Últimas Semanas</h2>
+                    <p style="color: #666; margin: 5px 0 0 0;">Episodios grabados y producidos por los colectivos radiales estudiantiles.</p>
+                </div>
+                <span style="background: white; border: 1px solid #ddd; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">📅 Actualización Semanal</span>
+            </div>
+
+            <div class="grid-cards">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="badge-tag">🎙️ PODCAST</span>
+                        <span style="font-size: 0.8rem; color: #666;">⏱️ 18 min</span>
+                    </div>
+                    <h3>Episodio 12: Músicas y Tradiciones de la Región</h3>
+                    <p style="font-size: 0.85rem; color: #555;">Por: Grado 11° Colectivo Radio • Hace 3 días</p>
+                    <p>Un recorrido sonoro por los ritmos tradicionales del departamento con entrevistas a cultores locales.</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                        <span style="font-size: 0.85rem; color: #2e7d32; font-weight: bold;">▶ Listo para escuchar</span>
+                        <a href="#podcast" class="btn" style="background-color: #2e7d32; color: white; padding: 8px 16px; font-size: 0.9rem;">Escuchar</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="badge-tag">🎙️ PODCAST</span>
+                        <span style="font-size: 0.8rem; color: #666;">⏱️ 22 min</span>
+                    </div>
+                    <h3>Episodio 11: Estrategias para el Rendimiento Académico</h3>
+                    <p style="font-size: 0.85rem; color: #555;">Por: Comité Estudiantil • Hace 2 semanas</p>
+                    <p>Recomendaciones de docentes y psicorientadores sobre técnicas de estudio y manejo del tiempo en época de exámenes.</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                        <span style="font-size: 0.85rem; color: #2e7d32; font-weight: bold;">▶ Listo para escuchar</span>
+                        <a href="#podcast" class="btn" style="background-color: #2e7d32; color: white; padding: 8px 16px; font-size: 0.9rem;">Escuchar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTICIAS -->
+        <div id="noticias" style="margin-bottom: 50px;">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Noticias del Último Mes</h2>
+                    <p style="color: #666; margin: 5px 0 0 0;">Información verificada del acontecer de nuestra comunidad educativa y reportes aprobados.</p>
+                </div>
+                <div>
+                    <span style="font-size: 0.85rem; font-weight: bold; color: #555; margin-right: 8px;">CATEGORÍA:</span>
+                    <select style="padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd; background: white;">
+                        <option>Todas las categorías</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-cards" id="approvedNewsContainer">
+                <!-- Se cargan dinámicamente desde Firestore -->
+            </div>
+        </div>
+
+        <!-- PONTE AL DÍA -->
+        <div id="ponte-al-dia" style="margin-bottom: 50px;">
+            <div class="ponteladia-banner">
+                <h2 style="margin: 0 0 10px 0; font-size: 2rem;">⚡ ¡Ponte al día en 3 minutos!</h2>
+                <p style="margin: 0; font-size: 1.05rem; opacity: 0.95;">Consolidado rápido de lo más nuevo en transmisiones en vivo, episodios de podcasts recientes y la noticia estelar del mes.</p>
+            </div>
+
+            <div class="grid-cards">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="badge-tag">LO ÚLTIMO EN PODCAST</span>
+                        <span style="font-size: 0.8rem; color: #666;">Reciente</span>
+                    </div>
+                    <h3>Episodio 12: Músicas y Tradiciones de la Región</h3>
+                    <p style="font-size: 0.85rem; color: #555;">Producido por: Grado 11° Colectivo Radio</p>
+                    <p>Un recorrido sonoro por los ritmos tradicionales del departamento con entrevistas a cultores locales.</p>
+                    <a href="#podcast" class="btn" style="background: #f4f4f4; color: #2e7d32; width: 100%; justify-content: center; margin-top: 15px;">Ver todos los podcasts</a>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="badge-news">NOTICIA DEL MES</span>
+                        <span style="font-size: 0.8rem; color: #666;">Destacado</span>
+                    </div>
+                    <h3>Gran Inauguración del Torneo Interclases 2026</h3>
+                    <p style="font-size: 0.85rem; color: #555;">Deportes • Destacado</p>
+                    <p>Con desfiles de todos los grados y comparsas culturales dio inicio el esperado campeonato.</p>
+                    <a href="#noticias" class="btn" style="background: #f4f4f4; color: #c62828; width: 100%; justify-content: center; margin-top: 15px;">Ver archivo de noticias</a>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="background: #e3f2fd; color: #1565c0; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;">EN VIVO</span>
+                        <span style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%; display: inline-block;"></span>
+                    </div>
+                    <h3>Streaming en Directo</h3>
+                    <p>Sintoniza nuestra transmisión oficial en directo y participa con tu usuario institucional.</p>
+                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #ddd; margin: 15px 0;">
+                        <span style="font-size: 0.75rem; color: #777; display: block; margin-bottom: 5px;">PROGRAMA AL AIRE</span>
+                        <strong style="color: #145a32;">"Informativo Miganista & Debate"</strong>
+                    </div>
+                    <a href="#en-vivo" class="btn" style="background: #145a32; color: white; width: 100%; justify-content: center;">Ir a la Transmisión en Vivo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFÓRMANOS -->
+        <div id="informanos">
+            <h2 class="section-title" style="margin-bottom: 10px;">📢 Infórmanos</h2>
+            <div class="card" style="margin-bottom: 40px;">
+                <h3>Buzón Ciudadano "Infórmanos"</h3>
+                <p>¿Tienes una noticia, evento o denuncia escolar? Completa tus datos y adjunta evidencia multimedia opcional (imágenes o videos). El administrador revisará tu reporte antes de publicarlo.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0; text-align: center;">
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                        <strong style="background: #2e7d32; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-block; line-height: 24px; margin-bottom: 5px;">1</strong>
+                        <h4 style="margin: 5px 0; font-size: 0.9rem;">Datos y Archivo</h4>
+                        <p style="font-size: 0.8rem; color: #666; margin: 0;">Ingresas tus datos y opcionalmente adjuntas imagen o video.</p>
+                    </div>
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                        <strong style="background: #f57c00; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-block; line-height: 24px; margin-bottom: 5px;">2</strong>
+                        <h4 style="margin: 5px 0; font-size: 0.9rem;">Verificación Editorial</h4>
+                        <p style="font-size: 0.8rem; color: #666; margin: 0;">El admin revisa la veracidad del hecho reportado.</p>
+                    </div>
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                        <strong style="background: #c62828; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-block; line-height: 24px; margin-bottom: 5px;">3</strong>
+                        <h4 style="margin: 5px 0; font-size: 0.9rem;">Publicación Oficial</h4>
+                        <p style="font-size: 0.8rem; color: #666; margin: 0;">Si es aprobado, aparece en la sección Noticias del Mes.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <h4 style="color: #145a32; border-bottom: 1px solid #eee; padding-bottom: 5px;">📋 DATOS DEL REMITENTE / INFORMANTE</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                        <div>
+                            <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">Nombre Completo *</label>
+                            <input type="text" id="reportAuthor" placeholder="Ej: Juan Camilo Pérez" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                        </div>
+                        <div>
+                            <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">Categoría *</label>
+                            <select id="reportCategory" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: white;">
+                                <option value="INSTITUCIONAL">Institucional</option>
+                                <option value="DEPORTES">Deportes</option>
+                                <option value="EVENTOS">Eventos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">Título del Reporte *</label>
+                        <input type="text" id="reportTitle" placeholder="Resumen claro del acontecimiento..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">Descripción Detallada del Hecho *</label>
+                        <textarea id="reportDesc" rows="4" placeholder="Detalla qué sucedió, cuándo, lugar y participantes..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;"></textarea>
+                    </div>
+                    
+                    <div style="margin-top: 15px;">
+                        <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">Evidencia Multimedia (Opcional - Imagen o Video)</label>
+                        <input type="file" id="reportFile" accept="image/*,video/*" style="width: 100%; padding: 10px; border: 1px dashed #ccc; border-radius: 6px; background: #fafafa;">
+                        <small style="color: #666; display: block; margin-top: 4px;">Puedes adjuntar una foto o un video corto (opcional).</small>
+                    </div>
+
+                    <button class="btn btn-primary" style="margin-top: 20px;" onclick="submitReport()">Enviar Reporte</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px; padding: 0;">
+            <div>
+                <h3 style="color: white; margin-bottom: 10px;">FRECUENCIA MIGANI</h3>
+                <p>Proyecto Productivo de Emisora Escolar de la Institución Educativa Marco Fidel Suárez. Promoviendo la libre expresión, periodismo verificado y participación comunitaria.</p>
+            </div>
+            <div>
+                <h3 style="color: white; margin-bottom: 10px;">SECCIONES RÁPIDAS</h3>
+                <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                    <li><a href="#inicio" style="color: #9ca3af; text-decoration: none;">Inicio</a></li>
+                    <li><a href="#en-vivo" style="color: #9ca3af; text-decoration: none;">Transmisión En Vivo</a></li>
+                    <li><a href="#podcast" style="color: #9ca3af; text-decoration: none;">Archivo de Podcasts</a></li>
+                    <li><a href="#noticias" style="color: #9ca3af; text-decoration: none;">Noticias del Mes</a></li>
+                    <li><a href="#informanos" style="color: #9ca3af; text-decoration: none;">Buzón "Infórmanos"</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="color: white; margin-bottom: 10px;">PANEL DE CONTROL ESCOLAR</h3>
+                <p style="font-size: 0.85rem;">Acceso administrativo para verificación y moderación.</p>
+                <a href="#admin" class="btn btn-secondary" style="font-size: 0.85rem; padding: 8px 15px; margin-top: 10px;" onclick="toggleAdmin(event)">🔒 Entrar a Modo Administrador</a>
+            </div>
+        </div>
+        <div style="text-align: center; border-top: 1px solid #374151; padding-top: 20px;">
+            <p>© 2026 Frecuencia Migani - Todos los derechos reservados. Institución Educativa Marco Fidel Suárez</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE FIREBASE Y GESTIÓN EN TIEMPO REAL -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Tus credenciales de Firebase configuradas
+        const firebaseConfig = {
+            apiKey: "AIzaSyBJ3BP_TgH6m7QxHaPrx1yq2jn-MY9NX1Y",
+            authDomain: "frecuencia-migani-5f1b4.firebaseapp.com",
+            projectId: "frecuencia-migani-5f1b4",
+            storageBucket: "frecuencia-migani-5f1b4.firebasestorage.app",
+            messagingSenderId: "1073678167639",
+            appId: "1:1073678167639:web:51f230b0370ec0f2307d12",
+            measurementId: "G-J084L5KQ7K"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- 1. CHAT EN TIEMPO REAL ---
+        window.sendMessage = async function() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (text !== "") {
+                try {
+                    await addDoc(collection(db, "chatMessages"), {
+                        user: "Estudiante / Oyente",
+                        text: text,
+                        timestamp: new Date()
+                    });
+                    input.value = "";
+                } catch (error) {
+                    console.error("Error al enviar mensaje:", error);
+                }
+            }
+        };
+
+        window.handleKeyPress = function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        };
+
+        // Escuchar mensajes del chat en tiempo real
+        const qChat = query(collection(db, "chatMessages"), orderBy("timestamp", "asc"));
+        onSnapshot(qChat, (snapshot) => {
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.innerHTML = "";
+            snapshot.forEach((docSnap) => {
+                const msg = docSnap.data();
+                messagesContainer.innerHTML += `
+                    <div class="chat-msg">
+                        <div class="user">${msg.user}</div>
+                        <div>${msg.text}</div>
+                    </div>
+                `;
+            });
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        });
+
+        // --- 2. BUZÓN Y REPORTES EN TIEMPO REAL ---
+        window.submitReport = function() {
+            const author = document.getElementById('reportAuthor').value.trim();
+            const category = document.getElementById('reportCategory').value;
+            const title = document.getElementById('reportTitle').value.trim();
+            const desc = document.getElementById('reportDesc').value.trim();
+            const fileInput = document.getElementById('reportFile');
+
+            if (!author || !title || !desc) {
+                alert("Por favor completa los campos obligatorios (*).");
+                return;
+            }
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    saveReportToFirestore(author, category, title, desc, e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                saveReportToFirestore(author, category, title, desc, "");
+            }
+        };
+
+        async function saveReportToFirestore(author, category, title, desc, mediaUrl) {
+            try {
+                await addDoc(collection(db, "pendingReports"), {
+                    author, category, title, desc, mediaUrl,
+                    timestamp: new Date()
+                });
+                alert("¡Reporte enviado con éxito! El administrador lo revisará para su publicación.");
+                document.getElementById('reportAuthor').value = '';
+                document.getElementById('reportTitle').value = '';
+                document.getElementById('reportDesc').value = '';
+                document.getElementById('reportFile').value = '';
+            } catch (error) {
+                console.error("Error al enviar reporte:", error);
+            }
+        }
+
+        // Escuchar reportes pendientes en tiempo real para el panel de Admin
+        const qPending = query(collection(db, "pendingReports"), orderBy("timestamp", "desc"));
+        onSnapshot(qPending, (snapshot) => {
+            const container = document.getElementById('adminPendingList');
+            if (snapshot.empty) {
+                container.innerHTML = '<p style="color: #aaa; font-style: italic;">No hay reportes nuevos pendientes.</p>';
+                return;
+            }
+            container.innerHTML = "";
+            snapshot.forEach((docSnap) => {
+                const rep = docSnap.data();
+                const id = docSnap.id;
+                let mediaHtml = rep.mediaUrl ? `<br><small style="color:#00ffff;">📎 Contiene archivo adjunto</small>` : '';
+                
+                container.innerHTML += `
+                    <div class="admin-report-card">
+                        <span style="background:#c62828; color:white; padding:2px 8px; font-size:0.7rem; border-radius:4px;">${rep.category}</span>
+                        <h4 style="margin:5px 0; color:white;">${rep.title}</h4>
+                        <p style="font-size:0.85rem; color:#ccc; margin:5px 0;">Por: ${rep.author}</p>
+                        <p style="font-size:0.9rem; color:#fff; margin:5px 0;">${rep.desc}</p>
+                        ${mediaHtml}
+                        <div style="margin-top:10px; display:flex; gap:10px;" id="actions-${id}">
+                            <button class="btn" style="background:#2e7d32; color:white; padding:5px 12px; font-size:0.8rem;" id="btn-app-${id}">✔ Aprobar</button>
+                            <button class="btn" style="background:#c62828; color:white; padding:5px 12px; font-size:0.8rem;" id="btn-rej-${id}">✖ Rechazar</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            snapshot.forEach((docSnap) => {
+                const rep = docSnap.data();
+                const id = docSnap.id;
+                const btnApp = document.getElementById(`btn-app-${id}`);
+                const btnRej = document.getElementById(`btn-rej-${id}`);
+
+                if(btnApp) {
+                    btnApp.onclick = async () => {
+                        await addDoc(collection(db, "approvedNews"), {
+                            author: rep.author, category: rep.category, title: rep.title, desc: rep.desc, mediaUrl: rep.mediaUrl || "", timestamp: new Date()
+                        });
+                        await deleteDoc(doc(db, "pendingReports", id));
+                        alert("¡Reporte aprobado y publicado!");
+                    };
+                }
+                if(btnRej) {
+                    btnRej.onclick = async () => {
+                        await deleteDoc(doc(db, "pendingReports", id));
+                        alert("Reporte rechazado.");
+                    };
+                }
+            });
+        });
+
+        // Escuchar Noticias Aprobadas en tiempo real
+        const qApproved = query(collection(db, "approvedNews"), orderBy("timestamp", "desc"));
+        onSnapshot(qApproved, (snapshot) => {
+            const container = document.getElementById('approvedNewsContainer');
+            let dynamicHtml = "";
+            
+            snapshot.forEach((docSnap) => {
+                const rep = docSnap.data();
+                let mediaView = "";
+                if (rep.mediaUrl) {
+                    if (rep.mediaUrl.startsWith("data:video")) {
+                        mediaView = `<video controls style="width:100%; border-radius:8px; margin-top:10px; max-height:200px;"><source src="${rep.mediaUrl}"></video>`;
+                    } else {
+                        mediaView = `<img src="${rep.mediaUrl}" style="width:100%; border-radius:8px; margin-top:10px; max-height:200px; object-fit:cover;">`;
+                    }
+                }
+
+                dynamicHtml += `
+                    <div class="card" style="border-left: 4px solid #2e7d32;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span class="badge-news">${rep.category}</span>
+                            <span style="font-size: 0.8rem; color: #666;">Por: ${rep.author}</span>
+                        </div>
+                        <h3>${rep.title}</h3>
+                        <p>${rep.desc}</p>
+                        ${mediaView}
+                    </div>
+                `;
+            });
+
+            let defaultNewsHtml = `
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span class="badge-news">DEPORTES</span>
+                        <span style="font-size: 0.8rem; color: #666;">Hace 2 días</span>
+                    </div>
+                    <h3>Gran Inauguración del Torneo Interclases 2026</h3>
+                    <p>Con desfiles de todos los grados y comparsas culturales dio inicio el esperado campeonato deportivo institucional.</p>
+                </div>
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="background: #ffebee; color: #c62828; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;">INSTITUCIONAL</span>
+                        <span style="font-size: 0.8rem; color: #666;">Hace 1 semana</span>
+                    </div>
+                    <h3>Frecuencia Migani renueva sus micrófonos de emisión</h3>
+                    <p>Gracias al apoyo del proyecto productivo se adquirieron nuevos equipos para mejorar la calidad de audio radial.</p>
+                </div>
+            `;
+
+            container.innerHTML = dynamicHtml + defaultNewsHtml;
+        });
+
+        // Función de Admin
+        window.toggleAdmin = function(event) {
+            event.preventDefault();
+            const panel = document.getElementById('adminPanel');
+            let password = prompt("Ingresa la contraseña de Administrador:");
+            if (password === "MIGANI2026") {
+                panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+                panel.scrollIntoView({ behavior: 'smooth' });
+            } else if (password !== null) {
+                alert("Contraseña incorrecta.");
+            }
+        };
+    </script>
+</body>
+</html>
