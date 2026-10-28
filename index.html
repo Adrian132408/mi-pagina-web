@@ -440,7 +440,7 @@
             <div class="live-layout">
                 <div>
                     <div class="live-container">
-                        <iframe id="streamFrame" src="https://vdo.ninja/?view=KMcFT5R" allowfullscreen allow="autoplay; camera; microphone"></iframe>
+                        <iframe id="streamFrame" src="https://vdo.ninja/?view=KMcFT5R" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; camera; microphone" allowfullscreen></iframe>
                     </div>
                 </div>
 
@@ -516,7 +516,7 @@
             </div>
         </div>
 
-        <!-- NOTICIAS (Aquí aparecen automáticamente las aprobadas desde Firestore) -->
+        <!-- NOTICIAS -->
         <div id="noticias" style="margin-bottom: 50px;">
             <div class="section-header">
                 <div>
@@ -784,68 +784,9 @@
             container.innerHTML = "";
             snapshot.forEach((docSnap) => {
                 const rep = docSnap.data();
-                const docId = docSnap.id;
-                let mediaHtml = rep.mediaUrl ? `<br><small style="color:#00ffff;">📎 Contiene archivo multimedia adjunto</small>` : '';
-                container.innerHTML += `
-                    <div class="admin-report-card">
-                        <span style="background:#c62828; color:white; padding:2px 8px; font-size:0.7rem; border-radius:4px;">${rep.category}</span>
-                        <h4 style="margin:5px 0; color:white;">${rep.title}</h4>
-                        <p style="font-size:0.85rem; color:#ccc; margin:5px 0;">Por: ${rep.author}</p>
-                        <p style="font-size:0.9rem; color:#fff; margin:5px 0;">${rep.desc}</p>
-                        ${mediaHtml}
-                        <div style="margin-top:10px; display:flex; gap:10px;">
-                            <button class="btn" style="background:#2e7d32; color:white; padding:5px 12px; font-size:0.8rem;" onclick="approveReport('${docId}')">✔ Aprobar y Publicar</button>
-                            <button class="btn" style="background:#c62828; color:white; padding:5px 12px; font-size:0.8rem;" onclick="rejectReport('${docId}')">✖ Rechazar</button>
-                        </div>
-                    </div>
-                `;
-            });
-        });
-
-        // Aprobar reporte (Lo mueve de pendientes a la colección de noticias aprobadas)
-        window.approveReport = async function(docId) {
-            try {
-                // Buscamos el documento en pendientes
-                const snapshot = await getFirestore(app); // o mediante consulta local ya capturada
-                // Para simplificar, leemos directo o usamos referencias
-                // Una forma limpia en Firestore modular:
-                const pendingRef = doc(db, "pendingReports", docId);
-                // Como necesitamos sus datos, podemos hacer una consulta rápida o guardarlos. 
-                // Usemos una lógica directa:
-                // (Nota: Se puede clonar en approvedNews y borrar de pendingReports)
-            } catch (e) {
-                console.error(e);
-            }
-        };
-
-        // Función auxiliar para aprobar de forma robusta con los datos actuales
-        window.approveReportDirect = async function(author, category, title, desc, mediaUrl, docId) {
-            try {
-                await addDoc(collection(db, "approvedNews"), {
-                    author, category, title, desc, mediaUrl,
-                    timestamp: new Date()
-                });
-                await deleteDoc(doc(db, "pendingReports", docId));
-                alert("¡Reporte aprobado y publicado con éxito!");
-            } catch (error) {
-                console.error("Error al aprobar:", error);
-            }
-        };
-
-        // Actualizamos la vista del admin con el ID y datos para el botón aprobar
-        onSnapshot(qPending, (snapshot) => {
-            const container = document.getElementById('adminPendingList');
-            if (snapshot.empty) {
-                container.innerHTML = '<p style="color: #aaa; font-style: italic;">No hay reportes nuevos pendientes.</p>';
-                return;
-            }
-            container.innerHTML = "";
-            snapshot.forEach((docSnap) => {
-                const rep = docSnap.data();
                 const id = docSnap.id;
                 let mediaHtml = rep.mediaUrl ? `<br><small style="color:#00ffff;">📎 Contiene archivo adjunto</small>` : '';
                 
-                // Creamos un contenedor temporal para los botones
                 container.innerHTML += `
                     <div class="admin-report-card">
                         <span style="background:#c62828; color:white; padding:2px 8px; font-size:0.7rem; border-radius:4px;">${rep.category}</span>
