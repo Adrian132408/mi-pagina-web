@@ -32,6 +32,30 @@
             gap: 15px;
         }
 
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Botón Hamburguesa */
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 0 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .hamburger-btn:hover {
+            transform: scale(1.1);
+        }
+
         .brand-box {
             display: flex;
             align-items: center;
@@ -64,34 +88,63 @@
             text-transform: uppercase;
         }
 
+        /* Menú de Navegación Desplegable / Lateral */
         nav {
+            display: none; /* Oculto por defecto, se despliega */
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #b71c1c;
+            flex-direction: column;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            padding: 10px 0;
+            z-index: 1001;
+        }
+
+        nav.active {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            align-items: center;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            padding: 8px 14px;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            padding: 12px 20px;
+            font-size: 1rem;
             font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 5px;
-            background-color: rgba(0, 0, 0, 0.1);
+            gap: 10px;
+            background-color: transparent;
             transition: background 0.2s;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.15);
         }
 
         nav a.highlight {
             background-color: #ffc107;
             color: #111;
+        }
+
+        /* Adaptación para pantallas grandes si se desea mantener elegante */
+        @media (min-width: 992px) {
+            nav {
+                position: static;
+                display: flex;
+                flex-direction: row;
+                width: auto;
+                background-color: transparent;
+                box-shadow: none;
+                padding: 0;
+                gap: 8px;
+            }
+
+            .hamburger-btn {
+                display: none; /* Ocultar hamburguesa en escritorio grande si prefieres acceso directo, o dejarla si se prefiere siempre colapsado. Aquí se muestra desplegable limpio */
+            }
         }
 
         .hero {
@@ -247,12 +300,18 @@
 
         .chat-input-area {
             display: flex;
+            flex-direction: column;
             padding: 10px;
             background: #fff;
             border-top: 1px solid #ddd;
-            gap: 5px;
+            gap: 8px;
             border-bottom-left-radius: 7px;
             border-bottom-right-radius: 7px;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 5px;
         }
 
         .chat-input-area input {
@@ -379,22 +438,27 @@
     <!-- ENCABEZADO -->
     <header>
         <div class="header-container">
-            <div class="brand-box">
-                <img src="https://i.imgur.com/5nVop4q.jpeg" alt="Logo Frecuencia Migani" class="brand-logo">
-                <div class="brand-text">
-                    <h1>FRECUENCIA MIGANI</h1>
-                    <p>EMISORA ESCOLAR MIGANI</p>
+            <div class="header-left">
+                <!-- Botón Menú Hamburguesa -->
+                <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu(event)">☰</button>
+                
+                <div class="brand-box">
+                    <img src="https://i.imgur.com/5nVop4q.jpeg" alt="Logo Frecuencia Migani" class="brand-logo">
+                    <div class="brand-text">
+                        <h1>FRECUENCIA MIGANI</h1>
+                        <p>EMISORA ESCOLAR MIGANI</p>
+                    </div>
                 </div>
             </div>
 
-            <nav>
-                <a href="#inicio">🏠 Inicio</a>
-                <a href="#en-vivo">📡 En vivo</a>
-                <a href="#podcast">🎧 Podcast</a>
-                <a href="#noticias">📰 Noticias</a>
-                <a href="#ponte-al-dia" class="highlight">⚡ ¡Ponte al día!</a>
-                <a href="#informanos">📢 Infórmanos</a>
-                <a href="#admin" onclick="toggleAdmin(event)">👤 Modo Admin</a>
+            <nav id="mainNav">
+                <a href="#inicio" onclick="closeMenu()">🏠 Inicio</a>
+                <a href="#en-vivo" onclick="closeMenu()">📡 En vivo</a>
+                <a href="#podcast" onclick="closeMenu()">🎧 Podcast</a>
+                <a href="#noticias" onclick="closeMenu()">📰 Noticias</a>
+                <a href="#ponte-al-dia" class="highlight" onclick="closeMenu()">⚡ ¡Ponte al día!</a>
+                <a href="#informanos" onclick="closeMenu()">📢 Infórmanos</a>
+                <a href="#admin" onclick="toggleAdmin(event); closeMenu();">👤 Modo Admin</a>
             </nav>
         </div>
     </header>
@@ -404,7 +468,7 @@
         <div class="hero-content">
             <span class="hero-badge">📌 PROYECTO PRODUCTIVO ESCOLAR</span>
             <h2>Frecuencia Migani: La Voz Escolar en Vivo</h2>
-            <p>Bienvenidos a la plataforma comunicativa de la Institución Educativa Marco Fidel Suárez. Un espacio donde estudiantes y docentes difunden libremente cultura, eventos deportivos, la mejor música y periodismo juvenil verificado.</p>
+            <p>Bienvenidos a la plataforma comunicativa de la Institución Educativa Juan Bautista Migani. Un espacio donde estudiantes y docentes difunden libremente cultura, eventos deportivos, la mejor música y periodismo juvenil verificado.</p>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <a href="#en-vivo" class="btn btn-primary">▶ Escuchar / Ver Transmisión En Vivo</a>
                 <a href="#noticias" class="btn btn-secondary">📻 Ver Novedades Recientes</a>
@@ -444,8 +508,11 @@
                         </div>
                     </div>
                     <div class="chat-input-area">
-                        <input type="text" id="chatInput" placeholder="Escribe tu opinión..." onkeypress="handleKeyPress(event)">
-                        <button onclick="sendMessage()">Enviar</button>
+                        <input type="text" id="chatNickname" placeholder="Escribe tu apodo aquí..." style="margin-bottom: 2px;">
+                        <div class="chat-input-row">
+                            <input type="text" id="chatInput" placeholder="Escribe tu opinión..." onkeypress="handleKeyPress(event)">
+                            <button onclick="sendMessage()">Enviar</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -635,7 +702,7 @@
         <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px; padding: 0;">
             <div>
                 <h3 style="color: white; margin-bottom: 10px;">FRECUENCIA MIGANI</h3>
-                <p>Proyecto Productivo de Emisora Escolar de la Institución Educativa Marco Fidel Suárez. Promoviendo la libre expresión, periodismo verificado y participación comunitaria.</p>
+                <p>Proyecto Productivo de Emisora Escolar de la Institución Educativa Juan Bautista Migani. Promoviendo la libre expresión, periodismo verificado y participación comunitaria.</p>
             </div>
             <div>
                 <h3 style="color: white; margin-bottom: 10px;">SECCIONES RÁPIDAS</h3>
@@ -654,9 +721,34 @@
             </div>
         </div>
         <div style="text-align: center; border-top: 1px solid #374151; padding-top: 20px;">
-            <p>© 2026 Frecuencia Migani - Todos los derechos reservados. Institución Educativa Marco Fidel Suárez</p>
+            <p>© 2026 Frecuencia Migani - Todos los derechos reservados. Institución Educativa Juan Bautista Migani</p>
         </div>
     </footer>
+
+    <!-- SCRIPT DE INTERACCIÓN DEL MENÚ Y FIREBASE -->
+    <script>
+        // Función para abrir/cerrar el menú hamburguesa
+        function toggleMenu(event) {
+            event.stopPropagation();
+            const nav = document.getElementById('mainNav');
+            nav.classList.toggle('active');
+        }
+
+        // Función para cerrar el menú automáticamente al hacer clic en una opción
+        function closeMenu() {
+            const nav = document.getElementById('mainNav');
+            nav.classList.remove('active');
+        }
+
+        // Cerrar el menú si se hace clic fuera de él
+        window.addEventListener('click', function(e) {
+            const nav = document.getElementById('mainNav');
+            const hamburger = document.getElementById('hamburgerBtn');
+            if (nav.classList.contains('active') && !nav.contains(e.target) && e.target !== hamburger) {
+                nav.classList.remove('active');
+            }
+        });
+    </script>
 
     <!-- SCRIPT DE FIREBASE Y GESTIÓN EN TIEMPO REAL -->
     <script type="module">
@@ -678,12 +770,22 @@
 
         // --- 1. CHAT EN TIEMPO REAL ---
         window.sendMessage = async function() {
+            const nickInput = document.getElementById('chatNickname');
             const input = document.getElementById('chatInput');
+            
+            const nickname = nickInput.value.trim();
             const text = input.value.trim();
+
+            if (nickname === "") {
+                alert("Por favor escribe un apodo antes de enviar mensajes al chat.");
+                nickInput.focus();
+                return;
+            }
+
             if (text !== "") {
                 try {
                     await addDoc(collection(db, "chatMessages"), {
-                        user: "Estudiante / Oyente",
+                        user: nickname,
                         text: text,
                         timestamp: new Date()
                     });
