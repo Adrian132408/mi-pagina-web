@@ -484,7 +484,6 @@
             <nav id="mainNav">
                 <a href="#inicio" onclick="closeMenu()">🏠 Inicio</a>
                 <a href="#en-vivo" onclick="closeMenu()">📡 En vivo</a>
-                <a href="#podcast" onclick="closeMenu()">🎧 Podcast</a>
                 <a href="#noticias" onclick="closeMenu()">📰 Noticias</a>
                 <a href="#ponte-al-dia" class="highlight" onclick="closeMenu()">⚡ ¡Ponte al día!</a>
                 <a href="#informanos" onclick="closeMenu()">📢 Infórmanos</a>
@@ -560,47 +559,6 @@
             </div>
         </section>
 
-        <!-- PODCASTS -->
-        <div id="podcast" style="margin-bottom: 50px;">
-            <div class="section-header">
-                <div>
-                    <h2 class="section-title">Podcasts de las Últimas Semanas</h2>
-                    <p style="color: #666; margin: 5px 0 0 0;">Episodios grabados y producidos por los colectivos radiales estudiantiles.</p>
-                </div>
-                <span style="background: white; border: 1px solid #ddd; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">📅 Actualización Semanal</span>
-            </div>
-
-            <div class="grid-cards">
-                <div class="card">
-                    <div style="display: flex; justify-content: space-between;">
-                        <span class="badge-tag">🎙️ PODCAST</span>
-                        <span style="font-size: 0.8rem; color: #666;">⏱️ 18 min</span>
-                    </div>
-                    <h3>Episodio 12: Músicas y Tradiciones de la Región</h3>
-                    <p style="font-size: 0.85rem; color: #555;">Por: Grado 11° Colectivo Radio • Hace 3 días</p>
-                    <p>Un recorrido sonoro por los ritmos tradicionales del departamento con entrevistas a cultores locales.</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                        <span style="font-size: 0.85rem; color: #2e7d32; font-weight: bold;">▶ Listo para escuchar</span>
-                        <a href="#podcast" class="btn" style="background-color: #2e7d32; color: white; padding: 8px 16px; font-size: 0.9rem;">Escuchar</a>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div style="display: flex; justify-content: space-between;">
-                        <span class="badge-tag">🎙️ PODCAST</span>
-                        <span style="font-size: 0.8rem; color: #666;">⏱️ 22 min</span>
-                    </div>
-                    <h3>Episodio 11: Estrategias para el Rendimiento Académico</h3>
-                    <p style="font-size: 0.85rem; color: #555;">Por: Comité Estudiantil • Hace 2 semanas</p>
-                    <p>Recomendaciones de docentes y psicorientadores sobre técnicas de estudio y manejo del tiempo en época de exámenes.</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-                        <span style="font-size: 0.85rem; color: #2e7d32; font-weight: bold;">▶ Listo para escuchar</span>
-                        <a href="#podcast" class="btn" style="background-color: #2e7d32; color: white; padding: 8px 16px; font-size: 0.9rem;">Escuchar</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- NOTICIAS -->
         <div id="noticias" style="margin-bottom: 50px;">
             <div class="section-header">
@@ -625,21 +583,10 @@
         <div id="ponte-al-dia" style="margin-bottom: 50px;">
             <div class="ponteladia-banner">
                 <h2 style="margin: 0 0 10px 0; font-size: 2rem;">⚡ ¡Ponte al día en 3 minutos!</h2>
-                <p style="margin: 0; font-size: 1.05rem; opacity: 0.95;">Consolidado rápido de lo más nuevo en transmisiones en vivo, episodios de podcasts recientes y la noticia estelar del mes.</p>
+                <p style="margin: 0; font-size: 1.05rem; opacity: 0.95;">Consolidado rápido de lo más nuevo en transmisiones en vivo y la noticia estelar del mes.</p>
             </div>
 
             <div class="grid-cards">
-                <div class="card">
-                    <div style="display: flex; justify-content: space-between;">
-                        <span class="badge-tag">LO ÚLTIMO EN PODCAST</span>
-                        <span style="font-size: 0.8rem; color: #666;">Reciente</span>
-                    </div>
-                    <h3>Episodio 12: Músicas y Tradiciones de la Región</h3>
-                    <p style="font-size: 0.85rem; color: #555;">Producido por: Grado 11° Colectivo Radio</p>
-                    <p>Un recorrido sonoro por los ritmos tradicionales del departamento con entrevistas a cultores locales.</p>
-                    <a href="#podcast" class="btn" style="background: #f4f4f4; color: #2e7d32; width: 100%; justify-content: center; margin-top: 15px;">Ver todos los podcasts</a>
-                </div>
-
                 <div class="card">
                     <div style="display: flex; justify-content: space-between;">
                         <span class="badge-news">NOTICIA DEL MES</span>
@@ -742,7 +689,6 @@
                 <ul style="list-style: none; padding: 0; line-height: 1.8;">
                     <li><a href="#inicio" style="color: #9ca3af; text-decoration: none;">Inicio</a></li>
                     <li><a href="#en-vivo" style="color: #9ca3af; text-decoration: none;">Transmisión En Vivo</a></li>
-                    <li><a href="#podcast" style="color: #9ca3af; text-decoration: none;">Archivo de Podcasts</a></li>
                     <li><a href="#noticias" style="color: #9ca3af; text-decoration: none;">Noticias del Mes</a></li>
                     <li><a href="#informanos" style="color: #9ca3af; text-decoration: none;">Buzón "Infórmanos"</a></li>
                 </ul>
@@ -792,15 +738,15 @@
             }
         });
 
-        // Control de Admin con memoria en sesión (solo se pide contraseña 1 vez)
         window.toggleAdmin = function(event) {
             event.preventDefault();
             const panel = document.getElementById('adminPanel');
             
-            // Comprobar si ya se autenticó previamente en esta pestaña
             if (sessionStorage.getItem('isAdminAuthenticated') === 'true') {
                 panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
                 panel.scrollIntoView({ behavior: 'smooth' });
+                // Forzar recarga o actualización visual de las noticias para mostrar/ocultar botones de borrar
+                location.reload(); 
                 return;
             }
 
@@ -809,15 +755,17 @@
                 sessionStorage.setItem('isAdminAuthenticated', 'true');
                 panel.style.display = 'block';
                 panel.scrollIntoView({ behavior: 'smooth' });
+                location.reload();
             } else if (password !== null) {
                 alert("Contraseña incorrecta.");
             }
         };
 
-        // Función para cerrar el panel de administrador
         window.closeAdminPanel = function() {
             const panel = document.getElementById('adminPanel');
             panel.style.display = 'none';
+            sessionStorage.removeItem('isAdminAuthenticated');
+            location.reload();
         };
     </script>
 
@@ -981,13 +929,17 @@
             });
         });
 
+        // Escuchar Noticias Aprobadas y mostrar el botón de eliminar si está logueado como Admin
         const qApproved = query(collection(db, "approvedNews"), orderBy("timestamp", "desc"));
         onSnapshot(qApproved, (snapshot) => {
             const container = document.getElementById('approvedNewsContainer');
             let dynamicHtml = "";
             
+            const isAdmin = sessionStorage.getItem('isAdminAuthenticated') === 'true';
+
             snapshot.forEach((docSnap) => {
                 const rep = docSnap.data();
+                const id = docSnap.id;
                 let mediaView = "";
                 if (rep.mediaUrl) {
                     if (rep.mediaUrl.startsWith("data:video")) {
@@ -996,6 +948,8 @@
                         mediaView = `<img src="${rep.mediaUrl}" style="width:100%; border-radius:8px; margin-top:10px; max-height:200px; object-fit:cover;">`;
                     }
                 }
+
+                let deleteBtnHtml = isAdmin ? `<button class="btn" style="background:#c62828; color:white; padding:6px 12px; font-size:0.8rem; margin-top:15px; width:100%; justify-content:center;" onclick="deleteNews('${id}')">🗑️ Eliminar Noticia</button>` : '';
 
                 dynamicHtml += `
                     <div class="card" style="border-left: 4px solid #2e7d32;">
@@ -1006,31 +960,25 @@
                         <h3>${rep.title}</h3>
                         <p>${rep.desc}</p>
                         ${mediaView}
+                        ${deleteBtnHtml}
                     </div>
                 `;
             });
 
-            let defaultNewsHtml = `
-                <div class="card">
-                    <div style="display: flex; justify-content: space-between;">
-                        <span class="badge-news">DEPORTES</span>
-                        <span style="font-size: 0.8rem; color: #666;">Hace 2 días</span>
-                    </div>
-                    <h3>Gran Inauguración del Torneo Interclases 2026</h3>
-                    <p>Con desfiles de todos los grados y comparsas culturales dio inicio el esperado campeonato deportivo institucional.</p>
-                </div>
-                <div class="card">
-                    <div style="display: flex; justify-content: space-between;">
-                        <span style="background: #ffebee; color: #c62828; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;">INSTITUCIONAL</span>
-                        <span style="font-size: 0.8rem; color: #666;">Hace 1 semana</span>
-                    </div>
-                    <h3>Frecuencia Migani renueva sus micrófonos de emisión</h3>
-                    <p>Gracias al apoyo del proyecto productivo se adquirieron nuevos equipos para mejorar la calidad de audio radial.</p>
-                </div>
-            `;
-
-            container.innerHTML = dynamicHtml + defaultNewsHtml;
+            container.innerHTML = dynamicHtml || '<p style="color: #666; font-style: italic;">No hay noticias publicadas en este momento.</p>';
         });
+
+        // Función global para eliminar la noticia directamente de Firebase Firestore
+        window.deleteNews = async function(newsId) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta noticia?")) {
+                try {
+                    await deleteDoc(doc(db, "approvedNews", newsId));
+                    alert("Noticia eliminada correctamente.");
+                } catch (error) {
+                    console.error("Error al eliminar la noticia:", error);
+                }
+            }
+        };
     </script>
 </body>
 </html>
