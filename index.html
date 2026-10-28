@@ -717,7 +717,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT DE INTERACCIÓN DEL MENÚ Y ADMIN -->
+    <!-- SCRIPT DE INTERACCIÓN GENERAL DEL MENÚ -->
     <script>
         function toggleMenu(event) {
             event.stopPropagation();
@@ -737,39 +737,9 @@
                 nav.classList.remove('active');
             }
         });
-
-        window.toggleAdmin = function(event) {
-            event.preventDefault();
-            const panel = document.getElementById('adminPanel');
-            
-            if (sessionStorage.getItem('isAdminAuthenticated') === 'true') {
-                panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-                panel.scrollIntoView({ behavior: 'smooth' });
-                // Forzar recarga o actualización visual de las noticias para mostrar/ocultar botones de borrar
-                location.reload(); 
-                return;
-            }
-
-            let password = prompt("Ingresa la contraseña de Administrador:");
-            if (password === "MIGANI2026") {
-                sessionStorage.setItem('isAdminAuthenticated', 'true');
-                panel.style.display = 'block';
-                panel.scrollIntoView({ behavior: 'smooth' });
-                location.reload();
-            } else if (password !== null) {
-                alert("Contraseña incorrecta.");
-            }
-        };
-
-        window.closeAdminPanel = function() {
-            const panel = document.getElementById('adminPanel');
-            panel.style.display = 'none';
-            sessionStorage.removeItem('isAdminAuthenticated');
-            location.reload();
-        };
     </script>
 
-    <!-- SCRIPT DE FIREBASE Y GESTIÓN EN TIEMPO REAL -->
+    <!-- SCRIPT DE FIREBASE Y FUNCIONES DE ADMINISTRADOR UNIFICADAS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -786,6 +756,37 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+
+        // --- GESTIÓN DE ACCESO ADMIN ---
+        window.toggleAdmin = function(event) {
+            event.preventDefault();
+            const panel = document.getElementById('adminPanel');
+            
+            if (sessionStorage.getItem('isAdminAuthenticated') === 'true') {
+                const isVisible = panel.style.display === 'block';
+                panel.style.display = isVisible ? 'none' : 'block';
+                if (!isVisible) panel.scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+
+            let password = prompt("Ingresa la contraseña de Administrador:");
+            if (password === "MIGANI2026") {
+                sessionStorage.setItem('isAdminAuthenticated', 'true');
+                panel.style.display = 'block';
+                panel.scrollIntoView({ behavior: 'smooth' });
+                // Forzar actualización de las noticias para renderizar los botones de borrar
+                actualizarVistaNoticias();
+            } else if (password !== null) {
+                alert("Contraseña incorrecta.");
+            }
+        };
+
+        window.closeAdminPanel = function() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = 'none';
+            sessionStorage.removeItem('isAdminAuthenticated');
+            actualizarVistaNoticias();
+        };
 
         // --- 1. CHAT EN TIEMPO REAL ---
         window.sendMessage = async function() {
@@ -929,17 +930,19 @@
             });
         });
 
-        // Escuchar Noticias Aprobadas y mostrar el botón de eliminar si está logueado como Admin
-        const qApproved = query(collection(db, "approvedNews"), orderBy("timestamp", "desc"));
-        onSnapshot(qApproved, (snapshot) => {
-            const container = document.getElementById('approvedNewsContainer');
-            let dynamicHtml = "";
-            
-            const isAdmin = sessionStorage.getItem('isAdminAuthenticated') === 'true';
+        // --- 3. NOTICIAS APROBADAS Y ELIMINACIÓN ---
+        let cacheNoticias = [];
 
-            snapshot.forEach((docSnap) => {
-                const rep = docSnap.data();
-                const id = docSnap.id;
+        function actualizarVistaNoticias() {
+            const container = document.getElementById('approvedNewsContainer');
+            if (!container) return;
+
+            const isAdmin = sessionStorage.getItem('isAdminAuthenticated') === 'true';
+            let dynamicHtml = "";
+
+            cacheNoticias.forEach((item) => {
+                const rep = item.data;
+                const id = item.id;
                 let mediaView = "";
                 if (rep.mediaUrl) {
                     if (rep.mediaUrl.startsWith("data:video")) {
@@ -966,9 +969,17 @@
             });
 
             container.innerHTML = dynamicHtml || '<p style="color: #666; font-style: italic;">No hay noticias publicadas en este momento.</p>';
+        }
+
+        const qApproved = query(collection(db, "approvedNews"), orderBy("timestamp", "desc"));
+        onSnapshot(qApproved, (snapshot) => {
+            cacheNoticias = [];
+            snapshot.forEach((docSnap) => {
+                cacheNoticias.push({ id: docSnap.id, data: docSnap.data() });
+            });
+            actualizarVistaNoticias();
         });
 
-        // Función global para eliminar la noticia directamente de Firebase Firestore
         window.deleteNews = async function(newsId) {
             if (confirm("¿Estás seguro de que deseas eliminar esta noticia?")) {
                 try {
