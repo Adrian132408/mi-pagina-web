@@ -771,7 +771,7 @@
         });
     </script>
 
-    <!-- SCRIPT DE FIREBASE Y FUNCIONES DE ADMINISTRADOR CON CONTRASEÑA ESTRICTA Y FILTRO DE GROSERÍAS -->
+    <!-- SCRIPT DE FIREBASE Y CONTROL ADMINISTRATIVO -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -789,21 +789,21 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- GESTIÓN DE ACCESO ADMIN ESTRICTO CON CONTRASEÑA OBLIGATORIA ---
+        // --- GESTIÓN DE ACCESO ADMIN CON CONTRASEÑA OBLIGATORIA (SIN AUTO-LOGUEO) ---
         window.toggleAdmin = function(event) {
             event.preventDefault();
             const panel = document.getElementById('adminPanel');
             
-            if (sessionStorage.getItem('isAdminAuthenticated') === 'true') {
-                const isVisible = panel.style.display === 'block';
-                panel.style.display = isVisible ? 'none' : 'block';
-                if (!isVisible) panel.scrollIntoView({ behavior: 'smooth' });
+            // Si ya está abierto, lo cerramos
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+                actualizarVistaNoticias();
                 return;
             }
 
+            // Exigir contraseña cada vez que se intente entrar
             let password = prompt("Ingresa la contraseña de Administrador:");
             if (password === "MIGANI2026") {
-                sessionStorage.setItem('isAdminAuthenticated', 'true');
                 panel.style.display = 'block';
                 panel.scrollIntoView({ behavior: 'smooth' });
                 actualizarVistaNoticias();
@@ -815,11 +815,10 @@
         window.closeAdminPanel = function() {
             const panel = document.getElementById('adminPanel');
             panel.style.display = 'none';
-            sessionStorage.removeItem('isAdminAuthenticated');
             actualizarVistaNoticias();
         };
 
-        // --- CONTROL DE ESTADO Y ENLACE DE TRANSMISIÓN ---
+        // --- CONTROL DE ESTADO Y ENLACE DE TRANSMISIÓN EN DIRECTO ---
         const streamDocRef = doc(db, "configuracion", "transmision");
 
         window.toggleStreamStatus = async function() {
@@ -848,6 +847,7 @@
             }
 
             let videoId = inputVal;
+            // Extracción robusta del ID de YouTube para evitar errores de reproducción
             if (inputVal.includes("youtu.be/")) {
                 videoId = inputVal.split("youtu.be/")[1].split("?")[0].split("&")[0];
             } else if (inputVal.includes("youtube.com/watch?v=")) {
@@ -870,6 +870,7 @@
                 document.getElementById('streamUrlInput').value = "";
             } catch (error) {
                 console.error("Error al actualizar enlace:", error);
+                alert("Error al actualizar el enlace en la base de datos.");
             }
         };
 
@@ -880,9 +881,10 @@
             let videoId = "hiw6-ZaxSmU";
 
             if (docSnap.exists()) {
-                activa = docSnap.data().activa !== false;
-                if (docSnap.data().videoId) {
-                    videoId = docSnap.data().videoId;
+                const data = docSnap.data();
+                activa = data.activa !== false;
+                if (data.videoId && data.videoId.trim() !== "") {
+                    videoId = data.videoId.trim();
                 }
             }
 
@@ -898,7 +900,7 @@
 
             if (container) {
                 if (activa) {
-                    container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+                    container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                 } else {
                     container.innerHTML = `
                         <div class="offline-stream">
@@ -911,7 +913,7 @@
             }
         });
 
-        // --- 1. CHAT EN TIEMPO REAL CON FILTRO DE GROSERÍAS Y BLOQUEO TEMPORAL ---
+        // --- 1. CHAT EN TIEMPO REAL CON FILTRO DE GROSERÍAS ---
         const malasPalabras = ["puta", "puto", "mierda", "idiota", "estupido", "estúpido", "pendejo", "cabron", "cabrón", "marica", "huevon", "güevón", "zorra", "culo", "verga", "vergacion"];
         let tiempoBloqueoChat = 0;
 
@@ -1080,7 +1082,7 @@
             const container = document.getElementById('approvedNewsContainer');
             if (!container) return;
 
-            const isAdmin = sessionStorage.getItem('isAdminAuthenticated') === 'true';
+            const panelAdminVisible = document.getElementById('adminPanel').style.display === 'block';
             let dynamicHtml = "";
 
             cacheNoticias.forEach((item) => {
@@ -1095,7 +1097,7 @@
                     }
                 }
 
-                let deleteBtnHtml = isAdmin ? `<button class="btn" style="background:#c62828; color:white; padding:6px 12px; font-size:0.8rem; margin-top:15px; width:100%; justify-content:center;" onclick="deleteNews('${id}')">🗑️ Eliminar Noticia</button>` : '';
+                let deleteBtnHtml = panelAdminVisible ? `<button class="btn" style="background:#c62828; color:white; padding:6px 12px; font-size:0.8rem; margin-top:15px; width:100%; justify-content:center;" onclick="deleteNews('${id}')">🗑️ Eliminar Noticia</button>` : '';
 
                 dynamicHtml += `
                     <div class="card" style="border-left: 4px solid #2e7d32;">
