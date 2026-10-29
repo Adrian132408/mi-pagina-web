@@ -571,12 +571,17 @@
                     <button class="btn" style="background: #c62828; color: white; padding: 6px 14px; font-size: 0.85rem;" onclick="closeAdminPanel()">✖ Salir de Modo Admin</button>
                 </div>
                 
-                <div style="background: #333; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #2e7d32; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-                    <div>
-                        <h4 style="margin: 0 0 5px 0; color: white;">Control de Transmisión en Directo</h4>
-                        <p style="margin: 0; font-size: 0.85rem; color: #aaa;">Activa o desactiva la señal de video para los visitantes de la página.</p>
+                <!-- CONTROL DE TRANSMISIÓN Y CAMBIO DE URL -->
+                <div style="background: #333; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #2e7d32;">
+                    <h4 style="margin: 0 0 10px 0; color: white;">Control y Enlace de Transmisión en Directo</h4>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;">
+                        <input type="text" id="streamUrlInput" placeholder="Pega el link o ID de YouTube (Ej: hiw6-ZaxSmU)" style="flex: 1; padding: 8px; border-radius: 4px; border: 1px solid #555; background: #222; color: white; min-width: 220px;">
+                        <button class="btn" style="background: #145a32; color: white; padding: 8px 14px; font-size: 0.85rem;" onclick="updateStreamUrl()">Actualizar Enlace</button>
                     </div>
-                    <button class="btn" id="streamToggleBtn" style="background: #c62828; color: white; padding: 8px 16px; font-size: 0.85rem;" onclick="toggleStreamStatus()">🔴 Desactivar Transmisión (Poner en Off)</button>
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <p style="margin: 0; font-size: 0.85rem; color: #aaa;">Enciende, apaga o cambia el video en tiempo real.</p>
+                        <button class="btn" id="streamToggleBtn" style="background: #c62828; color: white; padding: 8px 16px; font-size: 0.85rem;" onclick="toggleStreamStatus()">🔴 Desactivar Transmisión (Poner en Off)</button>
+                    </div>
                 </div>
 
                 <h3 style="color: #ffc107; border-top: 1px solid #444; padding-top: 15px;">📥 Buzón de Reportes Recibidos (Pendientes de Aprobación)</h3>
@@ -814,22 +819,54 @@
             actualizarVistaNoticias();
         };
 
-        // --- CONTROL DE ESTADO DE LA TRANSMISIÓN EN VIVO ---
+        // --- CONTROL DE ESTADO Y ENLACE DE LA TRANSMISIÓN EN VIVO ---
         const streamDocRef = doc(db, "configuracion", "transmision");
 
         window.toggleStreamStatus = async function() {
             try {
                 const snap = await getDoc(streamDocRef);
                 let estadoActual = true;
+                let urlActual = "hiw6-ZaxSmU";
                 if (snap.exists()) {
                     estadoActual = snap.data().activa;
+                    if (snap.data().videoId) urlActual = snap.data().videoId;
                 }
                 const nuevoEstado = !estadoActual;
                 
-                await setDoc(streamDocRef, { activa: nuevoEstado });
+                await setDoc(streamDocRef, { activa: nuevoEstado, videoId: urlActual });
                 alert(nuevoEstado ? "¡Transmisión activada!" : "¡Transmisión desactivada y ocultada!");
             } catch (error) {
                 console.error("Error al cambiar estado de la transmisión:", error);
+            }
+        };
+
+        window.updateStreamUrl = async function() {
+            const inputVal = document.getElementById('streamUrlInput').value.trim();
+            if (!inputVal) {
+                alert("Por favor ingresa un ID o enlace de YouTube válido.");
+                return;
+            }
+
+            // Extraer el ID de YouTube si pegan la URL completa (ej: https://youtu.be/ID o watch?v=ID)
+            let videoId = inputVal;
+            if (inputVal.includes("youtube.com/watch?v=")) {
+                videoId = inputVal.split("v=")[1].split("&")[0];
+            } else if (inputVal.includes("youtu.be/")) {
+                videoId = inputVal.split("youtu.be/")[1].split("?")[0];
+            }
+
+            try {
+                const snap = await getDoc(streamDocRef);
+                let estadoActual = true;
+                if (snap.exists()) {
+                    estadoActual = snap.data().activa;
+                }
+
+                await setDoc(streamDocRef, { activa: estadoActual, videoId: videoId });
+                alert("¡Enlace de transmisión actualizado con éxito!");
+                document.getElementById('streamUrlInput').value = "";
+            } catch (error) {
+                console.error("Error al actualizar enlace:", error);
             }
         };
 
@@ -837,9 +874,13 @@
             const container = document.getElementById('streamContainer');
             const toggleBtn = document.getElementById('streamToggleBtn');
             let activa = true;
+            let videoId = "hiw6-ZaxSmU";
 
             if (docSnap.exists()) {
-                activa = docSnap.data().activa;
+                activa = docSnap.data().activa !== false;
+                if (docSnap.data().videoId) {
+                    videoId = docSnap.data().videoId;
+                }
             }
 
             if (toggleBtn) {
@@ -854,7 +895,7 @@
 
             if (container) {
                 if (activa) {
-                    container.innerHTML = `<iframe src="https://www.youtube.com/embed/hiw6-ZaxSmU?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+                    container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                 } else {
                     container.innerHTML = `
                         <div class="offline-stream">
