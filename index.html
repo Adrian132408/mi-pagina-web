@@ -542,25 +542,7 @@
             <div class="live-layout">
                 <div>
                     <div class="live-container" id="streamContainer">
-                        <!-- CAMBIA ESTA VARIABLE A 'false' CUANDO TERMINE LA TRANSMISIÓN PARA MOSTRAR EL AVISO -->
-                        <!-- CAMBIA A 'true' CUANDO ESTÉN EN VIVO -->
-                        <script>
-                            const estaTransmitiendo = true; // <--- Cambia a false cuando acabe la transmisión
-                        </script>
-
-                        <script>
-                            if (estaTransmitiendo) {
-                                document.write('<iframe src="https://www.youtube.com/embed/hiw6-ZaxSmU?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>');
-                            } else {
-                                document.write(`
-                                    <div class="offline-stream">
-                                        <div style="font-size: 3rem; margin-bottom: 10px;">🔴</div>
-                                        <h3 style="margin: 0 0 8px 0; color: #ff5252;">Sin Transmisión en Vivo</h3>
-                                        <p style="font-size: 0.9rem; margin: 0; color: #9ca3af; max-width: 300px;">Por el momento no hay ninguna transmisión activa. Vuelve más tarde para sintonizar nuestros próximos programas.</p>
-                                    </div>
-                                `);
-                            }
-                        </script>
+                        <!-- El reproductor o aviso se actualiza dinámicamente -->
                     </div>
                 </div>
 
@@ -588,6 +570,16 @@
                     <h3 style="margin: 0; color: #ffc107;">🔒 Panel de Control del Administrador</h3>
                     <button class="btn" style="background: #c62828; color: white; padding: 6px 14px; font-size: 0.85rem;" onclick="closeAdminPanel()">✖ Salir de Modo Admin</button>
                 </div>
+                
+                <!-- NUEVO BOTÓN PARA GESTIONAR LA TRANSMISIÓN EN VIVO -->
+                <div style="background: #333; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #2e7d32; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <h4 style="margin: 0 0 5px 0; color: white;">Control de Transmisión en Directo</h4>
+                        <p style="margin: 0; font-size: 0.85rem; color: #aaa;">Activa o desactiva la señal de video para los visitantes de la página.</p>
+                    </div>
+                    <button class="btn" id="streamToggleBtn" style="background: #c62828; color: white; padding: 8px 16px; font-size: 0.85rem;" onclick="toggleStreamStatus()">🔴 Desactivar Transmisión (Poner en Off)</button>
+                </div>
+
                 <h3 style="color: #ffc107; border-top: 1px solid #444; padding-top: 15px;">📥 Buzón de Reportes Recibidos (Pendientes de Aprobación)</h3>
                 <div id="adminPendingList">
                     <p style="color: #aaa; font-style: italic;">Cargando reportes pendientes...</p>
@@ -778,7 +770,7 @@
     <!-- SCRIPT DE FIREBASE Y FUNCIONES DE ADMINISTRADOR UNIFICADAS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBJ3BP_TgH6m7QxHaPrx1yq2jn-MY9NX1Y",
@@ -822,6 +814,60 @@
             sessionStorage.removeItem('isAdminAuthenticated');
             actualizarVistaNoticias();
         };
+
+        // --- CONTROL DE ESTADO DE LA TRANSMISIÓN EN VIVO ---
+        const streamDocRef = doc(db, "configuracion", "transmision");
+
+        window.toggleStreamStatus = async function() {
+            try {
+                const snap = await getDoc(streamDocRef);
+                let estadoActual = true;
+                if (snap.exists()) {
+                    estadoActual = snap.data().activa;
+                }
+                const nuevoEstado = !estadoActual;
+                
+                await setDoc(streamDocRef, { activa: nuevoEstado });
+                alert(nuevoEstado ? "¡Transmisión activada!" : "¡Transmisión desactivada y ocultada!");
+            } catch (error) {
+                console.error("Error al cambiar estado de la transmisión:", error);
+            }
+        };
+
+        // Escuchar en tiempo real el estado de la transmisión para actualizar la página de todos los usuarios
+        onSnapshot(streamDocRef, (docSnap) => {
+            const container = document.getElementById('streamContainer');
+            const toggleBtn = document.getElementById('streamToggleBtn');
+            let activa = true; // Por defecto encendida
+
+            if (docSnap.exists()) {
+                activa = docSnap.data().activa;
+            }
+
+            if (toggleBtn) {
+                if (activa) {
+                    toggleBtn.style.backgroundColor = "#c62828";
+                    toggleBtn.innerHTML = "🔴 Desactivar Transmisión (Poner en Off)";
+                } else {
+                    toggleBtn.style.backgroundColor = "#2e7d32";
+                    toggleBtn.innerHTML = "🟢 Activar Transmisión (Poner en On)";
+                }
+            }
+
+            if (container) {
+                if (activa) {
+                    container.innerHTML = `<iframe src="https://www.youtube.com/embed/hiw6-ZaxSmU?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+                } else {
+                    container.innerHTML = `
+                        <div class="offline-stream">
+                            <div style="font-size: 3rem; margin-bottom: 10px;">🔴</div>
+                            <h3 style="margin: 0 0 8px 0; color: #ff5252;">Sin Transmisión en Vivo</h3>
+                            <p style="font-size: 0.9rem; margin: 0; color: #9ca3af; max-width: 300px;">Por el momento no hay ninguna transmisión activa. Vuelve más tarde para sintonizar nuestros próximos programas.</p>
+                        </div>
+                    `;
+                }
+            }
+        });
 
         // --- 1. CHAT EN TIEMPO REAL ---
         window.sendMessage = async function() {
