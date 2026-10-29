@@ -771,7 +771,7 @@
         });
     </script>
 
-    <!-- SCRIPT DE FIREBASE Y FUNCIONES DE ADMINISTRADOR CON CONTRASEÑA -->
+    <!-- SCRIPT DE FIREBASE Y FUNCIONES DE ADMINISTRADOR CON CONTRASEÑA ESTRICTA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -789,7 +789,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- GESTIÓN DE ACCESO ADMIN (CONTRASEÑA REQUERIDA SOLO 1 VEZ) ---
+        // --- GESTIÓN DE ACCESO ADMIN ESTRICTO ---
         window.toggleAdmin = function(event) {
             event.preventDefault();
             const panel = document.getElementById('adminPanel');
@@ -819,7 +819,7 @@
             actualizarVistaNoticias();
         };
 
-        // --- CONTROL DE ESTADO Y ENLACE DE LA TRANSMISIÓN EN VIVO ---
+        // --- CONTROL DE ESTADO Y EXTRACCIÓN LIMPIA DE URL DE YOUTUBE ---
         const streamDocRef = doc(db, "configuracion", "transmision");
 
         window.toggleStreamStatus = async function() {
@@ -828,7 +828,7 @@
                 let estadoActual = true;
                 let urlActual = "hiw6-ZaxSmU";
                 if (snap.exists()) {
-                    estadoActual = snap.data().activa;
+                    estadoActual = snap.data().activa !== false;
                     if (snap.data().videoId) urlActual = snap.data().videoId;
                 }
                 const nuevoEstado = !estadoActual;
@@ -843,23 +843,27 @@
         window.updateStreamUrl = async function() {
             const inputVal = document.getElementById('streamUrlInput').value.trim();
             if (!inputVal) {
-                alert("Por favor ingresa un ID o enlace de YouTube válido.");
+                alert("Por favor ingresa un enlace o ID de YouTube válido.");
                 return;
             }
 
-            // Extraer el ID de YouTube si pegan la URL completa (ej: https://youtu.be/ID o watch?v=ID)
             let videoId = inputVal;
-            if (inputVal.includes("youtube.com/watch?v=")) {
+            // Limpieza y extracción profesional del ID de YouTube sin importar el formato del enlace
+            if (inputVal.includes("youtu.be/")) {
+                videoId = inputVal.split("youtu.be/")[1].split("?")[0].split("&")[0];
+            } else if (inputVal.includes("youtube.com/watch?v=")) {
                 videoId = inputVal.split("v=")[1].split("&")[0];
-            } else if (inputVal.includes("youtu.be/")) {
-                videoId = inputVal.split("youtu.be/")[1].split("?")[0];
+            } else if (inputVal.includes("youtube.com/embed/")) {
+                videoId = inputVal.split("embed/")[1].split("?")[0].split("&")[0];
+            } else if (inputVal.includes("youtube.com/live/")) {
+                videoId = inputVal.split("live/")[1].split("?")[0].split("&")[0];
             }
 
             try {
                 const snap = await getDoc(streamDocRef);
                 let estadoActual = true;
                 if (snap.exists()) {
-                    estadoActual = snap.data().activa;
+                    estadoActual = snap.data().activa !== false;
                 }
 
                 await setDoc(streamDocRef, { activa: estadoActual, videoId: videoId });
