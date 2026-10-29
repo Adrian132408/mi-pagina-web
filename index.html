@@ -789,7 +789,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- GESTIÓN DE ACCESO ADMIN CON CONTRASEÑA OBLIGATORIA (SIN AUTO-LOGUEO) ---
+        // --- GESTIÓN DE ACCESO ADMIN CON CONTRASEÑA OBLIGATORIA ---
         window.toggleAdmin = function(event) {
             event.preventDefault();
             const panel = document.getElementById('adminPanel');
@@ -830,7 +830,7 @@
                 }
                 const nuevoEstado = !estadoActual;
                 
-                await setDoc(streamDocRef, { activa: nuevoEstado, videoId: urlActual });
+                await setDoc(streamDocRef, { activa: nuevoEstado, videoId: urlActual }, { merge: true });
                 alert(nuevoEstado ? "¡Transmisión activada!" : "¡Transmisión desactivada y ocultada!");
             } catch (error) {
                 console.error("Error al cambiar estado de la transmisión:", error);
@@ -856,9 +856,9 @@
             }
 
             try {
-                // Forzamos la creación/actualización con merge para asegurar sincronización global inmediata
+                // Actualiza y fusiona instantáneamente en Firestore para todos los usuarios conectados
                 await setDoc(streamDocRef, { activa: true, videoId: videoId }, { merge: true });
-                alert("¡Enlace de transmisión actualizado y sincronizado para todos los dispositivos!");
+                alert("¡Enlace de transmisión actualizado con éxito para todos los dispositivos!");
                 document.getElementById('streamUrlInput').value = "";
             } catch (error) {
                 console.error("Error al actualizar enlace:", error);
@@ -866,7 +866,7 @@
             }
         };
 
-        onSnapshot(streamDocRef, (docSnap) => {
+        onSnapshot(streamDocRef, async (docSnap) => {
             const container = document.getElementById('streamContainer');
             const toggleBtn = document.getElementById('streamToggleBtn');
             let activa = true;
@@ -877,6 +877,13 @@
                 activa = data.activa !== false;
                 if (data.videoId && data.videoId.trim() !== "") {
                     videoId = data.videoId.trim();
+                }
+            } else {
+                // Si el documento no existe todavía en la base de datos, lo creamos automáticamente por defecto
+                try {
+                    await setDoc(streamDocRef, { activa: true, videoId: "hiw6-ZaxSmU" }, { merge: true });
+                } catch(e) {
+                    console.error("Error inicializando config de transmisión:", e);
                 }
             }
 
