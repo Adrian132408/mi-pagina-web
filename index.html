@@ -771,7 +771,7 @@
         });
     </script>
 
-    <!-- SCRIPT DE FIREBASE Y FUNCIONES DE ADMINISTRADOR CON CONTRASEÑA ESTRICTA -->
+    <!-- SCRIPT DE FIREBASE Y FUNCIONES DE ADMINISTRADOR CON CONTRASEÑA ESTRICTA Y FILTRO DE GROSERÍAS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -789,7 +789,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- GESTIÓN DE ACCESO ADMIN ESTRICTO ---
+        // --- GESTIÓN DE ACCESO ADMIN ESTRICTO CON CONTRASEÑA OBLIGATORIA ---
         window.toggleAdmin = function(event) {
             event.preventDefault();
             const panel = document.getElementById('adminPanel');
@@ -819,7 +819,7 @@
             actualizarVistaNoticias();
         };
 
-        // --- CONTROL DE ESTADO Y EXTRACCIÓN LIMPIA DE URL DE YOUTUBE ---
+        // --- CONTROL DE ESTADO Y ENLACE DE TRANSMISIÓN ---
         const streamDocRef = doc(db, "configuracion", "transmision");
 
         window.toggleStreamStatus = async function() {
@@ -848,7 +848,6 @@
             }
 
             let videoId = inputVal;
-            // Limpieza y extracción profesional del ID de YouTube sin importar el formato del enlace
             if (inputVal.includes("youtu.be/")) {
                 videoId = inputVal.split("youtu.be/")[1].split("?")[0].split("&")[0];
             } else if (inputVal.includes("youtube.com/watch?v=")) {
@@ -899,7 +898,7 @@
 
             if (container) {
                 if (activa) {
-                    container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+                    container.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&enablejsapi=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                 } else {
                     container.innerHTML = `
                         <div class="offline-stream">
@@ -912,8 +911,18 @@
             }
         });
 
-        // --- 1. CHAT EN TIEMPO REAL ---
+        // --- 1. CHAT EN TIEMPO REAL CON FILTRO DE GROSERÍAS Y BLOQUEO TEMPORAL ---
+        const malasPalabras = ["puta", "puto", "mierda", "idiota", "estupido", "estúpido", "pendejo", "cabron", "cabrón", "marica", "huevon", "güevón", "zorra", "culo", "verga", "vergacion"];
+        let tiempoBloqueoChat = 0;
+
         window.sendMessage = async function() {
+            const ahora = Date.now();
+            if (ahora < tiempoBloqueoChat) {
+                const segundosRestantes = Math.ceil((tiempoBloqueoChat - ahora) / 1000);
+                alert(`Estás temporalmente bloqueado por enviar lenguaje ofensivo. Espera ${segundosRestantes} segundos.`);
+                return;
+            }
+
             const nickInput = document.getElementById('chatNickname');
             const input = document.getElementById('chatInput');
             
@@ -927,6 +936,16 @@
             }
 
             if (text !== "") {
+                const textoMinusc = text.toLowerCase();
+                const contieneGroseria = malasPalabras.some(palabra => textoMinusc.includes(palabra));
+
+                if (contieneGroseria) {
+                    tiempoBloqueoChat = Date.now() + 60000; // Bloqueo por 60 segundos
+                    alert("⚠️ ¡Mensaje bloqueado! Has utilizado lenguaje inapropiado. No podrás comentar en el chat durante 60 segundos.");
+                    input.value = "";
+                    return;
+                }
+
                 try {
                     await addDoc(collection(db, "chatMessages"), {
                         user: nickname,
