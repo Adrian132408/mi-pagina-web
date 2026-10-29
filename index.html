@@ -794,14 +794,12 @@
             event.preventDefault();
             const panel = document.getElementById('adminPanel');
             
-            // Si ya está abierto, lo cerramos
             if (panel.style.display === 'block') {
                 panel.style.display = 'none';
                 actualizarVistaNoticias();
                 return;
             }
 
-            // Exigir contraseña cada vez que se intente entrar
             let password = prompt("Ingresa la contraseña de Administrador:");
             if (password === "MIGANI2026") {
                 panel.style.display = 'block';
@@ -847,7 +845,6 @@
             }
 
             let videoId = inputVal;
-            // Extracción robusta del ID de YouTube para evitar errores de reproducción
             if (inputVal.includes("youtu.be/")) {
                 videoId = inputVal.split("youtu.be/")[1].split("?")[0].split("&")[0];
             } else if (inputVal.includes("youtube.com/watch?v=")) {
@@ -859,14 +856,9 @@
             }
 
             try {
-                const snap = await getDoc(streamDocRef);
-                let estadoActual = true;
-                if (snap.exists()) {
-                    estadoActual = snap.data().activa !== false;
-                }
-
-                await setDoc(streamDocRef, { activa: estadoActual, videoId: videoId });
-                alert("¡Enlace de transmisión actualizado con éxito!");
+                // Forzamos la creación/actualización con merge para asegurar sincronización global inmediata
+                await setDoc(streamDocRef, { activa: true, videoId: videoId }, { merge: true });
+                alert("¡Enlace de transmisión actualizado y sincronizado para todos los dispositivos!");
                 document.getElementById('streamUrlInput').value = "";
             } catch (error) {
                 console.error("Error al actualizar enlace:", error);
