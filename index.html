@@ -571,7 +571,6 @@
                     <button class="btn" style="background: #c62828; color: white; padding: 6px 14px; font-size: 0.85rem;" onclick="closeAdminPanel()">✖ Salir de Modo Admin</button>
                 </div>
                 
-                <!-- NUEVO BOTÓN PARA GESTIONAR LA TRANSMISIÓN EN VIVO -->
                 <div style="background: #333; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 5px solid #2e7d32; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                     <div>
                         <h4 style="margin: 0 0 5px 0; color: white;">Control de Transmisión en Directo</h4>
@@ -767,7 +766,7 @@
         });
     </script>
 
-    <!-- SCRIPT DE FIREBASE Y FUNCIONES DE ADMINISTRADOR UNIFICADAS -->
+    <!-- SCRIPT DE FIREBASE Y FUNCIONES DE ADMINISTRADOR CON CONTRASEÑA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -785,7 +784,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- GESTIÓN DE ACCESO ADMIN ---
+        // --- GESTIÓN DE ACCESO ADMIN (CONTRASEÑA REQUERIDA SOLO 1 VEZ) ---
         window.toggleAdmin = function(event) {
             event.preventDefault();
             const panel = document.getElementById('adminPanel');
@@ -834,11 +833,10 @@
             }
         };
 
-        // Escuchar en tiempo real el estado de la transmisión para actualizar la página de todos los usuarios
         onSnapshot(streamDocRef, (docSnap) => {
             const container = document.getElementById('streamContainer');
             const toggleBtn = document.getElementById('streamToggleBtn');
-            let activa = true; // Por defecto encendida
+            let activa = true;
 
             if (docSnap.exists()) {
                 activa = docSnap.data().activa;
